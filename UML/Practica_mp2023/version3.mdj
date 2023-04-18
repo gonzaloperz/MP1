@@ -3225,7 +3225,7 @@
 											"top": 1101,
 											"width": 227.982421875,
 											"height": 13,
-											"text": "-listaPersonajes: ArrayList<Personaje>",
+											"text": "-listaPersonajes: ArrayList<ORIGEN.Personaje>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3804,7 +3804,7 @@
 											"top": 790,
 											"width": 172.3388671875,
 											"height": 13,
-											"text": "+crearPersonaje(): Personaje",
+											"text": "+crearPersonaje(): ORIGEN.Personaje",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4504,7 +4504,7 @@
 											"top": 343,
 											"width": 214.9951171875,
 											"height": 13,
-											"text": "Personaje"
+											"text": "ORIGEN.Personaje"
 										},
 										{
 											"_type": "LabelView",
@@ -5272,7 +5272,7 @@
 											"top": 1055,
 											"width": 122.49072265625,
 											"height": 13,
-											"text": "Vampiro"
+											"text": "ORIGEN.Vampiro"
 										},
 										{
 											"_type": "LabelView",
@@ -5486,7 +5486,7 @@
 											"top": 1063,
 											"width": 108.0498046875,
 											"height": 13,
-											"text": "Cazador"
+											"text": "ORIGEN.Cazador"
 										},
 										{
 											"_type": "LabelView",
@@ -11600,7 +11600,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Personaje",
+					"name": "ORIGEN.Personaje",
 					"ownedElements": [
 						{
 							"_type": "UMLPrimitiveType",
@@ -12414,7 +12414,7 @@
 							},
 							"name": "listaPersonajes",
 							"visibility": "private",
-							"type": "ArrayList<Personaje>"
+							"type": "ArrayList<ORIGEN.Personaje>"
 						}
 					]
 				},
@@ -12664,7 +12664,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Vampiro",
+					"name": "ORIGEN.Vampiro",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -12696,7 +12696,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Cazador",
+					"name": "ORIGEN.Cazador",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -16456,7 +16456,7 @@
 													"top": 47,
 													"width": 148.72802734375,
 													"height": 13,
-													"text": "personaje1: Personaje"
+													"text": "personaje1: ORIGEN.Personaje"
 												},
 												{
 													"_type": "LabelView",
@@ -16572,7 +16572,7 @@
 													"top": 47,
 													"width": 148.72802734375,
 													"height": 13,
-													"text": "personaje2: Personaje"
+													"text": "personaje2: ORIGEN.Personaje"
 												},
 												{
 													"_type": "LabelView",
