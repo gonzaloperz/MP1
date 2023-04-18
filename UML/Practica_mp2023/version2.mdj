@@ -294,7 +294,7 @@
 											"top": 391,
 											"width": 175,
 											"height": 13,
-											"text": "Equipo"
+											"text": "ORIGEN.Equipo"
 										},
 										{
 											"_type": "LabelView",
@@ -576,7 +576,7 @@
 											"top": 479,
 											"width": 101.54345703125,
 											"height": 13,
-											"text": "Arma"
+											"text": "ORIGEN.Arma"
 										},
 										{
 											"_type": "LabelView",
@@ -773,7 +773,7 @@
 											"top": 383,
 											"width": 61.4072265625,
 											"height": 13,
-											"text": "Armadura"
+											"text": "ORIGEN.Armadura"
 										},
 										{
 											"_type": "LabelView",
@@ -1141,7 +1141,7 @@
 											"top": 239,
 											"width": 122.70654296875,
 											"height": 13,
-											"text": "Modificador"
+											"text": "ORIGEN.Modificador"
 										},
 										{
 											"_type": "LabelView",
@@ -4627,7 +4627,7 @@
 											"top": 411,
 											"width": 214.9951171875,
 											"height": 13,
-											"text": "-armaduras: ArrayList<Armadura>",
+											"text": "-armaduras: ArrayList<ORIGEN.Armadura>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4644,7 +4644,7 @@
 											"top": 426,
 											"width": 214.9951171875,
 											"height": 13,
-											"text": "-armaduraActiva: Armadura",
+											"text": "-armaduraActiva: ORIGEN.Armadura",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11650,7 +11650,7 @@
 							},
 							"name": "armaduras",
 							"visibility": "private",
-							"type": "ArrayList<Armadura>"
+							"type": "ArrayList<ORIGEN.Armadura>"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -11660,7 +11660,7 @@
 							},
 							"name": "armaduraActiva",
 							"visibility": "private",
-							"type": "Armadura"
+							"type": "ORIGEN.Armadura"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -11858,7 +11858,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Equipo",
+					"name": "ORIGEN.Equipo",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -11958,7 +11958,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Arma",
+					"name": "ORIGEN.Arma",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -11993,7 +11993,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Armadura",
+					"name": "ORIGEN.Armadura",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -12016,7 +12016,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Modificador",
+					"name": "ORIGEN.Modificador",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",

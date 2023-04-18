@@ -1,11 +1,15 @@
 package ORIGEN.Factory;
 
+import ORIGEN.Armadura;
 import ORIGEN.Licantropo;
-import ORIGEN.Personaje;
+import ORIGEN.Arma;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LicantropoFactory extends PersonajeFactory{
+
+    Scanner scanner = new Scanner(System.in);
 
     @Override
     public Licantropo crearPersonaje() {

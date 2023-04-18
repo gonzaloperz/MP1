@@ -2,7 +2,10 @@ package ORIGEN.Factory;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import ORIGEN.Armadura;
 import ORIGEN.Vampiro;
+import ORIGEN.Arma;
 
 public class VampiroFactory extends PersonajeFactory {
 

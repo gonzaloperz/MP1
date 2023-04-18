@@ -1,3 +1,5 @@
+package ORIGEN;
+
 import java.io.Serializable;
 
 public class Equipo implements Serializable {

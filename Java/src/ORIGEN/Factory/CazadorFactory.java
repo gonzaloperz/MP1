@@ -1,10 +1,14 @@
 package ORIGEN.Factory;
 
+import ORIGEN.Armadura;
 import ORIGEN.Cazador;
+import  ORIGEN.Arma;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CazadorFactory extends PersonajeFactory{
+    Scanner scanner = new Scanner(System.in);
     @Override
     public Cazador crearPersonaje() {
         Cazador cazador = new Cazador();

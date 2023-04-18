@@ -1,3 +1,5 @@
+package ORIGEN;
+
 public class Arma extends Equipo{
     private int empuñadura;
 
