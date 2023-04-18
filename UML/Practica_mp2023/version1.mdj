@@ -63,7 +63,7 @@
 											"top": 375,
 											"width": 214.9951171875,
 											"height": 13,
-											"text": "Personaje"
+											"text": "ORIGEN.Personaje"
 										},
 										{
 											"_type": "LabelView",
@@ -642,7 +642,7 @@
 											"top": 783,
 											"width": 151.37890625,
 											"height": 13,
-											"text": "Vampiro"
+											"text": "ORIGEN.Vampiro"
 										},
 										{
 											"_type": "LabelView",
@@ -856,7 +856,7 @@
 											"top": 783,
 											"width": 110.93798828125,
 											"height": 13,
-											"text": "Cazador"
+											"text": "ORIGEN.Cazador"
 										},
 										{
 											"_type": "LabelView",
@@ -1070,7 +1070,7 @@
 											"top": 791,
 											"width": 90.7080078125,
 											"height": 13,
-											"text": "Licantropo"
+											"text": "ORIGEN.Licantropo"
 										},
 										{
 											"_type": "LabelView",
@@ -5518,7 +5518,7 @@
 											"top": 245,
 											"width": 227.982421875,
 											"height": 13,
-											"text": "+listaPersonajes: ArrayList<Personaje>",
+											"text": "+listaPersonajes: ArrayList<ORIGEN.Personaje>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -6243,7 +6243,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Personaje",
+					"name": "ORIGEN.Personaje",
 					"ownedElements": [
 						{
 							"_type": "UMLPrimitiveType",
@@ -6477,7 +6477,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Vampiro",
+					"name": "ORIGEN.Vampiro",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -6524,7 +6524,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Cazador",
+					"name": "ORIGEN.Cazador",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -6571,7 +6571,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Licantropo",
+					"name": "ORIGEN.Licantropo",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -7149,7 +7149,7 @@
 								"$ref": "AAAAAAGHOIJ9STH1UrY="
 							},
 							"name": "listaPersonajes",
-							"type": "ArrayList<Personaje>"
+							"type": "ArrayList<ORIGEN.Personaje>"
 						}
 					]
 				},
