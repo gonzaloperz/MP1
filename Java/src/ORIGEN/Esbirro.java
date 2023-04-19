@@ -1,4 +1,4 @@
-package Esbirro;
+package ORIGEN;
 
 public class Esbirro {
     private String nombre;

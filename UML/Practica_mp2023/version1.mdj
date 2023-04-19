@@ -220,7 +220,7 @@
 											"top": 473,
 											"width": 214.9951171875,
 											"height": 13,
-											"text": "-esbirros: ArrayList<Esbirro>",
+											"text": "-esbirros: ArrayList<ORIGEN.Esbirro>",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3805,7 +3805,7 @@
 											"top": 447,
 											"width": 89.5908203125,
 											"height": 13,
-											"text": "Esbirro"
+											"text": "ORIGEN.Esbirro"
 										},
 										{
 											"_type": "LabelView",
@@ -6342,7 +6342,7 @@
 							},
 							"name": "esbirros",
 							"visibility": "private",
-							"type": "ArrayList<Esbirro>"
+							"type": "ArrayList<ORIGEN.Esbirro>"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -6865,7 +6865,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Esbirro",
+					"name": "ORIGEN.Esbirro",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
