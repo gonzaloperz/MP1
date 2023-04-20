@@ -2,7 +2,7 @@ package ORIGEN;
 
 import java.io.Serializable;
 
-public class Equipo implements Serializable {
+public abstract class Equipo implements Serializable {
     private String tipo;
     private String nombre;
     private int ataque;
@@ -50,4 +50,6 @@ public class Equipo implements Serializable {
     public void setModificadorDef(int modificadorDef) {
         this.modificadorDef = modificadorDef;
     }
+
+    public abstract Equipo modificar();
 }
