@@ -2,11 +2,14 @@ package ORIGEN;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
+import java.io.Serializable;
+
 /**
  *
  * @author paula
  */
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String nombre;
     private String nickname;
@@ -60,14 +63,14 @@ public class Usuario {
     }
 
     //Constructor
-    public Usuario (String nom, String nick, String password){
+    /* public Usuario (String nom, String nick, String password){
         this.nombre = nom;
         this.nickname = nick;
         this.contrasena = password;
         this.baneado = false;
         this.oro = 500;
         this.personaje = null;
-    }
+    }    creo que con los constructores por defecto vamos bien*/
 
     public Personaje getPersonaje(){
         return this.personaje;
