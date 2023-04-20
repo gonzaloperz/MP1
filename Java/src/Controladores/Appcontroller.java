@@ -35,18 +35,35 @@ public class Appcontroller{
         usu.setOro(500);
         usu.setBaneado(false);
 
-        if (usu.getNickname().equals("") || usu.getNombre().equals("") || (usu.getContrasena().equals(""))){
-            System.out.println("Rellena Todos los campos");
-
+        if (usu.getNickname().equals("") || usu.getContrasena().equals("") || usu.getNombre().equals("")){
+            System.out.println("Rellena todos los campos");
+            return;
         }
-
-
+        boolean UsuarioExistente = false;
+        if (usuarios.isEmpty()){
+            usuarios.add(usu);
+            System.out.println("Usuario Registrado");
+            return;
+        }
+        for (Usuario aux :usuarios){
+            if (aux.getNickname().equals(usu.getNickname())){
+                UsuarioExistente = true;
+                break;
+            }
+        }
+        if (UsuarioExistente){
+            System.out.println("El Usuario ya existe");
+        }
+        else{
+            usuarios.add(usu);
+            System.out.println("Usuario creado con éxito");
+        }
     }
 
     public void cargarDatos() throws IOException, ClassNotFoundException {  //metemos el operador a pincho
         Operador operador = new Operador();
-        operador.setNombre("OPERADOR");
         operador.setNickname("OPERADOR");
+        operador.setNombre("OPERADOR");
         operador.setContrasena("12345678");
         operador.setBaneado(false);
         operador.setOro(5000);
@@ -80,8 +97,10 @@ public class Appcontroller{
         }
         return lista;
     }
-
-    public void guardarDatos(List<Usuario> lista) throws IOException{
+    public void guardarDatos() throws  IOException{
+        guardadrUsuarios(this.usuarios);
+    }
+    public void guardadrUsuarios(List<Usuario>lista) throws IOException{
         File file = new File("listaUsuarios.dat");
         if (file.exists()){
             file.delete();
@@ -105,25 +124,31 @@ public class Appcontroller{
         System.out.println("  3.Salir");
         System.out.println();
     }
-    public void start() {
-        menu();
-        int option = scanner.nextInt();
-        while ((option != 1) && (option != 2) && (option != 3)){
-            System.out.println("La opción escogida no es válida.");
-            System.out.println();
+    public void start() throws IOException, ClassNotFoundException {
+        boolean salir = false;
+        while(!salir) {
             menu();
-            option = scanner.nextInt();
-        }
-        switch (option){
-            case 1:
-                this.iniciarSesion();
-                break;
-            case 2:
-                this.registrarse();
-                break;
-            case 3:
-                ///
-                break;
+            cargarDatos();
+            int option = scanner.nextInt();
+            while ((option != 1) && (option != 2) && (option != 3)) {
+                System.out.println("La opción escogida no es válida.");
+                System.out.println();
+                menu();
+                option = scanner.nextInt();
+            }
+            switch (option) {
+                case 1:
+                    this.iniciarSesion();
+                    break;
+                case 2:
+                    this.registrarse();
+                    break;
+                case 3:
+                    salir = true;
+                    System.out.println("Cerrando aplicacion");
+                    break;
+            }
+            guardarDatos();
         }
     }
 }
