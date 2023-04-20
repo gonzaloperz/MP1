@@ -15,7 +15,4 @@ public class Player extends Usuario{
     private ArrayList<Personaje> listaPersonajes ;
 
     //Constructor
-    public Player (String nom, String nick, String password){
-        super(nom, nick, password);
-    }
 }

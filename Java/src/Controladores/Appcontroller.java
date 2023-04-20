@@ -35,13 +35,19 @@ public class Appcontroller{
         usu.setOro(500);
         usu.setBaneado(false);
 
-        if (usu.getNickname().equals(""))
+        if (usu.getNickname().equals("") || usu.getNombre().equals("") || (usu.getContrasena().equals(""))){
+            System.out.println("Rellena Todos los campos");
+
+        }
 
 
     }
 
     public void cargarDatos() throws IOException, ClassNotFoundException {  //metemos el operador a pincho
-        Operador operador = new Operador("OPERADOR","OPERADOR","12345678");
+        Operador operador = new Operador();
+        operador.setNombre("OPERADOR");
+        operador.setNickname("OPERADOR");
+        operador.setContrasena("12345678");
         operador.setBaneado(false);
         operador.setOro(5000);
         operador.setPersonaje(null);
