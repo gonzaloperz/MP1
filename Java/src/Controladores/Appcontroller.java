@@ -15,12 +15,41 @@ public class Appcontroller{
         usuarios = new ArrayList<>();
     }
     public void iniciarSesion(){
+        Scanner sc = new Scanner(System.in);
         String usuario = new String();
         String contraseña = new String();
         System.out.println("Usuario");
-        usuario = scanner.nextLine();
+        usuario = sc.nextLine();
         System.out.println("Contraseña");
-        contraseña = scanner.nextLine();
+        contraseña = sc.nextLine();
+        boolean encontrado = false;
+
+        for (Usuario usu: usuarios){
+            if (usu == null){
+                continue;
+            }
+            if (usu.getNombre().equals(usuario) && usu.getContrasena().equals(contraseña)){
+                encontrado = true;
+                UsuarioController usuarioController = new UsuarioController();
+                if(usu.isBaneado()){//COmprobar si esta baneado el personaje
+                    System.out.println("Jugador baneado");
+                    System.out.println("NO puede iniciar Sesión");
+                    System.out.println("Contacte Operador");
+                }
+                //Comprobar si tiene desafios pendientes
+                // no se hacer el observer habra que ver que se hace
+               usuarioController.menuUsuario(usu);
+            }
+            if (!encontrado){
+                System.out.println("No existe el usuario...");
+                System.out.println(("Regresando al menu"));
+            }
+        }
+
+
+
+
+
     }
 
     public void registrarse(){
