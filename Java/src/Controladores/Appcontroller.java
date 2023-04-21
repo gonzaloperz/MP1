@@ -40,10 +40,9 @@ public class Appcontroller{
                 // no se hacer el observer habra que ver que se hace
                usuarioController.menuUsuario(usu);
             }
-            if (!encontrado){
-                System.out.println("No existe el usuario...");
-                System.out.println(("Regresando al menu"));
-            }
+        } if (!encontrado){
+            System.out.println("No existe el usuario...");
+            System.out.println(("Regresando al menu"));
         }
 
 

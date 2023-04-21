@@ -1,6 +1,13 @@
 package Controladores;
 
+import ORIGEN.Factory.CazadorFactory;
+import ORIGEN.Factory.LicantropoFactory;
+import ORIGEN.Factory.VampiroFactory;
+import ORIGEN.Personaje;
 import ORIGEN.Usuario;
+import ORIGEN.Vampiro;
+
+import java.util.Scanner;
 
 public class PersonajeController {
 
@@ -16,10 +23,12 @@ public class PersonajeController {
     public void editarEquipo(){
 
     }
-    public void cambiarArma(){
+    public Personaje cambiarArma(Personaje personaje){
 
+        return personaje;
     }
-    public void cambiarArmadura(){
+    public Personaje cambiarArmadura(Personaje personaje){
+        return personaje;
 
     }
     public void crearDebilidad(){
