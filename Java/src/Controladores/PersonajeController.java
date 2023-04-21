@@ -11,8 +11,36 @@ import java.util.Scanner;
 
 public class PersonajeController {
 
+    public void menu(){
+        System.out.println("Seleccione una opción");
+        System.out.println("1. Vampiro");
+        System.out.println("2. Licántropo");
+        System.out.println("3. Cazador");
+        System.out.println("4. Cancelar");
+    }
     public void registrarPersonaje(Usuario user){
-
+        Scanner sc = new Scanner(System.in);
+        int option = 0;
+        while (option != 1 && option != 2 && option != 3 && option != 4) {
+            menu();
+            option = sc.nextInt();
+        }
+        switch (option) {
+            case 1:
+                VampiroFactory vampiro = new VampiroFactory();
+                user.setPersonaje((Personaje) vampiro);
+                break;
+            case 2:
+                LicantropoFactory licantropo = new LicantropoFactory();
+                user.setPersonaje((Personaje) licantropo);
+                break;
+            case 3:
+                CazadorFactory cazador = new CazadorFactory();
+                user.setPersonaje((Personaje) cazador);
+                break;
+            case 4:
+                break;
+        }
     }
     public void crearArma(){
 
@@ -37,7 +65,7 @@ public class PersonajeController {
     public void crearFortaleza(){
 
     }
-    public void modificarPersonaje(){
+    public void modificarPersonaje() {
 
     }
 }
