@@ -8,10 +8,9 @@ import ORIGEN.Vampiro;
 import ORIGEN.Arma;
 
 public class VampiroFactory extends PersonajeFactory {
-
-    Scanner scanner = new Scanner(System.in);
     @Override
     public Vampiro crearPersonaje() {
+        Scanner scanner = new Scanner(System.in);
         Vampiro vampiro = new Vampiro();
         System.out.println("Elige nombre: ");
         vampiro.setNombre(scanner.nextLine());

@@ -27,8 +27,8 @@ public class PersonajeController {
         }
         switch (option) {
             case 1:
-                VampiroFactory vampiro = new VampiroFactory();
-                user.setPersonaje((Personaje) vampiro);
+                VampiroFactory personaje = new VampiroFactory();
+                user.setPersonaje(personaje.crearPersonaje());
                 break;
             case 2:
                 LicantropoFactory licantropo = new LicantropoFactory();

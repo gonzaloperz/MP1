@@ -77,6 +77,6 @@ public class Usuario implements Serializable {
     }
 
     public void setPersonaje(Personaje pj){
-        this.personaje = personaje;
+        this.personaje = pj;
     }
 }
