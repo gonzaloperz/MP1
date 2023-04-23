@@ -24,6 +24,16 @@ public class Vampiro implements Personaje, Serializable {
     private int defHab;
     private int costeHabilidad;
 
+    public int getPuntosSange() {
+        return puntosSange;
+    }
+
+    public void setPuntosSange(int puntosSange) {
+        this.puntosSange = puntosSange;
+    }
+
+    private int puntosSange;
+
 
     @Override
     public void setNombre(String nombre) {

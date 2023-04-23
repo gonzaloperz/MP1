@@ -1,29 +1,24 @@
 package ORIGEN.Factory;
 
+import Controladores.Pantalla;
 import ORIGEN.Armadura;
 import ORIGEN.Cazador;
 import  ORIGEN.Arma;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class CazadorFactory extends PersonajeFactory{
-    Scanner scanner = new Scanner(System.in);
+
     @Override
     public Cazador crearPersonaje() {
         Cazador cazador = new Cazador();
-        System.out.println("Elige nombre: ");
-        cazador.setNombre(scanner.nextLine());
-        System.out.println("Elige Habilidad: ");
-        cazador.setHabilidad(scanner.nextLine());
-        System.out.println("valor ataque: ");
-        cazador.setAtqHab((Integer.parseInt(scanner.nextLine())));
-        System.out.println("valor ataque: ");
-        cazador.setDefHab((Integer.parseInt(scanner.nextLine())));
-        System.out.println("coste habilidad: ");
-        cazador.setCosteHabilidad((Integer.parseInt(scanner.nextLine())));
-        System.out.println("poder del personaje: ");
-        cazador.setPoder((Integer.parseInt(scanner.nextLine())));
+        cazador.setNombre(Pantalla.pedircadena("Elige nombre"));
+        cazador.setHabilidad(Pantalla.pedircadena("Elige nombre habilidad"));
+        cazador.setAtqHab(Pantalla.pedirenteros("Valor ataque"));
+        cazador.setDefHab(Pantalla.pedirenteros("Valor defensa"));
+        cazador.setCosteHabilidad(Pantalla.pedirenteros("Valor coste"));
+        cazador.setPoder(Pantalla.pedirenteros("Poder"));
         cazador.setOro(500);
         cazador.setSalud(5);
         cazador.setVoluntad(3);

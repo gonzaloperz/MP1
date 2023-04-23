@@ -1,35 +1,28 @@
 package ORIGEN.Factory;
 
+import Controladores.Pantalla;
 import ORIGEN.Armadura;
 import ORIGEN.Licantropo;
 import ORIGEN.Arma;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class LicantropoFactory extends PersonajeFactory{
-
-    Scanner scanner = new Scanner(System.in);
 
     @Override
     public Licantropo crearPersonaje() {
         Licantropo licantropo = new Licantropo();
-        System.out.println("Elige nombre: ");
-        licantropo.setNombre(scanner.nextLine());
-        System.out.println("Elige Habilidad: ");
-        licantropo.setHabilidad(scanner.nextLine());
-        System.out.println("valor ataque: ");
-        licantropo.setAtqHab((Integer.parseInt(scanner.nextLine())));
-        System.out.println("valor ataque: ");
-        licantropo.setDefHab((Integer.parseInt(scanner.nextLine())));
-        System.out.println("coste habilidad: ");
-        licantropo.setCosteHabilidad((Integer.parseInt(scanner.nextLine())));
-        System.out.println("poder del personaje: ");
-        licantropo.setPoder((Integer.parseInt(scanner.nextLine())));
+        licantropo.setNombre(Pantalla.pedircadena("Elige nombre"));
+        licantropo.setHabilidad(Pantalla.pedircadena("Elige nombre habilidad"));
+        licantropo.setAtqHab(Pantalla.pedirenteros("Valor ataque"));
+        licantropo.setDefHab(Pantalla.pedirenteros("Valor defensa"));
+        licantropo.setCosteHabilidad(Pantalla.pedirenteros("Valor coste"));
+        licantropo.setPoder(Pantalla.pedirenteros("Poder"));
         licantropo.setOro(500);
         licantropo.setSalud(5);
-        System.out.println("rabia inicial");
-        licantropo.setRabia((Integer.parseInt(scanner.nextLine())));
+
+        licantropo.setRabia(Pantalla.pedirenteros("rabia inicial"));
 
 
 

@@ -18,7 +18,7 @@ public class PersonajeController {
         System.out.println("3. Cazador");
         System.out.println("4. Cancelar");
     }
-    public void registrarPersonaje(Usuario user){
+    public Usuario registrarPersonaje(Usuario user){
         Scanner sc = new Scanner(System.in);
         int option = 0;
         while (option != 1 && option != 2 && option != 3 && option != 4) {
@@ -27,20 +27,21 @@ public class PersonajeController {
         }
         switch (option) {
             case 1:
-                VampiroFactory personaje = new VampiroFactory();
-                user.setPersonaje(personaje.crearPersonaje());
+                VampiroFactory vampiro = new VampiroFactory();
+                user.setPersonaje(vampiro.crearPersonaje());
                 break;
             case 2:
                 LicantropoFactory licantropo = new LicantropoFactory();
-                user.setPersonaje((Personaje) licantropo);
+                user.setPersonaje(licantropo.crearPersonaje());
                 break;
             case 3:
                 CazadorFactory cazador = new CazadorFactory();
-                user.setPersonaje((Personaje) cazador);
+                user.setPersonaje(cazador.crearPersonaje());
                 break;
             case 4:
                 break;
         }
+       return user;
     }
     public void crearArma(){
 

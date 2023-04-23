@@ -1,8 +1,8 @@
 package ORIGEN.Factory;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
+import Controladores.Pantalla;
 import ORIGEN.Armadura;
 import ORIGEN.Vampiro;
 import ORIGEN.Arma;
@@ -10,25 +10,21 @@ import ORIGEN.Arma;
 public class VampiroFactory extends PersonajeFactory {
     @Override
     public Vampiro crearPersonaje() {
-        Scanner scanner = new Scanner(System.in);
         Vampiro vampiro = new Vampiro();
-        System.out.println("Elige nombre: ");
-        vampiro.setNombre(scanner.nextLine());
-        System.out.println("Elige Habilidad: ");
-        vampiro.setHabilidad(scanner.nextLine());
-        System.out.println("valor ataque: ");
-        vampiro.setAtqHab((Integer.parseInt(scanner.nextLine())));
-        System.out.println("valor ataque: ");
-        vampiro.setDefHab((Integer.parseInt(scanner.nextLine())));
-        System.out.println("coste habilidad: ");
-        vampiro.setCosteHabilidad((Integer.parseInt(scanner.nextLine())));
-        System.out.println("poder del personaje: ");
-        vampiro.setPoder((Integer.parseInt(scanner.nextLine())));
+        vampiro.setNombre(Pantalla.pedircadena("Elige nombre"));
+        vampiro.setHabilidad(Pantalla.pedircadena("Elige nombre habilidad"));
+        vampiro.setAtqHab(Pantalla.pedirenteros("Valor ataque"));
+        vampiro.setDefHab(Pantalla.pedirenteros("Valor defensa"));
+        vampiro.setCosteHabilidad(Pantalla.pedirenteros("Valor coste"));
+        vampiro.setPoder(Pantalla.pedirenteros("Poder"));
         vampiro.setOro(500);
         vampiro.setSalud(5);
-        System.out.println("edad del vampiro: ");
-        vampiro.setEdad((Integer.parseInt(scanner.nextLine())));
-        System.out.println("puntos de sangre del vampiro: ");
+        vampiro.setEdad(Pantalla.pedirenteros("Edad vampiro"));
+        vampiro.setPuntosSange(Pantalla.pedirenteros("Puntos de sangre"));
+        System.out.println("personaje creado");
+
+
+
 
 
         vampiro.setArmadura(new ArrayList<Armadura>());

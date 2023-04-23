@@ -2,26 +2,23 @@ package Controladores;
 
 import ORIGEN.Operador;
 import ORIGEN.Usuario;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Appcontroller{
-    Scanner scanner = new Scanner(System.in);
     private List<Usuario> usuarios;
     public Appcontroller(){
         usuarios = new ArrayList<>();
     }
     public void iniciarSesion(){
-        Scanner sc = new Scanner(System.in);
         String usuario = new String();
         String contraseña = new String();
-        System.out.println("Usuario");
-        usuario = sc.nextLine();
-        System.out.println("Contraseña");
-        contraseña = sc.nextLine();
+        usuario = Pantalla.pedircadena("Usuario");
+        contraseña = Pantalla.pedircadena("Contraseña");
+
+
         boolean encontrado = false;
 
         for (Usuario usu: usuarios){
@@ -52,14 +49,10 @@ public class Appcontroller{
     }
 
     public void registrarse(){
-        Scanner sc = new Scanner(System.in);
         Usuario usu = new Usuario();
-        System.out.println("Introduce el Nombre");
-        usu.setNombre(sc.nextLine());
-        System.out.println("Introduce el Nick");
-        usu.setNickname(sc.nextLine());
-        System.out.println("Introduce la Contraseña");
-        usu.setContrasena(sc.nextLine());
+        usu.setNombre(Pantalla.pedircadena("Introduce el Nombre"));
+        usu.setNickname(Pantalla.pedircadena("Introduce el Nick"));
+        usu.setContrasena(Pantalla.pedircadena("Introduce la Contraseña"));
         usu.setOro(500);
         usu.setBaneado(false);
 
@@ -126,9 +119,9 @@ public class Appcontroller{
         return lista;
     }
     public void guardarDatos() throws  IOException{
-        guardadrUsuarios(this.usuarios);
+        guardarUsuarios(this.usuarios);
     }
-    public void guardadrUsuarios(List<Usuario>lista) throws IOException{
+    public void guardarUsuarios(List<Usuario>lista) throws IOException{
         File file = new File("listaUsuarios.dat");
         if (file.exists()){
             file.delete();
@@ -157,12 +150,12 @@ public class Appcontroller{
         while(!salir) {
             menu();
             cargarDatos();
-            int option = scanner.nextInt();
+            int option = Pantalla.pedirenteros("Seleccione opcion");
             while ((option != 1) && (option != 2) && (option != 3)) {
                 System.out.println("La opción escogida no es válida.");
                 System.out.println();
                 menu();
-                option = scanner.nextInt();
+                option = Pantalla.pedirenteros("Seleccione opcion");
             }
             switch (option) {
                 case 1:
