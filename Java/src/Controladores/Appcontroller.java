@@ -53,7 +53,7 @@ public class Appcontroller{
         }
     }
 
-    public void registrarse(){
+    public void registrarse() throws IOException {
         Usuario usu = new Usuario();
         usu.setNombre(Pantalla.pedircadena("Introduce el Nombre"));
         usu.setNickname(Pantalla.pedircadena("Introduce el Nick"));
@@ -95,9 +95,8 @@ public class Appcontroller{
         operador.setOro(5000);
         operador.setPersonaje(null);
         this.usuarios = cargarUsuarios();
-        //if (!usuarios.contains(operador)){  revisar que solo haya un operador antes de liarla
-            //this.usuarios.add(operador);
-        //}
+
+        //this.usuarios.add(operador);// solo usar cuando eliminemos fichero de datos
     }
 
     private List<Usuario>cargarUsuarios() throws IOException,ClassNotFoundException {
