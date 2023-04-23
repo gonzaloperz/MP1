@@ -4,15 +4,16 @@ import ORIGEN.Operador;
 import ORIGEN.Usuario;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Appcontroller{
     private List<Usuario> usuarios;
     public Appcontroller(){
         usuarios = new ArrayList<>();
     }
-    public void iniciarSesion(){
+    public void iniciarSesion() throws IOException, ClassNotFoundException {
         String usuario = new String();
         String contraseña = new String();
         usuario = Pantalla.pedircadena("Usuario");
@@ -35,9 +36,16 @@ public class Appcontroller{
                 }
                 //Comprobar si tiene desafios pendientes
                 // no se hacer el observer habra que ver que se hace
-                Usuario modificado =  usuarioController.menuUsuario(usu);
-                usuarios.remove(usu);
-                usuarios.add(modificado);
+                if (usu instanceof Operador){
+                    List<Usuario> modificados =usuarioController.menuOperador(usuarios,usu);
+                    usuarios = modificados;
+                    guardarDatos();
+                }
+                else {
+                    Usuario modificado = usuarioController.menuUsuario(usu);
+                    usuarios.remove(usu);
+                    usuarios.add(modificado);
+                }
             }
         } if (!encontrado){
             System.out.println("No existe el usuario...");
@@ -82,12 +90,14 @@ public class Appcontroller{
         Operador operador = new Operador();
         operador.setNickname("OPERADOR");
         operador.setNombre("OPERADOR");
-        operador.setContrasena("12345678");
+        operador.setContrasena("OPERADOR");
         operador.setBaneado(false);
         operador.setOro(5000);
         operador.setPersonaje(null);
         this.usuarios = cargarUsuarios();
-
+        //if (!usuarios.contains(operador)){  revisar que solo haya un operador antes de liarla
+            //this.usuarios.add(operador);
+        //}
     }
 
     private List<Usuario>cargarUsuarios() throws IOException,ClassNotFoundException {
@@ -169,4 +179,16 @@ public class Appcontroller{
             guardarDatos();
         }
     }
+
+    public void Ranking() throws IOException, ClassNotFoundException {
+        cargarDatos();
+        List<Usuario> aux = usuarios;
+        aux.sort(Comparator.comparing(Usuario::getOro).reversed());
+
+        Pantalla.imprimir("RANKING ACTUAL (desde último reinicio): ");
+        for (int i = 0; i<aux.size() ;i++)
+            Pantalla.imprimir(Integer.toString(i + 1) +".- "+ aux.get(i).getNickname() +" "+ aux.get(i).getOro());
+    }
+
 }
+

@@ -2,12 +2,14 @@ package Controladores;
 import ORIGEN.Usuario;
 import  ORIGEN.Personaje;
 
+import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 
 public class UsuarioController {
 
-    public Usuario menuUsuario(Usuario usuario){
+    public Usuario menuUsuario(Usuario usuario) throws IOException, ClassNotFoundException {
         boolean salir = false;
         while (!salir){
             System.out.println("  1.Crear personaje");
@@ -81,15 +83,16 @@ public class UsuarioController {
                     break;
                 case 6://Ver ranking
                     verRanking();
+                    break;
                 case 7://Dar de baja usuario
-
-
+                    usuario = null;
+                    Pantalla.imprimir("Se elimino el usuario");
+                    salir = true;
+                    break;
                 case 8://cerrar sesion
                     salir= true;
                     break;
             }
-
-
         }
         return usuario;
     }
@@ -98,11 +101,60 @@ public class UsuarioController {
 
 
     public List<Usuario> menuOperador(List<Usuario> listaUsuarios, Usuario usu){
+        boolean salir = false;
+        while (!salir){
+            System.out.println(" 1.Modificar personaje");
+            System.out.println(" 2.Validar desafio");
+            System.out.println(" 3.Banear Usuario");
+            System.out.println(" 4.Desbanear Ususario");
+            System.out.println(" 5.Resultados combate");
+            System.out.println(" 6.Darse de baja");
+            System.out.println(" 7.Cerrar sesion");
+
+            int o = Pantalla.pedirenteros("Elegir opcion");
+
+            switch (o){
+                case 1:
+                    for (Usuario a: listaUsuarios){
+                        Pantalla.imprimir(a.getNombre());
+                    }
+                    String nombre = Pantalla.pedircadena("Usuario a buscar");
+                    Usuario u = seleccionarUsuario(listaUsuarios,nombre);
+                    PersonajeController pjController = new PersonajeController();
+                    listaUsuarios.remove(u);
+                    u.setPersonaje(pjController.modificarPersonaje(u.getPersonaje()));
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:{
+                    salir = true;
+                    break;
+                }
+            }
+        }
 
 
 
         return listaUsuarios;
     }
+
+    private Usuario seleccionarUsuario(List<Usuario> listaUsuarios, String nombre) {
+        int size = listaUsuarios.size();
+        if (size == 0){
+            Pantalla.imprimir("No hay Usuarios registrados");
+            return null;
+        }
+        for (Usuario u : listaUsuarios){
+            if (u.getNombre().equals(nombre)){
+                return u;
+            }
+        }
+        Pantalla.imprimir("NO existe tal Usuario");
+        return null;
+    }
+
     public  Usuario buscarUsuario (String user){
 
         return null;
@@ -116,6 +168,8 @@ public class UsuarioController {
     public void responderDesafio(){
 
     }
-    private void verRanking() {
+    private void verRanking() throws IOException, ClassNotFoundException {
+       Appcontroller aux = new Appcontroller();
+       aux.Ranking();
     }
 }
