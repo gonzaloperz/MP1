@@ -3,12 +3,11 @@ import ORIGEN.Usuario;
 import  ORIGEN.Personaje;
 
 import java.util.List;
-import java.util.Scanner;
+
 
 public class UsuarioController {
 
     public Usuario menuUsuario(Usuario usuario){
-        Scanner sc = new Scanner(System.in);
         boolean salir = false;
         while (!salir){
             System.out.println("  1.Crear personaje");
@@ -20,7 +19,7 @@ public class UsuarioController {
             System.out.println("  7.Darse de baja");
             System.out.println("  8.Cerrar sesion");
 
-            int option = sc.nextInt();
+            int option = Pantalla.pedirenteros("Opcion");
 
             switch (option){//crear personaje
                 case 1:
@@ -48,7 +47,7 @@ public class UsuarioController {
                     System.out.println("1.Cambiar arma activa");
                     System.out.println("1.Cambiar armadura activa");
                     System.out.println("3.Cancelar");
-                    int option1 = sc.nextInt();
+                    int option1 = Pantalla.pedirenteros("opcion");
                     switch (option1){
                         case 1:
                             if (personaje.getArmasActivas() == null) {

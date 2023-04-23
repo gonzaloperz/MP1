@@ -1,5 +1,7 @@
 package ORIGEN;
 
-public class Ghoul extends Esbirro{
+import java.io.Serializable;
+
+public class Ghoul extends Esbirro implements Serializable {
     private Integer dependencia;
 }

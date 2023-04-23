@@ -1,5 +1,7 @@
 package ORIGEN;
 
-public class Humano extends Esbirro{
+import java.io.Serializable;
+
+public class Humano extends Esbirro implements Serializable {
     private String lealtad;
 }

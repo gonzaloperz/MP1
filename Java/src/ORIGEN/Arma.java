@@ -1,11 +1,11 @@
 package ORIGEN;
 
+import Controladores.Pantalla;
+
 import java.io.Serializable;
 import java.util.Scanner;
 
 public class Arma extends Equipo implements Serializable {
-
-    Scanner scanner = new Scanner(System.in);
     private int empuñadura; //1 una mano 2 dos manos
     //@override modificar(){}
 
@@ -20,14 +20,11 @@ public class Arma extends Equipo implements Serializable {
     @Override
     public Arma modificar(){
         System.out.println(("Vas a modificar esta arma" + this.getNombre()));
-        System.out.println(("cambiar nombre"));
-        this.setNombre(scanner.nextLine());
-        System.out.println(("establece ataque"));
-        this.setModificadorAtc(scanner.nextInt());
-        System.out.println(("establece defensa"));
-        this.setModificadorDef(scanner.nextInt());
-        System.out.println(("establece empuñadura"));
-        this.setEmpuñadura(scanner.nextInt());
+        this.setNombre(Pantalla.pedircadena("establece Nombre"));
+
+        this.setModificadorAtc(Pantalla.pedirenteros("establece ataque"));
+        this.setModificadorDef(Pantalla.pedirenteros("establece defensa"));
+        this.setEmpuñadura(Pantalla.pedirenteros("establece ataque"));
     return this;
     }
 }

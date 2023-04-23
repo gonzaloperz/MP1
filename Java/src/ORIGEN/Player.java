@@ -4,13 +4,14 @@
  */
 package ORIGEN;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author paula
  */
-public class Player extends Usuario{
+public class Player extends Usuario implements Serializable {
     private String numeroReg;
     private ArrayList<Personaje> listaPersonajes ;
 

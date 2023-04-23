@@ -35,17 +35,14 @@ public class Appcontroller{
                 }
                 //Comprobar si tiene desafios pendientes
                 // no se hacer el observer habra que ver que se hace
-               usuarioController.menuUsuario(usu);
+                Usuario modificado =  usuarioController.menuUsuario(usu);
+                usuarios.remove(usu);
+                usuarios.add(modificado);
             }
         } if (!encontrado){
             System.out.println("No existe el usuario...");
             System.out.println(("Regresando al menu"));
         }
-
-
-
-
-
     }
 
     public void registrarse(){

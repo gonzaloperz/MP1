@@ -1,19 +1,17 @@
 package ORIGEN;
 
+import Controladores.Pantalla;
+
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Armadura extends Equipo{
-
-    Scanner scanner = new Scanner(System.in);
+public class Armadura extends Equipo implements Serializable {
     @Override
     public Armadura modificar() {
         System.out.println(("vas a modificar esta armadura" + this.getNombre()));
-        System.out.println(("cambiar nombre"));
-        this.setNombre(scanner.nextLine());
-        System.out.println(("cambiar ataque"));
-        this.setModificadorAtc(scanner.nextInt());
-        System.out.println(("cambiar defensa"));
-        this.setModificadorDef(scanner.nextInt());
+        this.setNombre(Pantalla.pedircadena("Establecer nombre"));
+        this.setModificadorAtc(Pantalla.pedirenteros("cambiar ataque"));
+        this.setModificadorDef(Pantalla.pedirenteros("cambiar defensa"));
         return this;
     }
 }
