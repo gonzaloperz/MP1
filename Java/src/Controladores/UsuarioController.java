@@ -10,6 +10,11 @@ import java.util.List;
 
 public class UsuarioController {
 
+    public void verRanking() throws IOException, ClassNotFoundException {
+        Appcontroller aux = new Appcontroller();
+        aux.Ranking();
+    }
+
     public Usuario menuUsuario(Usuario usuario, List<Usuario> usuarios) throws IOException, ClassNotFoundException {
         boolean salir = false;
         while (!salir){
@@ -49,7 +54,7 @@ public class UsuarioController {
                         break;
                     }
                     System.out.println("1.Cambiar arma activa");
-                    System.out.println("1.Cambiar armadura activa");
+                    System.out.println("2.Cambiar armadura activa");
                     System.out.println("3.Cancelar");
                     int option1 = Pantalla.pedirenteros("opcion");
                     switch (option1){
@@ -127,12 +132,44 @@ public class UsuarioController {
                 case 2:
                     break;
                 case 3:
+                    int i = 0;
+                    boolean encontrado = false;
+                    Usuario baneado = usu;
+                    String banear = Pantalla.pedircadena("Nombre del Usuario a banear:");
+                    while (i<listaUsuarios.size() && !encontrado){
+                        encontrado = listaUsuarios.get(i).getNombre() == banear;
+                        baneado = listaUsuarios.get(i);
+                    }
+                    if (!encontrado){
+                        Pantalla.imprimir("El usuario no existe.");
+                    }
+                    else{
+                        baneado.setBaneado(true);
+                    }
                     break;
                 case 4:
+                    i = 0;
+                    encontrado = false;
+                    baneado = usu;
+                    String desbanear = Pantalla.pedircadena("Nombre del Usuario a desbanear:");
+                    while (i<listaUsuarios.size() && !encontrado){
+                        encontrado = listaUsuarios.get(i).getNombre() == desbanear;
+                        baneado = listaUsuarios.get(i);
+                    }
+                    if (!encontrado){
+                        Pantalla.imprimir("El usuario no existe.");
+                    }
+                    else{
+                        baneado.setBaneado(false);
+                    }
                     break;
                 case 5:
                     break;
-                case 6:break;
+                case 6:
+                    usu = null;
+                    Pantalla.imprimir("Se elimino el usuario");
+                    salir = true;
+                    break;
                 case 7:
                     salir = true;
                     break;
@@ -158,31 +195,29 @@ public class UsuarioController {
     public void verCombate(Usuario user){
 
     }
-    public boolean desafiar(Usuario user, List<Usuario> listaUsuarios){
-        if (user.getDesafio() != null){
+    public boolean desafiar(Usuario user, List<Usuario> listaUsuarios) {
+        if (user.getDesafio() != null) {
 
         }
         String desafiado = Pantalla.pedircadena("Indica al usuario al que quieres desafiar");
-            for (Usuario a : listaUsuarios){
-                if (!a.getNombre().equals(desafiado)){
-                    Pantalla.imprimir("El usuaro no existe");
-                    return false;
-                }else {
-                    if (a.getDesafio() != null) {
-                        Pantalla.imprimir("El usuario ya tiene un desafío");
-                    } else {
-                        Desafio desafio = new Desafio(user, a);
-                        a.setDesafio(desafio);
-                        user.setDesafio(desafio);
-                    }
+        for (Usuario a : listaUsuarios) {
+            if (!a.getNombre().equals(desafiado)) {
+                Pantalla.imprimir("El usuaro no existe");
+                return false;
+            } else {
+                if (a.getDesafio() != null) {
+                    Pantalla.imprimir("El usuario ya tiene un desafío");
+                } else {
+                    Desafio desafio = new Desafio(user, a);
+                    a.setDesafio(desafio);
+                    user.setDesafio(desafio);
                 }
-
+            }
+        }
+        return false;
     }
-    public void responderDesafio(){
+    public void responderDesafio() {
 
-    }
-    private void verRanking() throws IOException, ClassNotFoundException {
-       Appcontroller aux = new Appcontroller();
-       aux.Ranking();
     }
 }
+
