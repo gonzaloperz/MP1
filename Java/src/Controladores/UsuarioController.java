@@ -68,7 +68,7 @@ public class UsuarioController {
                     }
 
                 case 4://lanzar desafio
-                    desafiar(usuario);
+                    desafiar(usuario, usuarios);
                     break;
                 case 5://ver combates anteriores
                     verCombate(usuario);

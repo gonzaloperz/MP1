@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 public class CazadorFactory extends PersonajeFactory{
 
+    ArrayList<Arma> armasac = new ArrayList<>();
+    ArrayList<Arma> armas = new ArrayList<>();
+
+    ArrayList<Armadura> armaduras=  new ArrayList<Armadura>();
+
     @Override
     public Cazador crearPersonaje() {
         Cazador cazador = new Cazador();
@@ -25,13 +30,38 @@ public class CazadorFactory extends PersonajeFactory{
         System.out.println("personaje creado");
 
 
+        armas.add(armaDefault());//armas
+        cazador.setArmas(armas);
+
+        armasac.add(armaDefault());//arma activa
+        cazador.setArmasActivas(armasac);
 
 
-        cazador.setArmadura(new ArrayList<Armadura>());
-        cazador.setArmas(new ArrayList<Arma>());
-        cazador.setArmaduraActiva(new Armadura());
-        cazador.setArmasActivas(new ArrayList<Arma>());
+        armaduras.add(armaduraDefault());
+        cazador.setArmadura(armaduras);//armadura
+
+        cazador.setArmaduraActiva(armaduraDefault());//armadura activa
+
+
+
 
         return cazador;
+    }
+
+    public Arma armaDefault(){
+        Arma arma = new Arma();
+        arma.setNombre("palo");
+        arma.setEmpuñadura(1);
+        arma.setModificadorAtc(1);
+        arma.setModificadorDef(0);
+        return arma;
+    }
+
+    public Armadura armaduraDefault(){
+        Armadura nueva = new Armadura();
+        nueva.setNombre("cota de malla");
+        nueva.setModificadorAtc(1);
+        nueva.setModificadorDef(1);
+        return nueva;
     }
 }

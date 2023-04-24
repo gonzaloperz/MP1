@@ -8,6 +8,16 @@ public class Modificador implements Serializable {
     private String nombreFort;
     private int sensibilidadFort;
 
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    private boolean activo;
+
     public String getNombreFort() {
         return nombreFort;
     }

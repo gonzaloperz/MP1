@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class PersonajeController {
 
+
     public void menu(){
         System.out.println("Seleccione una opción");
         System.out.println("1. Vampiro");
@@ -167,11 +168,23 @@ public class PersonajeController {
         return personaje;
 
     }
-    public void crearDebilidad(){
-
+    public Debilidad crearDebilidad(){
+        Debilidad debilidad = new Debilidad();
+        debilidad.setActivo(false);
+        debilidad.setNombreFort(Pantalla.pedircadena("Nombre de la debilidad: "));
+        while (debilidad.getNombreFort().equals(""))
+            debilidad.setNombreFort(Pantalla.pedircadena("No puede estar vacío: "));
+        debilidad.setSensibilidadFort(Pantalla.pedirenteros("Valor de la debilidad: "));
+        return debilidad;
     }
-    public void crearFortaleza(){
-
+    public Fortaleza crearFortaleza(){
+        Fortaleza fortaleza = new Fortaleza();
+        fortaleza.setActivo(false);
+        fortaleza.setNombreFort(Pantalla.pedircadena("Nombre de la fortaleza: "));
+        while (fortaleza.getNombreFort().equals(""))
+            fortaleza.setNombreFort(Pantalla.pedircadena("No puede estar vacío: "));
+        fortaleza.setSensibilidadFort(Pantalla.pedirenteros("Valor de la fortaleza: "));
+        return fortaleza;
     }
     public Personaje modificarPersonaje(Personaje personaje) {
         boolean salir = false;
@@ -232,10 +245,39 @@ public class PersonajeController {
                     }
                     break;
                 case 4://crear debilidades y fortalezas
+                    Pantalla.imprimir("1. Añadir Fortaleza");
+                    Pantalla.imprimir("2. Añadir Debilidad");
+                    Pantalla.imprimir("Otro. Cancelar");
+                    o = Pantalla.pedirenteros("Elije una opción: ");
+                    if (o==1) {
+                        Fortaleza nueva = crearFortaleza();
+                        ArrayList<Fortaleza> aux = personaje.getFortalezas();
+                        if (aux==null)
+                            aux= new ArrayList<>();
+                        aux.add(nueva);
+                        personaje.setFortalezas(aux);
+                    }
+                    else if (o==2) {
+                        Debilidad nueva = crearDebilidad();
+                        ArrayList<Debilidad> aux = personaje.getDebilidades();
+                        if (aux==null)
+                            aux= new ArrayList<>();
+                        aux.add(nueva);
+                        personaje.setDebilidades(aux);
+                    }
                     break;
                 case 5://añadir esbirros
+                    ArrayList<Esbirro> aux = personaje.getEsbirros();
+                    if (aux==null)
+                        aux= new ArrayList<>();
+                    Esbirro esbirro = personaje.crearEsbirros();
+                    if (esbirro != null){
+                        aux.add(esbirro);
+                        personaje.setEsbirros(aux);
+                    }
                     break;
                 case 6://modifiar estadisticas
+                    personaje.modificarDatos();
                     break;
                 case 7://salir
                     salir = true;
@@ -308,7 +350,6 @@ public class PersonajeController {
         if (personaje.getFortalezas().get(n)!=null)
             personaje.getFortalezas().get(n).modificar();
         return personaje;
-
     }
 }
 
