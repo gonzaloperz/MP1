@@ -77,7 +77,7 @@ public class PersonajeController {
         }
         for (int i = 0; i < t; i++) {
             Arma actual = lista.get(i);
-            Pantalla.imprimir(i+". "+actual.getNombre());
+            Pantalla.imprimir(i+".   "+actual.getNombre());
         }
         Pantalla.imprimir(t+". Cancelar operación.");
         int n = -1;
@@ -125,6 +125,41 @@ public class PersonajeController {
         return pj;
     }
     public Personaje cambiarArma(Personaje personaje){
+        List<Arma> armasAc = personaje.getArmasActivas();
+        Pantalla.imprimir("Arma equipada:  ");
+        for(Arma a : armasAc){
+            Pantalla.imprimir(a.getNombre());
+        }
+
+        Pantalla.imprimir(" ");
+        Pantalla.imprimir("Armas dispopnibles");
+
+        if (armasAc == null){
+            armasAc = new ArrayList<>();
+            List<Arma> disponibles = personaje.getArmas();
+            for (Arma a: disponibles){
+                Pantalla.imprimir(a.getNombre());
+            }
+            String nueva = Pantalla.pedircadena("Seleciona el nuevo arma");
+            for(Arma a : disponibles){
+                if (a.getNombre().equals(nueva))
+                    armasAc.add(a);
+            }personaje.setArmasActivas((ArrayList<Arma>) armasAc);
+        }else{
+            List<Arma> equipadas = personaje.getArmasActivas();
+            List<Arma> disponibles = personaje.getArmas();
+            for (Arma a: disponibles){
+                Pantalla.imprimir(a.getNombre());
+                if (equipadas.size()> 1){
+                    if (a.getEmpuñadura()== 1){
+                        equipadas.add(a);
+                    }
+                    else{
+                        Pantalla.imprimir("Solo puedes llevar un arma de dos manos");
+                    }
+                }
+            }personaje.setArmasActivas((ArrayList<Arma>) equipadas);
+        }
 
         return personaje;
     }
@@ -139,7 +174,7 @@ public class PersonajeController {
 
     }
     public Personaje modificarPersonaje(Personaje personaje) {
-        boolean salir = true;
+        boolean salir = false;
         while (!salir) {
             Pantalla.imprimir("  1.Editar Arma o Armadura");
             Pantalla.imprimir("  2.Editar Fotalezas o Debilidades");
@@ -165,7 +200,7 @@ public class PersonajeController {
                 case 2://editar fortalezas y debilidades
                     Pantalla.imprimir("  1.Editar Fortaleza");
                     Pantalla.imprimir("  2.Editar Debilidad");
-                    Pantalla.imprimir("  Otro.Cancelar");
+                    Pantalla.imprimir("  Otro.Salir");
                     int c = Pantalla.pedirenteros("Elige Opcion");
                     if (c == 1) {
                         return editarFortaleza(personaje);
@@ -179,19 +214,21 @@ public class PersonajeController {
                     Pantalla.imprimir("  Otro.Cancelar");
                     int a = Pantalla.pedirenteros("Elige Opcion");
                     if (a == 1) {
-                        Arma nueva = new Arma();
+                        Arma nueva = crearArma();
                         ArrayList<Arma> aux = personaje.getArmas();
                         if (aux == null)
                             aux = new ArrayList<>();
                         aux.add(nueva);
                         personaje.setArmas(aux);
+                        Pantalla.imprimir("Arma  "+ nueva.getNombre()+"  creada");
                     } else if (a == 2) {
-                        Armadura nueva = new Armadura();
+                        Armadura nueva = crearArmadura();
                         ArrayList<Armadura> aux = personaje.getArmadura();
                         if (aux == null)
                             aux = new ArrayList<>();
                         aux.add(nueva);
                         personaje.setArmadura(aux);
+                        Pantalla.imprimir("Armadura  "+ nueva.getNombre()+"  creada");
                     }
                     break;
                 case 4://crear debilidades y fortalezas
@@ -201,7 +238,7 @@ public class PersonajeController {
                 case 6://modifiar estadisticas
                     break;
                 case 7://salir
-                    salir = false;
+                    salir = true;
                     break;
 
             }

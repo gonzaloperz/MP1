@@ -37,15 +37,17 @@ public class Appcontroller{
                 //Comprobar si tiene desafios pendientes
                 // no se hacer el observer habra que ver que se hace
                 if (usu instanceof Operador){
-                    List<Usuario> modificados =usuarioController.menuOperador(usuarios,usu);
+                    List<Usuario> modificados = usuarioController.menuOperador(usuarios,usu);
                     usuarios = modificados;
                     guardarDatos();
                 }
                 else {
                     Usuario modificado = usuarioController.menuUsuario(usu);
                     usuarios.remove(usu);
-                    usuarios.add(modificado);
+                    if (modificado != null)
+                        usuarios.add(modificado);
                 }
+                break;
             }
         } if (!encontrado){
             System.out.println("No existe el usuario...");

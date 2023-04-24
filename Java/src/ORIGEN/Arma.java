@@ -24,7 +24,7 @@ public class Arma extends Equipo implements Serializable {
 
         this.setModificadorAtc(Pantalla.pedirenteros("establece ataque"));
         this.setModificadorDef(Pantalla.pedirenteros("establece defensa"));
-        this.setEmpuñadura(Pantalla.pedirenteros("establece ataque"));
+        this.setEmpuñadura(Pantalla.pedirenteros("establece si es a 1 mano o a 2 manos"));
     return this;
     }
 }

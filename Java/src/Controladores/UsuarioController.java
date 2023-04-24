@@ -12,6 +12,7 @@ public class UsuarioController {
     public Usuario menuUsuario(Usuario usuario) throws IOException, ClassNotFoundException {
         boolean salir = false;
         while (!salir){
+            System.out.println(" ------MENU USUARIO------");
             System.out.println("  1.Crear personaje");
             System.out.println("  2.Eliminar personaje");
             System.out.println("  3.Cambiar equipo activo");
@@ -23,8 +24,8 @@ public class UsuarioController {
 
             int option = Pantalla.pedirenteros("Opcion");
 
-            switch (option){//crear personaje
-                case 1:
+            switch (option){
+                case 1://crear personaje
                     Personaje  personaje = usuario.getPersonaje();
                     if (personaje == null){
                         PersonajeController controller = new PersonajeController();
@@ -52,24 +53,15 @@ public class UsuarioController {
                     int option1 = Pantalla.pedirenteros("opcion");
                     switch (option1){
                         case 1:
-                            if (personaje.getArmasActivas() == null) {
-                                System.out.println("NO tienes armas activas");
-                            }
-                            else {
                                 PersonajeController contoller = new PersonajeController();
                                 personaje = contoller.cambiarArma(personaje);
                                 usuario.setPersonaje(personaje);
                             break;
-                        }
+
                         case 2:
-                            if (personaje.getArmaduraActiva() == null) {
-                                System.out.println("NO tienes armadura activa");
-                            }
-                            else {
-                                PersonajeController contoller = new PersonajeController();
-                                personaje = contoller.cambiarArmadura(personaje);
+                                PersonajeController controller = new PersonajeController();
+                                personaje = controller.cambiarArmadura(personaje);
                                 usuario.setPersonaje(personaje);
-                            }
                             break;
                         case 3:
                             break;
@@ -103,6 +95,7 @@ public class UsuarioController {
     public List<Usuario> menuOperador(List<Usuario> listaUsuarios, Usuario usu){
         boolean salir = false;
         while (!salir){
+            System.out.println(" ------MENU OPERADOR------");
             System.out.println(" 1.Modificar personaje");
             System.out.println(" 2.Validar desafio");
             System.out.println(" 3.Banear Usuario");
@@ -120,23 +113,30 @@ public class UsuarioController {
                     }
                     String nombre = Pantalla.pedircadena("Usuario a buscar");
                     Usuario u = seleccionarUsuario(listaUsuarios,nombre);
+
+                    if (u.getPersonaje() == null){
+                        Pantalla.imprimir("El usuario no tiene personaje");
+                        break;
+                    }
                     PersonajeController pjController = new PersonajeController();
                     listaUsuarios.remove(u);
                     u.setPersonaje(pjController.modificarPersonaje(u.getPersonaje()));
+                    listaUsuarios.add(u);
+                    break;
                 case 2:
+                    break;
                 case 3:
+                    break;
                 case 4:
+                    break;
                 case 5:
-                case 6:
-                case 7:{
+                    break;
+                case 6:break;
+                case 7:
                     salir = true;
                     break;
-                }
             }
         }
-
-
-
         return listaUsuarios;
     }
 
@@ -152,11 +152,6 @@ public class UsuarioController {
             }
         }
         Pantalla.imprimir("NO existe tal Usuario");
-        return null;
-    }
-
-    public  Usuario buscarUsuario (String user){
-
         return null;
     }
     public void verCombate(Usuario user){
