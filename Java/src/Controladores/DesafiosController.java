@@ -2,6 +2,7 @@ package Controladores;
 
 import ORIGEN.Desafio;
 import ORIGEN.Personaje;
+import ORIGEN.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,20 +92,33 @@ public class DesafiosController {
             Pantalla.imprimir("Oro ganado:" + desafio.getOroGanado());
         }
     }
-    public void aceptarDesafio(){
-
-    }
     public ArrayList<Desafio> historial(){
-        return  null;
+        return  this.listaDesafio;
     }
+    public void aceptarDesafio(Usuario u){
+        for (Desafio desafio: listaDesafio) {
+            if (desafio.getUserUno().getNickname().equals(u.getNickname())) {
+                int respuesta;
+                Pantalla.imprimir("Hay un nuevo desafio de " + desafio.getUserUno().getNickname());
+                respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? 0 = No ; 1 = Si");
+                if (respuesta == 0) {
+                    Desafio d = this.rechazarDesafio(desafio);
+                    return;
+                } else if (respuesta == 1) {
+                    Desafio d = this.iniciarDesafio(desafio);
+                }
+            }
+        }
+    }
+
     public void cargarDatos(){
 
     }
     public void validarDesafio(){
 
     }
-    public void rechazarDesafio(){
-
+    public Desafio rechazarDesafio(Desafio desafio){
+        return desafio;
     }
     public void ganador(){
 
