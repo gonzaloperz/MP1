@@ -132,34 +132,16 @@ public class UsuarioController {
                 case 2:
                     break;
                 case 3:
-                    int i = 0;
-                    boolean encontrado = false;
-                    Usuario baneado = usu;
                     String banear = Pantalla.pedircadena("Nombre del Usuario a banear:");
-                    while (i<listaUsuarios.size() && !encontrado){
-                        encontrado = listaUsuarios.get(i).getNombre() == banear;
-                        baneado = listaUsuarios.get(i);
-                    }
-                    if (!encontrado){
-                        Pantalla.imprimir("El usuario no existe.");
-                    }
-                    else{
+                    Usuario baneado = seleccionarUsuario(listaUsuarios,banear);
+                    if (baneado != null){
                         baneado.setBaneado(true);
                     }
                     break;
                 case 4:
-                    i = 0;
-                    encontrado = false;
-                    baneado = usu;
-                    String desbanear = Pantalla.pedircadena("Nombre del Usuario a desbanear:");
-                    while (i<listaUsuarios.size() && !encontrado){
-                        encontrado = listaUsuarios.get(i).getNombre() == desbanear;
-                        baneado = listaUsuarios.get(i);
-                    }
-                    if (!encontrado){
-                        Pantalla.imprimir("El usuario no existe.");
-                    }
-                    else{
+                    banear = Pantalla.pedircadena("Nombre del Usuario a banear:");
+                    baneado = seleccionarUsuario(listaUsuarios,banear);
+                    if (baneado != null){
                         baneado.setBaneado(false);
                     }
                     break;

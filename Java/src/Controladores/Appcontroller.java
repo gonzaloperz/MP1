@@ -18,10 +18,7 @@ public class Appcontroller{
         String contraseña = new String();
         usuario = Pantalla.pedircadena("Usuario");
         contraseña = Pantalla.pedircadena("Contraseña");
-
-
         boolean encontrado = false;
-
         for (Usuario usu: usuarios){
             if (usu == null){
                 continue;
@@ -88,15 +85,19 @@ public class Appcontroller{
         }
     }
 
-    public void cargarDatos() throws IOException, ClassNotFoundException {  //metemos el operador a pincho
-        Operador operador = new Operador();
-        operador.setNickname("OPERADOR");
-        operador.setNombre("OPERADOR");
-        operador.setContrasena("OPERADOR");
-        operador.setBaneado(false);
-        operador.setOro(5000);
-        operador.setPersonaje(null);
-        this.usuarios = cargarUsuarios();
+    public void cargarDatos() throws IOException, ClassNotFoundException {
+        this.usuarios = cargarUsuarios();//metemos el operador a pincho
+        if (usuarios.isEmpty()) {
+            Operador operador = new Operador();
+            operador.setNickname("OPERADOR");
+            operador.setNombre("OPERADOR");
+            operador.setContrasena("OPERADOR");
+            operador.setBaneado(false);
+            operador.setOro(5000);
+            operador.setPersonaje(null);
+            usuarios.add(operador);
+        }
+
 
         //this.usuarios.add(operador);// solo usar cuando eliminemos fichero de datos
     }
