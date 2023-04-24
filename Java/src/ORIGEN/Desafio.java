@@ -19,4 +19,12 @@ public class Desafio implements Serializable {
         this.UserUno = oponente1;
         this.UserDos = oponente2;
     }
+
+    public Usuario getUserUno() {
+        return UserUno;
+    }
+
+    public Usuario getUserDos() {
+        return UserDos;
+    }
 }
