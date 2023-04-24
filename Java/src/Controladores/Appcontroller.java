@@ -42,7 +42,7 @@ public class Appcontroller{
                     guardarDatos();
                 }
                 else {
-                    Usuario modificado = usuarioController.menuUsuario(usu);
+                    Usuario modificado = usuarioController.menuUsuario(usu, usuarios);
                     usuarios.remove(usu);
                     if (modificado != null)
                         usuarios.add(modificado);

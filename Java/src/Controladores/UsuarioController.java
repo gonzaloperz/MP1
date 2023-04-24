@@ -1,4 +1,5 @@
 package Controladores;
+import ORIGEN.Desafio;
 import ORIGEN.Usuario;
 import  ORIGEN.Personaje;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class UsuarioController {
 
-    public Usuario menuUsuario(Usuario usuario) throws IOException, ClassNotFoundException {
+    public Usuario menuUsuario(Usuario usuario, List<Usuario> usuarios) throws IOException, ClassNotFoundException {
         boolean salir = false;
         while (!salir){
             System.out.println(" ------MENU USUARIO------");
@@ -157,7 +158,24 @@ public class UsuarioController {
     public void verCombate(Usuario user){
 
     }
-    public void desafiar(Usuario user){
+    public boolean desafiar(Usuario user, List<Usuario> listaUsuarios){
+        if (user.getDesafio() != null){
+
+        }
+        String desafiado = Pantalla.pedircadena("Indica al usuario al que quieres desafiar");
+            for (Usuario a : listaUsuarios){
+                if (!a.getNombre().equals(desafiado)){
+                    Pantalla.imprimir("El usuaro no existe");
+                    return false;
+                }else {
+                    if (a.getDesafio() != null) {
+                        Pantalla.imprimir("El usuario ya tiene un desafío");
+                    } else {
+                        Desafio desafio = new Desafio(user, a);
+                        a.setDesafio(desafio);
+                        user.setDesafio(desafio);
+                    }
+                }
 
     }
     public void responderDesafio(){

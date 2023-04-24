@@ -14,12 +14,9 @@ public class Usuario implements Serializable {
     private String nombre;
     private String nickname;
     private String contrasena;
-
+    private Desafio desafio;
     private Personaje personaje;
-
-
     private  int oro;
-
     private boolean baneado;
 
     public String getNombre() {
@@ -78,5 +75,13 @@ public class Usuario implements Serializable {
 
     public void setPersonaje(Personaje pj){
         this.personaje = pj;
+    }
+
+    public void setDesafio(Desafio d){
+        this.desafio = d;
+    }
+
+    public Desafio getDesafio(){
+        return this.desafio;
     }
 }
