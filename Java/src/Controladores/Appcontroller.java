@@ -28,8 +28,9 @@ public class Appcontroller{
                 UsuarioController usuarioController = new UsuarioController();
                 if(usu.isBaneado()){//COmprobar si esta baneado el personaje
                     System.out.println("Jugador baneado");
-                    System.out.println("NO puede iniciar Sesión");
+                    System.out.println("No puede iniciar Sesión");
                     System.out.println("Contacte Operador");
+                    start();
                 }
                 //Comprobar si tiene desafios pendientes
                 // no se hacer el observer habra que ver que se hace

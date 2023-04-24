@@ -5,6 +5,8 @@ package ORIGEN;
  */
 
 
+import Controladores.Pantalla;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -25,6 +27,7 @@ public class Desafio implements Serializable {
     public Desafio(Usuario oponente1, Usuario oponente2){
         this.UserUno = oponente1;
         this.UserDos = oponente2;
+        this.setOroApostado(Pantalla.pedirenteros("Cantidad de oro a apostar:"));
     }
 
     public Usuario getUserUno() {

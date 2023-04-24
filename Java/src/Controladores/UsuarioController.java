@@ -50,7 +50,7 @@ public class UsuarioController {
                 case 3:// cambiar equipo activo
                     personaje = usuario.getPersonaje();
                     if (personaje == null){
-                        System.out.println("NO tienes personaje creado");
+                        System.out.println("No tienes personaje creado");
                         break;
                     }
                     System.out.println("1.Cambiar arma activa");
@@ -139,7 +139,7 @@ public class UsuarioController {
                     }
                     break;
                 case 4:
-                    banear = Pantalla.pedircadena("Nombre del Usuario a banear:");
+                    banear = Pantalla.pedircadena("Nombre del Usuario a desbanear:");
                     baneado = seleccionarUsuario(listaUsuarios,banear);
                     if (baneado != null){
                         baneado.setBaneado(false);
@@ -171,7 +171,7 @@ public class UsuarioController {
                 return u;
             }
         }
-        Pantalla.imprimir("NO existe tal Usuario");
+        Pantalla.imprimir("No existe tal Usuario");
         return null;
     }
     public void verCombate(Usuario user){
@@ -181,12 +181,11 @@ public class UsuarioController {
         if (user.getDesafio() != null) {
 
         }
+        boolean encontrado = false;
         String desafiado = Pantalla.pedircadena("Indica al usuario al que quieres desafiar");
         for (Usuario a : listaUsuarios) {
-            if (!a.getNombre().equals(desafiado)) {
-                Pantalla.imprimir("El usuaro no existe");
-                return false;
-            } else {
+            if (a.getNombre().equals(desafiado)){
+                encontrado = true;
                 if (a.getDesafio() != null) {
                     Pantalla.imprimir("El usuario ya tiene un desafío");
                 } else {
@@ -195,6 +194,9 @@ public class UsuarioController {
                     user.setDesafio(desafio);
                 }
             }
+        }
+        if (!encontrado){
+            Pantalla.imprimir("El usuario no existe");
         }
         return false;
     }
