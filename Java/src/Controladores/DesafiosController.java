@@ -100,12 +100,15 @@ public class DesafiosController {
     }
     public void aceptarDesafio(Usuario u){
         for (Desafio desafio: listaDesafio) {
-            if (desafio.getUserUno().getNickname().equals(u.getNickname())) {
+            if (desafio.getUserUno().getDesafio() != null) {
                 int respuesta;
-                Pantalla.imprimir("Hay un nuevo desafio de " + desafio.getUserUno().getNickname());
+                Pantalla.imprimir("Hay un nuevo desafio de " + desafio.getUserDos().getNickname());
                 respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? 0 = No ; 1 = Si");
                 if (respuesta == 0) {
-                    Desafio d = this.rechazarDesafio(desafio);
+                    Usuario u1 = desafio.getUserUno();
+                    Usuario u2 = desafio.getUserDos();
+                    u1.setDesafio(null);
+                    u2.setDesafio(null);
                     return;
                 } else if (respuesta == 1) {
                     Desafio d = this.iniciarDesafio(desafio);
@@ -169,7 +172,14 @@ public class DesafiosController {
         this.listaDesafio.add(desafio); //añade nuevo desafío al fichero
         guardarDatos();
     }
-    public void validarDesafio(){
+    public void validarDesafio() throws IOException, ClassNotFoundException {
+        List<Desafio> lista = cargarDesafios();
+        int i = 0;
+        for (Desafio d : lista){
+            Pantalla.imprimir(i + (". ") + d.getUserUno().getNombre() + (" vs ") + d.getUserDos().getNombre());
+            i += 1;
+        }
+        int desafio = Pantalla.pedirenteros("Indique el desafio a validar");
 
     }
     public Desafio rechazarDesafio(Desafio desafio){

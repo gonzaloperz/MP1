@@ -24,10 +24,11 @@ public class UsuarioController {
             System.out.println("  2.Eliminar personaje");
             System.out.println("  3.Cambiar equipo activo");
             System.out.println("  4.Lanzar desafio");
-            System.out.println("  5.Resultados combates anteriores");
-            System.out.println("  6.Ver Ranking global");
-            System.out.println("  7.Darse de baja");
-            System.out.println("  8.Cerrar sesion");
+            System.out.println("  5.Comprobar desafío pendiente");
+            System.out.println("  6.Resultados combates anteriores");
+            System.out.println("  7.Ver Ranking global");
+            System.out.println("  8.Darse de baja");
+            System.out.println("  9.Cerrar sesion");
 
             int option = Pantalla.pedirenteros("Opcion");
 
@@ -77,18 +78,23 @@ public class UsuarioController {
                 case 4://lanzar desafio
                     desafiar(usuario, usuarios);
                     break;
-                case 5://ver combates anteriores
+                case 5://comprobar desafio
+                    DesafiosController dcontroller = new DesafiosController();
+                    dcontroller.cargarDatos();
+                    dcontroller.aceptarDesafio(usuario);
+                    break;
+                case 6://ver combates anteriores
                     verCombate(usuario);
                     break;
-                case 6://Ver ranking
+                case 7://Ver ranking
                     verRanking();
                     break;
-                case 7://Dar de baja usuario
+                case 8://Dar de baja usuario
                     usuario = null;
                     Pantalla.imprimir("Se elimino el usuario");
                     salir = true;
                     break;
-                case 8://cerrar sesion
+                case 9://cerrar sesion
                     salir= true;
                     break;
             }
@@ -99,7 +105,7 @@ public class UsuarioController {
 
 
 
-    public List<Usuario> menuOperador(List<Usuario> listaUsuarios, Usuario usu){
+    public List<Usuario> menuOperador(List<Usuario> listaUsuarios, ORIGEN.Operador usu) throws IOException, ClassNotFoundException {
         boolean salir = false;
         while (!salir){
             System.out.println(" ------MENU OPERADOR------");
@@ -136,6 +142,8 @@ public class UsuarioController {
                     listaUsuarios.add(u);
                     break;
                 case 2:
+                    DesafiosController dcontroller = new DesafiosController();
+                    dcontroller.validarDesafio();
                     break;
                 case 3:
                     String banear = Pantalla.pedircadena("Nombre del Usuario a banear:");
@@ -197,8 +205,7 @@ public class UsuarioController {
                 } else {
                     DesafiosController desafioController = new DesafiosController();
                     Desafio desafio = new Desafio(user, a);
-                    a.setDesafio(desafio);
-                    user.setDesafio(desafio);
+
                     desafioController.cargarDatos();
                     desafio.setUserUno(user);
                     desafio.setUserDos(a);

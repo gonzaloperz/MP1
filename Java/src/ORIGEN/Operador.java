@@ -1,7 +1,10 @@
 
 package ORIGEN;
 
+import Controladores.Pantalla;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -9,4 +12,23 @@ import java.io.Serializable;
  */
 
 public class Operador extends Usuario implements Serializable{
+    private List<Desafio> listadesafios;
+    public void insertardesafio(Desafio desafio){
+        this.listadesafios.add(desafio);
+    }
+    public void mostrardesafios(){
+        int i = 0;
+        for (Desafio d : this.listadesafios){
+            Pantalla.imprimir(i + (". ") + d.getUserUno().getNombre() + (" vs ") + d.getUserDos().getNombre());
+            i += 1;
+        }
+    }
+
+    public void validardesafio(int i){
+        Desafio desafio = this.listadesafios.get(i);
+        Usuario a = desafio.getUserDos();
+        Usuario b = desafio.getUserDos();
+        a.setDesafio(desafio);
+        b.setDesafio(desafio);
+    }
 }

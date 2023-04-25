@@ -35,7 +35,7 @@ public class Appcontroller{
                 //Comprobar si tiene desafios pendientes
                 // no se hacer el observer habra que ver que se hace
                 if (usu instanceof Operador){
-                    List<Usuario> modificados = usuarioController.menuOperador(usuarios,usu);
+                    List<Usuario> modificados = usuarioController.menuOperador(usuarios, (Operador) usu);
                     usuarios = modificados;
                     guardarDatos();
                 }
