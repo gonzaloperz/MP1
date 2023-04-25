@@ -1,9 +1,11 @@
 package Controladores;
 
 import ORIGEN.Desafio;
+import ORIGEN.Operador;
 import ORIGEN.Personaje;
 import ORIGEN.Usuario;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +13,7 @@ import java.util.Random;
 import java.time.LocalDate;
 
 public class DesafiosController {
-    private ArrayList<Desafio> listaDesafio;
+    private List<Desafio> listaDesafio = new ArrayList<Desafio>();
     public Desafio iniciarDesafio(Desafio desafio){
         Personaje jugador1 = desafio.getUserUno().getPersonaje();
         Personaje jugador2 = desafio.getUserDos().getPersonaje();
@@ -70,7 +72,7 @@ public class DesafiosController {
 
         return desafio;
     }
-    public void mostrarDesafios(){
+    public void mostrarDesafios() throws IOException, ClassNotFoundException {
         cargarDatos();
         List<Desafio> aux = listaDesafio;
         for (int i = 0; i<aux.size() ;i++) {
@@ -92,7 +94,8 @@ public class DesafiosController {
             Pantalla.imprimir("Oro ganado:" + desafio.getOroGanado());
         }
     }
-    public ArrayList<Desafio> historial(){
+
+    public List<Desafio> historial(){
         return  this.listaDesafio;
     }
     public void aceptarDesafio(Usuario u){
@@ -110,14 +113,67 @@ public class DesafiosController {
             }
         }
     }
-
-    public void cargarDatos(){
-
+    //cargamos la lista con los desafios y la guardamos en el controlador
+    public void cargarDatos() throws IOException, ClassNotFoundException {
+        this.listaDesafio = cargarDesafios();
+    }
+    public void cargarDatos(List<Desafio> listaDesafios) throws IOException, ClassNotFoundException {
+        guardarDesafios(listaDesafios);
+        this.listaDesafio=listaDesafios;
+    }
+    //creamos los desafios
+    private List<Desafio> cargarDesafios() throws IOException, ClassNotFoundException {
+        List<Desafio> lista = new ArrayList<Desafio>();
+        try {
+            File file = new File("listaDesafios.dat");
+            if (!file.exists()) {
+                file.createNewFile();
+                return lista;
+            }
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("listaDesafios.dat"));
+            Object aux = ois.readObject();
+            while (aux != null) {
+                if (aux instanceof Desafio)
+                    lista.add((Desafio) aux);
+                aux = ois.readObject();
+            }
+            ois.close();
+        } catch (EOFException e1) {
+            //Fin del fichero.
+        }
+        return lista;
+    }
+    //guardamos la lista de desafios en el fichero
+    public List<Desafio> guardarDatos() throws  IOException{
+        guardarDesafios(this.listaDesafio);
+        return listaDesafio;
+    }
+    //guardamos los datos de los desafios creados
+    public void guardarDesafios(List<Desafio>lista) throws IOException{
+        File file = new File("listaDesafios.dat");
+        if (file.exists()){
+            file.delete();
+            file.createNewFile();
+        }
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaDesafios.dat"));
+        for (int i = 0; i <lista.size(); i++) {
+            if (lista.get(i)==null)
+                continue;
+            Desafio desafio = lista.get(i);
+            oos.writeObject(desafio);
+        }
+        oos.close();
+    }
+    public void agregarDesafio(Desafio desafio) throws IOException, ClassNotFoundException {
+        cargarDatos(); //refresca cambios
+        this.listaDesafio.add(desafio); //añade nuevo desafío al fichero
+        guardarDatos();
     }
     public void validarDesafio(){
 
     }
     public Desafio rechazarDesafio(Desafio desafio){
+
         return desafio;
     }
     public void ganador(){

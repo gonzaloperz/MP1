@@ -4,6 +4,7 @@ import ORIGEN.Usuario;
 import  ORIGEN.Personaje;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
@@ -177,7 +178,7 @@ public class UsuarioController {
     public void verCombate(Usuario user){
 
     }
-    public boolean desafiar(Usuario user, List<Usuario> listaUsuarios) {
+    public boolean desafiar(Usuario user, List<Usuario> listaUsuarios) throws IOException, ClassNotFoundException {
         if (user.getDesafio() != null) {
 
         }
@@ -189,9 +190,18 @@ public class UsuarioController {
                 if (a.getDesafio() != null) {
                     Pantalla.imprimir("El usuario ya tiene un desafío");
                 } else {
+                    DesafiosController desafioController = new DesafiosController();
                     Desafio desafio = new Desafio(user, a);
                     a.setDesafio(desafio);
                     user.setDesafio(desafio);
+                    desafioController.cargarDatos();
+                    desafio.setUserUno(user);
+                    desafio.setUserDos(a);
+                    desafio.setFecha(LocalDate.now());
+                    desafioController.agregarDesafio(desafio);
+                    desafioController.guardarDatos();
+                    Pantalla.imprimir("Desafio guardado a espera de la confirmacion");
+
                 }
             }
         }

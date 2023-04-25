@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Desafio implements Serializable {
-    private final Usuario UserUno;
-    private final Usuario UserDos;
+    private  Usuario UserUno;
+    private  Usuario UserDos;
     private int oroApostado;
     private int oroGanado;
 
@@ -34,8 +34,16 @@ public class Desafio implements Serializable {
         return UserUno;
     }
 
+    public void setUserUno(Usuario userUno) {
+        UserUno = userUno;
+    }
+
     public Usuario getUserDos() {
         return UserDos;
+    }
+
+    public void setUserDos(Usuario userDos) {
+        UserDos = userDos;
     }
 
     public int getOroApostado() {
