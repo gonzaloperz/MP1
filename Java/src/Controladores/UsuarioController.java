@@ -118,7 +118,12 @@ public class UsuarioController {
                     for (Usuario a: listaUsuarios){
                         Pantalla.imprimir(a.getNombre());
                     }
+                    Pantalla.imprimir("Escribe...  cancelar  ... para Salir");
                     String nombre = Pantalla.pedircadena("Usuario a buscar");
+                    if (nombre.equals("cancelar")){
+                        Pantalla.imprimir("Saliendo...");
+                        break;
+                    }
                     Usuario u = seleccionarUsuario(listaUsuarios,nombre);
 
                     if (u.getPersonaje() == null){
