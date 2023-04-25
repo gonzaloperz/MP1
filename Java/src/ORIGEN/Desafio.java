@@ -27,7 +27,18 @@ public class Desafio implements Serializable {
     public Desafio(Usuario oponente1, Usuario oponente2){
         this.UserUno = oponente1;
         this.UserDos = oponente2;
-        this.setOroApostado(Pantalla.pedirenteros("Cantidad de oro a apostar:"));
+        Boolean aux=true;
+        while(aux){
+            int oroApostado = (Pantalla.pedirenteros("Cantidad de oro a apostar:"));
+            if (oponente1.getOro()>oroApostado){
+                this.setOroApostado(oroApostado);
+                aux=false;
+            }
+            else{
+                Pantalla.imprimir("El oro apostado es mayor al oro disponible, ingrese una cantidad menor");
+            }
+        }
+
     }
 
     public Usuario getUserUno() {

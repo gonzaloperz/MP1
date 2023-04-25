@@ -76,7 +76,11 @@ public class UsuarioController {
                     }
 
                 case 4://lanzar desafio
-                    desafiar(usuario, usuarios);
+                    if(usuario.getPersonaje()!=null) {
+                        desafiar(usuario, usuarios);
+                    }else{
+                        Pantalla.imprimir("No puedes desafiar, necesitas un personaje");
+                    }
                     break;
                 case 5://comprobar desafio
                     DesafiosController dcontroller = new DesafiosController();
@@ -191,36 +195,42 @@ public class UsuarioController {
     public void verCombate(Usuario user){
 
     }
-    public boolean desafiar(Usuario user, List<Usuario> listaUsuarios) throws IOException, ClassNotFoundException {
+    public void desafiar(Usuario user, List<Usuario> listaUsuarios) throws IOException, ClassNotFoundException {
         if (user.getDesafio() != null) {
 
         }
         boolean encontrado = false;
         String desafiado = Pantalla.pedircadena("Indica al usuario al que quieres desafiar");
+
         for (Usuario a : listaUsuarios) {
             if (a.getNombre().equals(desafiado)){
                 encontrado = true;
-                if (a.getDesafio() != null) {
-                    Pantalla.imprimir("El usuario ya tiene un desafío");
-                } else {
-                    DesafiosController desafioController = new DesafiosController();
-                    Desafio desafio = new Desafio(user, a);
+                if(a.getPersonaje()!=null){
+                    if (a.getDesafio() != null) {
+                        Pantalla.imprimir("El usuario ya tiene un desafío");
+                    } else {
+                        DesafiosController desafioController = new DesafiosController();
+                        Desafio desafio = new Desafio(user, a);
 
-                    desafioController.cargarDatos();
-                    desafio.setUserUno(user);
-                    desafio.setUserDos(a);
-                    desafio.setFecha(LocalDate.now());
-                    desafioController.agregarDesafio(desafio);
-                    desafioController.guardarDatos();
-                    Pantalla.imprimir("Desafio guardado a espera de la confirmacion");
-
+                        desafio.setUserUno(user);
+                        desafio.setUserDos(a);
+                        desafio.setFecha(LocalDate.now());
+                        desafioController.agregarDesafio(desafio);
+                        desafio.getOroApostado();
+                        desafioController.guardarDatos();
+                        Pantalla.imprimir("Desafio guardado a espera de la confirmacion");
+                    }
+                }
+                else{
+                    Pantalla.imprimir("No se puede desafiar al usuario "+ a.getNickname()+ "porque no tiene personajes");
+                    encontrado=false;
                 }
             }
         }
         if (!encontrado){
             Pantalla.imprimir("El usuario no existe");
         }
-        return false;
+
     }
     public void responderDesafio() {
 
