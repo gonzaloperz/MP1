@@ -147,7 +147,7 @@ public class UsuarioController {
                     break;
                 case 2:
                     DesafiosController dcontroller = new DesafiosController();
-                    dcontroller.validarDesafio();
+                    dcontroller.validarDesafio(listaUsuarios);
                     break;
                 case 3:
                     String banear = Pantalla.pedircadena("Nombre del Usuario a banear:");

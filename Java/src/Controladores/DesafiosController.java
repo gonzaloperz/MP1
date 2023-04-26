@@ -99,7 +99,7 @@ public class DesafiosController {
         return  this.listaDesafio;
     }
     public void aceptarDesafio(Usuario u){
-        for (Desafio desafio: listaDesafio) {
+        /*for (Desafio desafio: listaDesafio) {
             if (desafio.getUserUno().getDesafio() != null) {
                 int respuesta;
                 Pantalla.imprimir("Hay un nuevo desafio de " + desafio.getUserDos().getNickname());
@@ -113,6 +113,19 @@ public class DesafiosController {
                 } else if (respuesta == 1) {
                     Desafio d = this.iniciarDesafio(desafio);
                 }
+            }
+        }*/
+        if (u.getDesafio() != null){
+            Pantalla.imprimir("Hay un nuevo desafio de " + u.getDesafio().getUserDos().getNickname());
+            int respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? 0 = No ; 1 = Si");
+            if (respuesta == 0) {
+                Usuario u1 = u.getDesafio().getUserUno();
+                Usuario u2 = u.getDesafio().getUserDos();
+                u1.setDesafio(null);
+                u2.setDesafio(null);
+                return;
+            } else if (respuesta == 1) {
+                Desafio d = this.iniciarDesafio(u.getDesafio());
             }
         }
     }
@@ -172,15 +185,19 @@ public class DesafiosController {
         this.listaDesafio.add(desafio); //añade nuevo desafío al fichero
         guardarDatos();
     }
-    public void validarDesafio() throws IOException, ClassNotFoundException {
+    public void validarDesafio(List<Usuario> listausuario) throws IOException, ClassNotFoundException {
         List<Desafio> lista = cargarDesafios();
         int i = 0;
         for (Desafio d : lista){
             Pantalla.imprimir(i + (". ") + d.getUserUno().getNombre() + (" vs ") + d.getUserDos().getNombre());
             i += 1;
         }
-        int desafio = Pantalla.pedirenteros("Indique el desafio a validar");
-
+        int index = Pantalla.pedirenteros("Indique el desafio a validar");
+        Desafio desafio = lista.get(index);
+        Usuario u2 = desafio.getUserDos();
+        u2.setDesafio(desafio);
+        Appcontroller appc = new Appcontroller();
+        appc.guardarUsuarios(listausuario);
     }
     public Desafio rechazarDesafio(Desafio desafio){
 
