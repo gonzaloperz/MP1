@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 public class DesafiosController {
     private List<Desafio> listaDesafio = new ArrayList<Desafio>();
-    public Desafio iniciarDesafio(Desafio desafio){
+    public Desafio iniciarDesafio(Desafio desafio) throws IOException {
         Personaje jugador1 = desafio.getUserUno().getPersonaje();
         Personaje jugador2 = desafio.getUserDos().getPersonaje();
         int saludjugador1 = jugador1.getSalud();
@@ -69,7 +69,7 @@ public class DesafiosController {
         desafio.setFecha(LocalDate.now());
         desafio.setRondas(rondas);
         desafio.setOroGanado(desafio.getOroApostado());
-
+        guardardesafiocomp(listaDesafio, desafio);
         return desafio;
     }
     public void mostrarDesafios() throws IOException, ClassNotFoundException {
@@ -94,39 +94,38 @@ public class DesafiosController {
             Pantalla.imprimir("Oro ganado:" + desafio.getOroGanado());
         }
     }
-
+    public void guardardesafiocomp(List<Desafio>lista, Desafio desafio) throws IOException {
+        File file = new File("listaDesafiosCompletados.dat");
+        if (file.exists()){
+            file.delete();
+            file.createNewFile();
+        }
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaDesafiosCompletados.dat"));
+        for (int i = 0; i <lista.size(); i++) {
+            if (lista.get(i)==null)
+                continue;
+            Desafio des = lista.get(i);
+            oos.writeObject(des);
+        }
+        oos.close();
+    }
     public List<Desafio> historial(){
         return  this.listaDesafio;
     }
-    public void aceptarDesafio(Usuario u){
-        /*for (Desafio desafio: listaDesafio) {
-            if (desafio.getUserUno().getDesafio() != null) {
-                int respuesta;
-                Pantalla.imprimir("Hay un nuevo desafio de " + desafio.getUserDos().getNickname());
-                respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? 0 = No ; 1 = Si");
-                if (respuesta == 0) {
-                    Usuario u1 = desafio.getUserUno();
-                    Usuario u2 = desafio.getUserDos();
-                    u1.setDesafio(null);
-                    u2.setDesafio(null);
-                    return;
-                } else if (respuesta == 1) {
-                    Desafio d = this.iniciarDesafio(desafio);
-                }
-            }
-        }*/
+    public void aceptarDesafio(List<Usuario> listausuario, Usuario u) throws IOException {
         if (u.getDesafio() != null){
-            Pantalla.imprimir("Hay un nuevo desafio de " + u.getDesafio().getUserDos().getNickname());
+            Usuario u1 = u.getDesafio().getUserUno();
+            Usuario u2 = u.getDesafio().getUserDos();
+            Pantalla.imprimir("Hay un nuevo desafio de " + u.getDesafio().getUserUno().getNickname());
             int respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? 0 = No ; 1 = Si");
-            if (respuesta == 0) {
-                Usuario u1 = u.getDesafio().getUserUno();
-                Usuario u2 = u.getDesafio().getUserDos();
-                u1.setDesafio(null);
-                u2.setDesafio(null);
-                return;
-            } else if (respuesta == 1) {
+            if (respuesta == 1) {
                 Desafio d = this.iniciarDesafio(u.getDesafio());
             }
+            UsuarioController ucontroller = new UsuarioController();
+            Usuario usu1 = ucontroller.seleccionarUsuario(listausuario, u1.getNombre());
+            Usuario usu2 = ucontroller.seleccionarUsuario(listausuario, u2.getNombre());
+            usu1.setDesafio(null);
+            usu2.setDesafio(null);
         }
     }
     //cargamos la lista con los desafios y la guardamos en el controlador
@@ -194,10 +193,11 @@ public class DesafiosController {
         }
         int index = Pantalla.pedirenteros("Indique el desafio a validar");
         Desafio desafio = lista.get(index);
+        lista.remove(index);
         Usuario u2 = desafio.getUserDos();
-        u2.setDesafio(desafio);
-        Appcontroller appc = new Appcontroller();
-        appc.guardarUsuarios(listausuario);
+        UsuarioController ucontroller = new UsuarioController();
+        Usuario u = ucontroller.seleccionarUsuario(listausuario, u2.getNombre());
+        u.setDesafio(desafio);
     }
     public Desafio rechazarDesafio(Desafio desafio){
 

@@ -3,8 +3,9 @@ import ORIGEN.Desafio;
 import ORIGEN.Usuario;
 import  ORIGEN.Personaje;
 
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -74,7 +75,6 @@ public class UsuarioController {
                         case 3:
                             break;
                     }
-
                 case 4://lanzar desafio
                     if(usuario.getPersonaje()!=null) {
                         desafiar(usuario, usuarios);
@@ -83,9 +83,14 @@ public class UsuarioController {
                     }
                     break;
                 case 5://comprobar desafio
-                    DesafiosController dcontroller = new DesafiosController();
-                    dcontroller.cargarDatos();
-                    dcontroller.aceptarDesafio(usuario);
+                    if (usuario.getDesafio() != null){
+                        DesafiosController dcontroller = new DesafiosController();
+                        dcontroller.cargarDatos();
+                        dcontroller.aceptarDesafio(usuarios, usuario);
+                    }
+                    else{
+                        Pantalla.imprimir("No hay desafios pendientes");
+                    }
                     break;
                 case 6://ver combates anteriores
                     verCombate(usuario);
@@ -178,7 +183,7 @@ public class UsuarioController {
         return listaUsuarios;
     }
 
-    private Usuario seleccionarUsuario(List<Usuario> listaUsuarios, String nombre) {
+    public Usuario seleccionarUsuario(List<Usuario> listaUsuarios, String nombre) {
         int size = listaUsuarios.size();
         if (size == 0){
             Pantalla.imprimir("No hay Usuarios registrados");
@@ -193,7 +198,34 @@ public class UsuarioController {
         return null;
     }
     public void verCombate(Usuario user){
-
+        List<Desafio> lista = new ArrayList<Desafio>();
+        try {
+            File file = new File("listaDesafiosCompletados.dat");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("listaDesafiosCompletados.dat"));
+            Object aux = ois.readObject();
+            while (aux != null) {
+                if (aux instanceof Desafio)
+                    lista.add((Desafio) aux);
+                aux = ois.readObject();
+            }
+            ois.close();
+        } catch (EOFException e1) {
+            //Fin del fichero.
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        for(Desafio d : lista){
+            if (d.getUserUno().getNombre().equals(user.getNombre()) || d.getUserUno().getNombre().equals(user.getNombre())) {
+                Pantalla.imprimir(d.getUserUno().getNombre() + " vs " + d.getUserDos().getNombre() + ". Oro ganado: " + d.getOroGanado() + ". Fecha: " + d.getFecha() + " Rondas: " + d.getRondas() + ".");
+            }
+        }
     }
     public void desafiar(Usuario user, List<Usuario> listaUsuarios) throws IOException, ClassNotFoundException {
         if (user.getDesafio() != null) {
