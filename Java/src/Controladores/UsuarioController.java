@@ -75,6 +75,7 @@ public class UsuarioController {
                         case 3:
                             break;
                     }
+                    break;
                 case 4://lanzar desafio
                     if(usuario.getPersonaje()!=null) {
                         desafiar(usuario, usuarios);

@@ -147,24 +147,56 @@ public class PersonajeController {
                     armasAc.add(a);
             }personaje.setArmasActivas((ArrayList<Arma>) armasAc);
         }else{
-            List<Arma> equipadas = personaje.getArmasActivas();
             List<Arma> disponibles = personaje.getArmas();
             for (Arma a: disponibles){
-                Pantalla.imprimir(a.getNombre());
-                if (equipadas.size()> 1){
-                    if (a.getEmpuñadura()== 1){
-                        equipadas.add(a);
-                    }
-                    else{
-                        Pantalla.imprimir("Solo puedes llevar un arma de dos manos");
+                Pantalla.imprimir(a.getNombre());}
+            String nueva = Pantalla.pedircadena("Seleciona el nuevo arma");
+            if (armasAc.size()==1) {
+                if (armasAc.get(0).getEmpuñadura() == 1) {
+                    for (Arma b : disponibles) {
+                        if (b.getNombre().equals(nueva) && b.getEmpuñadura() == 1)
+                            armasAc.add(b);
+                        else {
+                            Pantalla.imprimir("Se sustituira el arma vieja por la nueva");
+                            armasAc.remove(0);
+                            armasAc.add(b);
+                        }
                     }
                 }
-            }personaje.setArmasActivas((ArrayList<Arma>) equipadas);
-        }
-
+            }
+            else if (armasAc.size()==2){
+                Pantalla.imprimir("Se cambiara la primera arma equipada por la nueva si la opcion es válida");
+                if (armasAc.get(0).getEmpuñadura() == 1) {
+                    for (Arma b : disponibles) {
+                        if (b.getNombre().equals(nueva) && b.getEmpuñadura() == 1) {
+                            armasAc.remove(0);
+                            armasAc.add(b);
+                        }
+                        else {
+                            Pantalla.imprimir("Se sustituira el arma vieja por la nueva");
+                            armasAc.remove(0);
+                            armasAc.remove(1);
+                            armasAc.add(b);
+                        }
+                    }
+                }
+            }
+        }personaje.setArmasActivas((ArrayList<Arma>) armasAc);
         return personaje;
     }
     public Personaje cambiarArmadura(Personaje personaje){
+         Armadura armaduraActiva = personaje.getArmaduraActiva();
+         Pantalla.imprimir("Armadura activa Actual: " + personaje.getArmaduraActiva().getNombre());
+
+         Pantalla.imprimir("Lista de armaduras disponibles");
+         for ( Armadura a : personaje.getArmadura()){
+             Pantalla.imprimir(a.getNombre());
+         }
+         String nueva = Pantalla.pedircadena("Selecciona la nueva armadura");
+         for (Armadura a: personaje.getArmadura()){
+             if (a.getNombre().equals(nueva))
+                 personaje.setArmaduraActiva(a);
+         }
         return personaje;
 
     }
