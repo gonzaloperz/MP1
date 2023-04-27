@@ -5,6 +5,7 @@ import ORIGEN.Personaje;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Cazador implements Personaje, Serializable {
@@ -203,12 +204,32 @@ public class Cazador implements Personaje, Serializable {
 
     @Override
     public int calcularAtaque() {
-        return 0;
+        List<Arma> armas = this.getArmasActivas();
+        Armadura armadura = this.getArmaduraActiva();
+        int ataquearmas = 0;
+        int ataquearmadura = 0;
+        if (armadura != null){
+            ataquearmadura = armadura.getModificadorAtc();
+        }
+        for (Arma arma : armas){
+            ataquearmas += arma.getModificadorAtc();
+        }
+        return this.poder + this.atqHab + ataquearmadura + ataquearmas + this.voluntad;
     }
 
     @Override
     public int calcularDefensa() {
-        return 0;
+        List<Arma> armas = this.getArmasActivas();
+        Armadura armadura = this.getArmaduraActiva();
+        int defensaarmas = 0;
+        int defensaarmadura = 0;
+        if (armadura != null){
+            defensaarmadura = armadura.getModificadorDef();
+        }
+        for (Arma arma : armas){
+            defensaarmas += arma.getModificadorDef();
+        }
+        return this.poder + this.atqHab + defensaarmadura + defensaarmas + this.voluntad;
     }
 
     @Override

@@ -19,15 +19,14 @@ public class LicantropoFactory extends PersonajeFactory{
     public Licantropo crearPersonaje() {
         Licantropo licantropo = new Licantropo();
         licantropo.setNombre(Pantalla.pedircadena("Elige nombre"));
-        licantropo.setHabilidad(Pantalla.pedircadena("Elige nombre habilidad"));
+        licantropo.setHabilidad(Pantalla.pedircadena("Elige nombre de don"));
         licantropo.setAtqHab(Pantalla.pedirenteros("Valor ataque"));
         licantropo.setDefHab(Pantalla.pedirenteros("Valor defensa"));
         licantropo.setCosteHabilidad(Pantalla.pedirenteros("Valor coste"));
         licantropo.setPoder(Pantalla.pedirenteros("Poder"));
         licantropo.setOro(500);
         licantropo.setSalud(5);
-
-        licantropo.setRabia(Pantalla.pedirenteros("rabia inicial"));
+        licantropo.setRabia(0);
         Pantalla.imprimir("personaje creado");
 
 

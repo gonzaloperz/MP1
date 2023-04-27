@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 public class DesafiosController {
     private List<Desafio> listaDesafio = new ArrayList<Desafio>();
-    public Desafio iniciarDesafio(Desafio desafio) throws IOException {
+    public Desafio iniciarDesafio(Desafio desafio, List<Usuario> listausuarios) throws IOException {
         Personaje jugador1 = desafio.getUserUno().getPersonaje();
         Personaje jugador2 = desafio.getUserDos().getPersonaje();
         int saludjugador1 = jugador1.getSalud();
@@ -20,20 +20,25 @@ public class DesafiosController {
         int saludEsbirrosDef = jugador2.saludEsbirros();
         int rondas=0;
         Pantalla.imprimir("El combate va a empezar...");
-        while (saludjugador1 > 0 && saludjugador2 > 0){
+        while (saludjugador1 > 0 && saludjugador2 > 0) {
             Pantalla.imprimir("Turno " + jugador1.getNombre());
             int ataqueJugador1 = jugador1.calcularAtaque();
             ataqueJugador1 = potencialAtaque(ataqueJugador1);
             int defensaJugador2 = jugador2.calcularDefensa();
             defensaJugador2 = potencialDefensa(defensaJugador2);
-            if (ataqueJugador1 >= defensaJugador2){
-                if (saludEsbirrosDef > 0){
-                    if (jugador1.getClass() == Vampiro.class){
-                        ((Vampiro) jugador1).setPuntosSangre(((Vampiro) jugador1).getPuntosSangre() + 4);
-                    }
-                    saludEsbirrosDef --;
+            if (ataqueJugador1 >= defensaJugador2) {
+                if (jugador1.getClass() == Vampiro.class) {
+                    ((Vampiro) jugador1).setPuntosSangre(((Vampiro) jugador1).getPuntosSangre() + 4);
                 }
-                else {
+                if (saludEsbirrosDef > 0) {
+                    saludEsbirrosDef--;
+                } else {
+                    if (jugador2.getClass() == Licantropo.class && ((Licantropo) jugador2).getRabia() < 3) {
+                        ((Licantropo) jugador2).setRabia(((Licantropo) jugador2).getRabia() + 1);
+                    }
+                    if (jugador2.getClass() == Cazador.class && ((Cazador) jugador2).getVoluntad() > 0) {
+                        ((Cazador) jugador2).setVoluntad(((Cazador) jugador2).getVoluntad() - 1);
+                    }
                     saludjugador2--;
                 }
             }
@@ -42,19 +47,24 @@ public class DesafiosController {
             ataqueJugador2 = potencialAtaque(ataqueJugador2);
             int defensaJugador1 = jugador2.calcularDefensa();
             defensaJugador1 = potencialDefensa(defensaJugador1);
-            if (ataqueJugador2 >= defensaJugador1){
-                if (jugador2.getClass() == Vampiro.class){
+            if (ataqueJugador2 >= defensaJugador1) {
+                if (jugador2.getClass() == Vampiro.class) {
                     ((Vampiro) jugador2).setPuntosSangre(((Vampiro) jugador2).getPuntosSangre() + 4);
                 }
-                if (saludEsbirrosAtq > 0){
-                    saludEsbirrosAtq --;
+                if (saludEsbirrosAtq > 0) {
+                    saludEsbirrosAtq--;
                 }
-                else {
-                    saludjugador1--;
+            } else {
+                if (jugador1.getClass() == Licantropo.class && ((Licantropo) jugador1).getRabia() < 3) {
+                    ((Licantropo) jugador1).setRabia(((Licantropo) jugador1).getRabia() + 1);
                 }
+                if (jugador1.getClass() == Cazador.class && ((Cazador) jugador1).getVoluntad() > 0) {
+                    ((Cazador) jugador1).setVoluntad(((Cazador) jugador1).getVoluntad() - 1);
+                }
+                saludjugador1--;
             }
-            Pantalla.imprimir("Fin ronda " + rondas + ". Vida " + jugador1.getNombre() + ": " + saludjugador1 + ". Vida " + jugador1.getNombre() + ": " + saludjugador2 + ".");
-            rondas ++;
+            Pantalla.imprimir("Fin ronda " + rondas + ". Vida " + jugador1.getNombre() + ": " + saludjugador1 + ". Vida " + jugador2.getNombre() + ": " + saludjugador2 + ".");
+            rondas++;
         }
         desafio.getUserUno().setPersonaje(jugador1);
         desafio.getUserDos().setPersonaje(jugador2);
@@ -71,9 +81,23 @@ public class DesafiosController {
             Pantalla.imprimir("Jugador 1 ganador");
             jugador1.setOro(jugador1.getOro() + desafio.getOroApostado());
             desafio.getUserUno().getPersonaje().setOro(desafio.getUserUno().getPersonaje().getOro() + desafio.getOroApostado());
-
             jugador2.setOro(jugador2.getOro() - desafio.getOroApostado());
             desafio.getUserDos().getPersonaje().setOro(desafio.getUserDos().getPersonaje().getOro() - desafio.getOroApostado());
+        }
+        UsuarioController usuarioController = new UsuarioController();
+        Usuario usuario1 = usuarioController.seleccionarUsuario(listausuarios, jugador1.getNombre());
+        Usuario usuario2 = usuarioController.seleccionarUsuario(listausuarios, jugador2.getNombre());
+        if (usuario1.getPersonaje().getClass() == Licantropo.class){
+            ((Licantropo)usuario1.getPersonaje()).setRabia(0);
+        }
+        if (usuario1.getPersonaje().getClass() == Cazador.class){
+            ((Cazador)usuario1.getPersonaje()).setVoluntad(3);
+        }
+        if (usuario2.getPersonaje().getClass() == Licantropo.class){
+            ((Licantropo)usuario2.getPersonaje()).setRabia(0);
+        }
+        if (usuario2.getPersonaje().getClass() == Cazador.class){
+            ((Cazador)usuario2.getPersonaje()).setVoluntad(3);
         }
         desafio.getUserDos().setPersonaje(jugador2);
         desafio.getUserUno().setPersonaje(jugador1);
@@ -126,15 +150,22 @@ public class DesafiosController {
     }
     public void aceptarDesafio(List<Usuario> listausuario, Usuario u) throws IOException {
         if (u.getDesafio() != null){
+            UsuarioController ucontroller = new UsuarioController();
             Usuario u1 = u.getDesafio().getUserUno();
             Usuario u2 = u.getDesafio().getUserDos();
-            Pantalla.imprimir("Hay un nuevo desafio de " + u.getDesafio().getUserUno().getNickname());
-            int respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? 0 = No ; 1 = Si");
+            Pantalla.imprimir("Hay un nuevo desafio de " + u.getDesafio().getUserUno().getNickname() + " con una apuesta de " + u.getDesafio().getOroApostado() + " de oro.");
+            int respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? Si no lo acepta, deberá pagar el 10% de la apuesta. 0 = No ; 1 = Si");
             if (respuesta == 1) {
-                Desafio d = this.iniciarDesafio(u.getDesafio());
+                Desafio d = this.iniciarDesafio(u.getDesafio(), listausuario);
                 this.pagarGanador(d, listausuario);
             }
-            UsuarioController ucontroller = new UsuarioController();
+            else{
+                Usuario usuario = ucontroller.seleccionarUsuario(listausuario, u2.getNombre());
+                usuario.getPersonaje().setOro((int) Math.ceil((usuario.getPersonaje().getOro() - u.getDesafio().getOroApostado() * 0.10)));
+                usuario = ucontroller.seleccionarUsuario(listausuario, u1.getNombre());
+                usuario.getPersonaje().setOro((int) Math.ceil((usuario.getPersonaje().getOro() + u.getDesafio().getOroApostado() * 0.10)));
+            }
+
             Usuario usu1 = ucontroller.seleccionarUsuario(listausuario, u1.getNombre());
             Usuario usu2 = ucontroller.seleccionarUsuario(listausuario, u2.getNombre());
             usu1.setDesafio(null);

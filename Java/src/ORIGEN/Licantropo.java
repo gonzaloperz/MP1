@@ -4,6 +4,7 @@ import Controladores.Pantalla;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Licantropo implements Personaje, Serializable {
 
@@ -203,12 +204,40 @@ public class Licantropo implements Personaje, Serializable {
 
     @Override
     public int calcularAtaque() {
-        return 0;
+        List<Arma> armas = this.getArmasActivas();
+        Armadura armadura = this.getArmaduraActiva();
+        int ataquearmas = 0;
+        int ataquedon = 0;
+        int ataquearmadura = 0;
+        if (armadura != null){
+            ataquearmadura = armadura.getModificadorAtc();
+        }
+        for (Arma arma : armas){
+            ataquearmas += arma.getModificadorAtc();
+        }
+        if (this.getRabia() >= this.costeHabilidad){
+            ataquedon = this.atqHab;
+        }
+        return this.poder + ataquearmadura + ataquedon + ataquearmas;
     }
 
     @Override
     public int calcularDefensa() {
-        return 0;
+        List<Arma> armas = this.getArmasActivas();
+        Armadura armadura = this.getArmaduraActiva();
+        int defensaarmas = 0;
+        int defensadon = 0;
+        int defensaarmadura = 0;
+        if (armadura != null){
+            defensaarmadura = armadura.getModificadorDef();
+        }
+        for (Arma arma : armas){
+            defensaarmas += arma.getModificadorDef();
+        }
+        if (this.getRabia() >= this.costeHabilidad){
+            defensadon = this.defHab;
+        }
+        return this.poder + defensaarmadura + defensadon + defensaarmas;
     }
 
     @Override

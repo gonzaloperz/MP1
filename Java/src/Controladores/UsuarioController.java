@@ -6,7 +6,6 @@ import  ORIGEN.Personaje;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.lang.Object;
 
@@ -20,93 +19,83 @@ public class UsuarioController {
 
     public Usuario menuUsuario(Usuario usuario, List<Usuario> usuarios) throws IOException, ClassNotFoundException {
         boolean salir = false;
-        while (!salir){
+        if (usuario.getDesafio() != null){
+            DesafiosController dcontroller = new DesafiosController();
+            dcontroller.cargarDatos();
+            dcontroller.aceptarDesafio(usuarios, usuario);
+        }
+
+        while (!salir) {
             Pantalla.imprimir(" ------MENU USUARIO------");
             Pantalla.imprimir("  1.Crear personaje");
             Pantalla.imprimir("  2.Eliminar personaje");
             Pantalla.imprimir("  3.Cambiar equipo activo");
             Pantalla.imprimir("  4.Lanzar desafio");
-            Pantalla.imprimir("  5.Comprobar desafío pendiente");
-            Pantalla.imprimir("  6.Resultados combates anteriores");
-            Pantalla.imprimir("  7.Ver Ranking global");
-            Pantalla.imprimir("  8.Darse de baja");
-            Pantalla.imprimir("  9.Cerrar sesion");
-
+            Pantalla.imprimir("  5.Resultados combates anteriores");
+            Pantalla.imprimir("  6.Ver Ranking global");
+            Pantalla.imprimir("  7.Darse de baja");
+            Pantalla.imprimir("  8.Cerrar sesion");
             int option = Pantalla.pedirenteros("Opcion");
-
-            switch (option){
+            switch (option) {
                 case 1://crear personaje
-                    Personaje  personaje = usuario.getPersonaje();
-                    if (personaje == null){
+                    Personaje personaje = usuario.getPersonaje();
+                    if (personaje == null) {
                         PersonajeController controller = new PersonajeController();
                         controller.registrarPersonaje(usuario);
-                    }
-                    else {
+                    } else {
                         Pantalla.imprimir("Ya tiene un personaje creado");
                         break;
                     }
                     break;
-
                 case 2://dar de baja personaje
                     usuario.setPersonaje(null);
                     Pantalla.imprimir("Personaje eliminado con exito");
                     break;
                 case 3:// cambiar equipo activo
                     personaje = usuario.getPersonaje();
-                    if (personaje == null){
+                    if (personaje == null) {
                         Pantalla.imprimir("No tienes personaje creado");
-                        break;
+                    break;
                     }
                     Pantalla.imprimir("1.Cambiar arma activa");
                     Pantalla.imprimir("2.Cambiar armadura activa");
                     Pantalla.imprimir("3.Cancelar");
                     int option1 = Pantalla.pedirenteros("opcion");
-                    switch (option1){
+                    switch (option1) {
                         case 1:
-                                PersonajeController contoller = new PersonajeController();
-                                personaje = contoller.cambiarArma(personaje);
-                                usuario.setPersonaje(personaje);
+                            PersonajeController contoller = new PersonajeController();
+                            personaje = contoller.cambiarArma(personaje);
+                            usuario.setPersonaje(personaje);
                             break;
-
                         case 2:
-                                PersonajeController controller = new PersonajeController();
-                                personaje = controller.cambiarArmadura(personaje);
-                                usuario.setPersonaje(personaje);
+                            PersonajeController controller = new PersonajeController();
+                            personaje = controller.cambiarArmadura(personaje);
+                            usuario.setPersonaje(personaje);
                             break;
                         case 3:
                             break;
-                    }
+                        }
                     break;
                 case 4://lanzar desafio
-                    if(usuario.getPersonaje()!=null) {
+                    if (usuario.getPersonaje() != null) {
                         desafiar(usuario, usuarios);
-                    }else{
+                    } else {
                         Pantalla.imprimir("No puedes desafiar, necesitas un personaje");
                     }
                     break;
-                case 5://comprobar desafio
-                    if (usuario.getDesafio() != null){
-                        DesafiosController dcontroller = new DesafiosController();
-                        dcontroller.cargarDatos();
-                        dcontroller.aceptarDesafio(usuarios, usuario);
-                    }
-                    else{
-                        Pantalla.imprimir("No hay desafios pendientes");
-                    }
-                    break;
-                case 6://ver combates anteriores
+                case 5://ver combates anteriores
                     verCombate(usuario);
                     break;
-                case 7://Ver ranking
+                case 6://Ver ranking
                     verRanking();
                     break;
-                case 8://Dar de baja usuario
+                case 7://Dar de baja usuario
                     usuario = null;
                     Pantalla.imprimir("Se elimino el usuario");
                     salir = true;
                     break;
-                case 9://cerrar sesion
-                    salir= true;
+                case 8://cerrar sesion
+                    salir = true;
                     break;
             }
         }
@@ -268,10 +257,6 @@ public class UsuarioController {
         if (!encontrado){
             Pantalla.imprimir("El usuario no existe");
         }
-
-    }
-    public void responderDesafio() {
-
     }
 }
 
