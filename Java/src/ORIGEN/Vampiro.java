@@ -30,8 +30,6 @@ public class Vampiro implements Personaje, Serializable {
         return puntosSangre;
     }
 
-
-
     @Override
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -158,7 +156,9 @@ public class Vampiro implements Personaje, Serializable {
     public void setHabilidad(String Disciplina) {
         this.disciplina = Disciplina;
     }
-    public String getHabilidad(){return this.disciplina;}
+    public String getHabilidad(){
+        return this.disciplina;
+    }
 
     @Override
     public void setAtqHab(int ataque) {
@@ -178,7 +178,7 @@ public class Vampiro implements Personaje, Serializable {
 
     @Override
     public void usarHabilidad() {
-        Pantalla.imprimir(" se uso la disciplina: "+  getHabilidad()+ ".");
+        Pantalla.imprimir(" se uso la disciplina: " +  getHabilidad() + ".");
         this.puntosSangre -= costeDisciplina;
 
     }
@@ -216,10 +216,14 @@ public class Vampiro implements Personaje, Serializable {
     @Override
     public int calcularAtaque() {
         List<Arma> armas = this.getArmasActivas();
-        List<Armadura> armaduras = (List<Armadura>) this.getArmaduraActiva();
+        Armadura armadura = this.getArmaduraActiva();
         int ataquearmas = 0;
         int ataquesangre = 0;
         int ataquedisciplina = 0;
+        int ataquearmadura = 0;
+        if (armadura != null){
+            ataquearmadura = armadura.getModificadorAtc();
+        }
         for (Arma arma : armas){
             ataquearmas += arma.getModificadorAtc();
         }
@@ -229,53 +233,65 @@ public class Vampiro implements Personaje, Serializable {
         if (this.costeDisciplina < this.puntosSangre){
             ataquedisciplina = this.atqHab;
         }
-        return this.poder + ataquedisciplina + ataquearmas + ataquesangre;
+        return this.poder + ataquearmadura + ataquedisciplina + ataquearmas + ataquesangre;
     }
 
     @Override
     public int calcularDefensa() {
         List<Arma> armas = this.getArmasActivas();
-        List<Armadura> armaduras = (List<Armadura>) this.getArmaduraActiva();
+        Armadura armadura = this.getArmaduraActiva();
         int defensaarmadura = 0;
         int defensasangre = 0;
-        int ataquedisciplina = 0;
-        for (Armadura armadura : armaduras){
+        int defensadisciplina = 0;
+        int defensaarmas = 0;
+        for (Arma arma : armas){
+            defensaarmas += arma.getModificadorDef();
+        }
+        if (armadura != null){
             defensaarmadura += armadura.getModificadorDef();
         }
         if (this.puntosSangre >= 5){
             defensasangre = 2;
         }
         if (this.costeDisciplina < this.puntosSangre){
-            ataquedisciplina = this.atqHab;
+            defensadisciplina = this.defHab;
         }
-        return  + ataquedisciplina + defensaarmadura + defensasangre;
+        return  this.poder + defensadisciplina + defensaarmadura + defensasangre + defensaarmas;
     }
 
     @Override
     public int saludEsbirros() {
-        return 0;
+        if (this.esbirros != null) {
+            int vidaEsbirros = 0;
+            for (Esbirro esbirro : this.esbirros) {
+                vidaEsbirros += esbirro.getSalud();
+            }
+            return vidaEsbirros;
+        }
+        else {
+            return 0;
+        }
     }
 
     @Override
     public void modificarDatos(){
         Pantalla.imprimir("Si no quieres cambiar un valor, escribe el mismo.");
-        Pantalla.imprimir("Nombre: "+this.nombre);
+        Pantalla.imprimir("Nombre: " + this.nombre);
         setNombre(Pantalla.pedircadena("Nuevo nombre: "));
-        Pantalla.imprimir("Nombre habilidad: "+this.disciplina);
+        Pantalla.imprimir("Nombre habilidad: " + this.disciplina);
         setHabilidad(Pantalla.pedircadena("Nuevo nomHabilidad: "));
-        Pantalla.imprimir("Ataque habilidad: "+Integer.toString(this.atqHab));
+        Pantalla.imprimir("Ataque habilidad: " + Integer.toString(this.atqHab));
         setAtqHab(Pantalla.pedirenteros("Nuevo valor: "));
-        Pantalla.imprimir("Defensa habilidad: "+Integer.toString(this.defHab));
+        Pantalla.imprimir("Defensa habilidad: " + Integer.toString(this.defHab));
         setDefHab(Pantalla.pedirenteros("Nuevo valor: "));
-        Pantalla.imprimir("Coste habilidad: "+this.costeDisciplina);
+        Pantalla.imprimir("Coste habilidad: " + this.costeDisciplina);
         setCosteHabilidad(Pantalla.pedirenteros("Nuevo valor: "));
-        Pantalla.imprimir("Poder: "+this.poder);
+        Pantalla.imprimir("Poder: " + this.poder);
         setPoder(Pantalla.pedirenteros("Nuevo valor: "));
-        Pantalla.imprimir("Oro actual: "+this.oro);
+        Pantalla.imprimir("Oro actual: " + this.oro);
         setOro(Pantalla.pedirenteros("Nuevo valor: "));
-        Pantalla.imprimir("Salud del personaje: "+this.salud);
+        Pantalla.imprimir("Salud del personaje: " + this.salud);
         setSalud(Pantalla.pedirenteros("Nuevo valor: "));
-
         Pantalla.imprimir("Edad: " + this.edad);
         setEdad(Pantalla.pedirenteros("Nuevo valor: "));
         Pantalla.imprimir("Puntos de sangre: " + this.puntosSangre);
@@ -288,7 +304,7 @@ public class Vampiro implements Personaje, Serializable {
         Pantalla.imprimir("2. Añadir demonio");
         Pantalla.imprimir("Otro. Cancelar");
         int o = Pantalla.pedirenteros("Elije una opción:");
-        if (o==1){
+        if (o == 1){
             String esbirroNombre = Pantalla.pedircadena("Nombre del esbirro: ");
             int esbirroSalud = Pantalla.pedirenteros("Salud del esbirro: ");
             String esbirroDependencia = Pantalla.pedircadena("Descripcion de su dependencia: ");
@@ -296,13 +312,13 @@ public class Vampiro implements Personaje, Serializable {
             Ghoul ghoul = new Ghoul(esbirroNombre,esbirroSalud,valorDependencia,esbirroDependencia);
             return ghoul;
         }
-        else if(o==2){
+        else if(o == 2){
             String esbirroNombre = Pantalla.pedircadena("Nombre del esbirro: ");
             int esbirroSalud = Pantalla.pedirenteros("Salud del esbirro: ");
             int e = Pantalla.pedirenteros("Si tiene otros esbirros pulse 1. ");
             Demonio demonio;
             List<Esbirro> subLista = new ArrayList<Esbirro>();
-            while (e==1){
+            while (e == 1){
                 subLista.add(crearEsbirros());
                 e = Pantalla.pedirenteros("Si tiene otros esbirros este esbirro pulse 1. ");
             }

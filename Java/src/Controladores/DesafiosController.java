@@ -16,12 +16,12 @@ public class DesafiosController {
         Personaje jugador2 = desafio.getUserDos().getPersonaje();
         int saludjugador1 = jugador1.getSalud();
         int saludjugador2 = jugador2.getSalud();
-        int saludEsbirrosAtq= jugador1.saludEsbirros();
+        int saludEsbirrosAtq = jugador1.saludEsbirros();
         int saludEsbirrosDef = jugador2.saludEsbirros();
         int rondas=0;
         Pantalla.imprimir("El combate va a empezar...");
         while (saludjugador1 > 0 && saludjugador2 > 0){
-            Pantalla.imprimir("Turno jugador 1");
+            Pantalla.imprimir("Turno " + jugador1.getNombre());
             int ataqueJugador1 = jugador1.calcularAtaque();
             ataqueJugador1 = potencialAtaque(ataqueJugador1);
             int defensaJugador2 = jugador2.calcularDefensa();
@@ -37,9 +37,9 @@ public class DesafiosController {
                     saludjugador2--;
                 }
             }
-            Pantalla.imprimir("Turno jugador 2");
+            Pantalla.imprimir("Turno " + jugador2.getNombre());
             int ataqueJugador2 = jugador2.calcularAtaque();
-            ataqueJugador2 = potencialAtaque(ataqueJugador1);
+            ataqueJugador2 = potencialAtaque(ataqueJugador2);
             int defensaJugador1 = jugador2.calcularDefensa();
             defensaJugador1 = potencialDefensa(defensaJugador1);
             if (ataqueJugador2 >= defensaJugador1){
@@ -53,7 +53,7 @@ public class DesafiosController {
                     saludjugador1--;
                 }
             }
-            Pantalla.imprimir("Fin ronda "+rondas);
+            Pantalla.imprimir("Fin ronda " + rondas + ". Vida " + jugador1.getNombre() + ": " + saludjugador1 + ". Vida " + jugador1.getNombre() + ": " + saludjugador2 + ".");
             rondas ++;
         }
         desafio.getUserUno().setPersonaje(jugador1);
@@ -185,7 +185,7 @@ public class DesafiosController {
         }
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaDesafios.dat"));
         for (int i = 0; i <lista.size(); i++) {
-            if (lista.get(i)==null)
+            if (lista.get(i) == null)
                 continue;
             Desafio desafio = lista.get(i);
             oos.writeObject(desafio);
@@ -229,11 +229,11 @@ public class DesafiosController {
     public void pagarGanador(Desafio d, List<Usuario> listausuarios){
         String usuario = new String();
         String usuario2 = new String();
-        if (d.getGanador()==1){
+        if (d.getGanador() == 1){
             usuario = d.getUserUno().getNombre();
             usuario2 = d.getUserDos().getNombre();
         }
-        if (d.getGanador()==2) {
+        if (d.getGanador() == 2) {
             usuario = d.getUserDos().getNombre();
             usuario2 = d.getUserUno().getNombre();
         }
@@ -244,21 +244,25 @@ public class DesafiosController {
         usu2.getPersonaje().setOro(usu2.getPersonaje().getOro() - d.getOroApostado());
     }
     public int potencialAtaque(int ataque) {
-        int exito=0;
-        Random random= new Random();
-        int rango = random.nextInt(7);
-        if (rango==5||rango==6){
-            exito++;
+        int exito = 0;
+        for (int i = 1; i <= ataque; i++) {
+            Random random = new Random();
+            int rango = random.nextInt(7);
+            if (rango == 5 || rango == 6) {
+                exito++;
+            }
         }
         return exito;
     }
 
     public int potencialDefensa(int defensa) {
-        int exito=0;
-        Random random= new Random();
-        int rango = random.nextInt(7);
-        if (rango==5||rango==6){
-            exito++;
+        int exito = 0;
+        for (int i = 1; i <= defensa; i++) {
+            Random random = new Random();
+            int rango = random.nextInt(7);
+            if (rango == 5 || rango == 6) {
+                exito++;
+            }
         }
         return exito;
     }
