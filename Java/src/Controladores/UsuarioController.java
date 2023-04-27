@@ -21,16 +21,16 @@ public class UsuarioController {
     public Usuario menuUsuario(Usuario usuario, List<Usuario> usuarios) throws IOException, ClassNotFoundException {
         boolean salir = false;
         while (!salir){
-            System.out.println(" ------MENU USUARIO------");
-            System.out.println("  1.Crear personaje");
-            System.out.println("  2.Eliminar personaje");
-            System.out.println("  3.Cambiar equipo activo");
-            System.out.println("  4.Lanzar desafio");
-            System.out.println("  5.Comprobar desafío pendiente");
-            System.out.println("  6.Resultados combates anteriores");
-            System.out.println("  7.Ver Ranking global");
-            System.out.println("  8.Darse de baja");
-            System.out.println("  9.Cerrar sesion");
+            Pantalla.imprimir(" ------MENU USUARIO------");
+            Pantalla.imprimir("  1.Crear personaje");
+            Pantalla.imprimir("  2.Eliminar personaje");
+            Pantalla.imprimir("  3.Cambiar equipo activo");
+            Pantalla.imprimir("  4.Lanzar desafio");
+            Pantalla.imprimir("  5.Comprobar desafío pendiente");
+            Pantalla.imprimir("  6.Resultados combates anteriores");
+            Pantalla.imprimir("  7.Ver Ranking global");
+            Pantalla.imprimir("  8.Darse de baja");
+            Pantalla.imprimir("  9.Cerrar sesion");
 
             int option = Pantalla.pedirenteros("Opcion");
 
@@ -42,24 +42,24 @@ public class UsuarioController {
                         controller.registrarPersonaje(usuario);
                     }
                     else {
-                        System.out.println("Ya tiene un personaje creado");
+                        Pantalla.imprimir("Ya tiene un personaje creado");
                         break;
                     }
                     break;
 
                 case 2://dar de baja personaje
                     usuario.setPersonaje(null);
-                    System.out.println("Personaje eliminado con exito");
+                    Pantalla.imprimir("Personaje eliminado con exito");
                     break;
                 case 3:// cambiar equipo activo
                     personaje = usuario.getPersonaje();
                     if (personaje == null){
-                        System.out.println("No tienes personaje creado");
+                        Pantalla.imprimir("No tienes personaje creado");
                         break;
                     }
-                    System.out.println("1.Cambiar arma activa");
-                    System.out.println("2.Cambiar armadura activa");
-                    System.out.println("3.Cancelar");
+                    Pantalla.imprimir("1.Cambiar arma activa");
+                    Pantalla.imprimir("2.Cambiar armadura activa");
+                    Pantalla.imprimir("3.Cancelar");
                     int option1 = Pantalla.pedirenteros("opcion");
                     switch (option1){
                         case 1:
@@ -119,14 +119,14 @@ public class UsuarioController {
     public List<Usuario> menuOperador(List<Usuario> listaUsuarios, ORIGEN.Operador usu) throws IOException, ClassNotFoundException {
         boolean salir = false;
         while (!salir){
-            System.out.println(" ------MENU OPERADOR------");
-            System.out.println(" 1.Modificar personaje");
-            System.out.println(" 2.Validar desafio");
-            System.out.println(" 3.Banear Usuario");
-            System.out.println(" 4.Desbanear Ususario");
-            System.out.println(" 5.Resultados combate");
-            System.out.println(" 6.Darse de baja");
-            System.out.println(" 7.Cerrar sesion");
+            Pantalla.imprimir(" ------MENU OPERADOR------");
+            Pantalla.imprimir(" 1.Modificar personaje");
+            Pantalla.imprimir(" 2.Validar desafio");
+            Pantalla.imprimir(" 3.Banear Usuario");
+            Pantalla.imprimir(" 4.Desbanear Ususario");
+            Pantalla.imprimir(" 5.Resultados combate");
+            Pantalla.imprimir(" 6.Darse de baja");
+            Pantalla.imprimir(" 7.Cerrar sesion");
 
             int o = Pantalla.pedirenteros("Elegir opcion");
 
@@ -227,6 +227,9 @@ public class UsuarioController {
             if (d.getUserUno().getNombre().compareTo(user.getNombre()) == 1 || d.getUserDos().getNombre().compareTo(user.getNombre()) == 1) {
                 Pantalla.imprimir(d.getUserUno().getNombre() + " vs " + d.getUserDos().getNombre() + ". Oro ganado: " + d.getOroGanado() + ". Fecha: " + d.getFecha() + " Rondas: " + d.getRondas() + ".");
             }
+        }
+        if (lista.isEmpty()){
+            Pantalla.imprimir("No hay combates anteriormente realizados");
         }
     }
     public void desafiar(Usuario user, List<Usuario> listaUsuarios) throws IOException, ClassNotFoundException {

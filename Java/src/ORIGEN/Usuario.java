@@ -16,7 +16,6 @@ public class Usuario implements Serializable {
     private String contrasena;
     private Desafio desafio;
     private Personaje personaje;
-    private  int oro;
     private boolean baneado;
 
     public String getNombre() {
@@ -42,19 +41,9 @@ public class Usuario implements Serializable {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-
-    public int getOro() {
-        return oro;
-    }
-
-    public void setOro(int oro) {
-        this.oro = oro;
-    }
-
     public boolean isBaneado() {
         return baneado;
     }
-
     public void setBaneado(boolean baneado) {
         this.baneado = baneado;
     }

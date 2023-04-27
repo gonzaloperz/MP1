@@ -27,7 +27,7 @@ public class CazadorFactory extends PersonajeFactory{
         cazador.setOro(500);
         cazador.setSalud(5);
         cazador.setVoluntad(3);
-        System.out.println("personaje creado");
+        Pantalla.imprimir("personaje creado");
 
 
         armas.add(armaDefault());//armas

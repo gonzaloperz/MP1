@@ -27,9 +27,9 @@ public class Appcontroller{
                 encontrado = true;
                 UsuarioController usuarioController = new UsuarioController();
                 if(usu.isBaneado()){//COmprobar si esta baneado el personaje
-                    System.out.println("Jugador baneado");
-                    System.out.println("No puede iniciar Sesión");
-                    System.out.println("Contacte Operador");
+                    Pantalla.imprimir("Jugador baneado");
+                    Pantalla.imprimir("No puede iniciar Sesión");
+                    Pantalla.imprimir("Contacte Operador");
                     start();
                 }
                 //Comprobar si tiene desafios pendientes
@@ -48,8 +48,8 @@ public class Appcontroller{
                 break;
             }
         } if (!encontrado){
-            System.out.println("No existe el usuario...");
-            System.out.println(("Regresando al menu"));
+            Pantalla.imprimir("No existe el usuario...");
+            Pantalla.imprimir(("Regresando al menu"));
         }
     }
 
@@ -62,13 +62,13 @@ public class Appcontroller{
         usu.setBaneado(false);
 
         if (usu.getNickname().equals("") || usu.getContrasena().equals("") || usu.getNombre().equals("")){
-            System.out.println("Rellena todos los campos");
+            Pantalla.imprimir("Rellena todos los campos");
             return;
         }
         boolean UsuarioExistente = false;
         if (usuarios.isEmpty()){
             usuarios.add(usu);
-            System.out.println("Usuario Registrado");
+            Pantalla.imprimir("Usuario Registrado");
             return;
         }
         for (Usuario aux :usuarios){
@@ -78,11 +78,11 @@ public class Appcontroller{
             }
         }
         if (UsuarioExistente){
-            System.out.println("El Usuario ya existe");
+            Pantalla.imprimir("El Usuario ya existe");
         }
         else{
             usuarios.add(usu);
-            System.out.println("Usuario creado con éxito");
+            Pantalla.imprimir("Usuario creado con éxito");
         }
     }
 
@@ -148,12 +148,12 @@ public class Appcontroller{
     }
 
     public void menu(){
-        System.out.println("**----Bienvenido Dark Chronicles----**");
-        System.out.println("Seleccione que quiere hacer:");
-        System.out.println("  1.Iniciar Sesión");
-        System.out.println("  2.Registrarse");
-        System.out.println("  3.Salir");
-        System.out.println();
+        Pantalla.imprimir("**----Bienvenido Dark Chronicles----**");
+        Pantalla.imprimir("Seleccione que quiere hacer:");
+        Pantalla.imprimir("  1.Iniciar Sesión");
+        Pantalla.imprimir("  2.Registrarse");
+        Pantalla.imprimir("  3.Salir");
+        Pantalla.imprimir("");
     }
     public void start() throws IOException, ClassNotFoundException {
         boolean salir = false;
@@ -162,8 +162,8 @@ public class Appcontroller{
             cargarDatos();
             int option = Pantalla.pedirenteros("Seleccione opcion");
             while ((option != 1) && (option != 2) && (option != 3)) {
-                System.out.println("La opción escogida no es válida.");
-                System.out.println();
+                Pantalla.imprimir("La opción escogida no es válida.");
+                Pantalla.imprimir("");
                 menu();
                 option = Pantalla.pedirenteros("Seleccione opcion");
             }
@@ -176,7 +176,7 @@ public class Appcontroller{
                     break;
                 case 3:
                     salir = true;
-                    System.out.println("Cerrando aplicacion");
+                    Pantalla.imprimir("Cerrando aplicacion");
                     break;
             }
             guardarDatos();

@@ -27,29 +27,20 @@ public class VampiroFactory extends PersonajeFactory {
         vampiro.setSalud(5);
         vampiro.setEdad(Pantalla.pedirenteros("Edad vampiro"));
         vampiro.setPuntosSange(Pantalla.pedirenteros("Puntos de sangre"));
-
-        System.out.println("personaje creado");
-
-
-
+        Pantalla.imprimir("Personaje creado con éxito.");
         armas.add(armaDefault());//armas
         vampiro.setArmas(armas);
-
         armasac.add(armaDefault());//arma activa
         vampiro.setArmasActivas(armasac);
-
-
         armaduras.add(armaduraDefault());
         vampiro.setArmadura(armaduras);//armadura
-
         vampiro.setArmaduraActiva(armaduraDefault());//armadura activa
-
-    return vampiro;
+        return vampiro;
     }
 
     public Arma armaDefault(){
         Arma arma = new Arma();
-        arma.setNombre("palo");
+        arma.setNombre("Palo");
         arma.setEmpuñadura(1);
         arma.setModificadorAtc(1);
         arma.setModificadorDef(0);
@@ -58,12 +49,9 @@ public class VampiroFactory extends PersonajeFactory {
 
     public Armadura armaduraDefault(){
         Armadura nueva = new Armadura();
-        nueva.setNombre("cota de malla");
+        nueva.setNombre("Cota de malla");
         nueva.setModificadorAtc(1);
         nueva.setModificadorDef(1);
         return nueva;
     }
-
-
-
 }

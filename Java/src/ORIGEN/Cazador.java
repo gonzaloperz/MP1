@@ -1,5 +1,6 @@
 package ORIGEN;
 
+import Controladores.Pantalla;
 import ORIGEN.Personaje;
 
 import java.io.Serializable;
@@ -179,7 +180,7 @@ public class Cazador implements Personaje, Serializable {
 
     @Override
     public void usarHabilidad() {
-        System.out.println(" se uso el talento: "+  getHabilidad()+ ".");
+        Pantalla.imprimir(" se uso el talento: "+  getHabilidad()+ ".");
     }
 
     public int getCosteHabilidad(){

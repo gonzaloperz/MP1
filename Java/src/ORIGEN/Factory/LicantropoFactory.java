@@ -28,7 +28,7 @@ public class LicantropoFactory extends PersonajeFactory{
         licantropo.setSalud(5);
 
         licantropo.setRabia(Pantalla.pedirenteros("rabia inicial"));
-        System.out.println("personaje creado");
+        Pantalla.imprimir("personaje creado");
 
 
 

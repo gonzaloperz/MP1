@@ -13,11 +13,11 @@ public class PersonajeController {
 
 
     public void menu(){
-        System.out.println("Seleccione una opción");
-        System.out.println("1. Vampiro");
-        System.out.println("2. Licántropo");
-        System.out.println("3. Cazador");
-        System.out.println("4. Cancelar");
+        Pantalla.imprimir("Seleccione una opción");
+        Pantalla.imprimir("1. Vampiro");
+        Pantalla.imprimir("2. Licántropo");
+        Pantalla.imprimir("3. Cazador");
+        Pantalla.imprimir("4. Cancelar");
     }
     public Usuario registrarPersonaje(Usuario user){
         Scanner sc = new Scanner(System.in);

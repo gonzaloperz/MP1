@@ -19,7 +19,7 @@ public class Arma extends Equipo implements Serializable {
 
     @Override
     public Arma modificar(){
-        System.out.println(("Vas a modificar esta arma" + this.getNombre()));
+        Pantalla.imprimir(("Vas a modificar esta arma" + this.getNombre()));
         this.setNombre(Pantalla.pedircadena("establece Nombre"));
 
         this.setModificadorAtc(Pantalla.pedirenteros("establece ataque"));

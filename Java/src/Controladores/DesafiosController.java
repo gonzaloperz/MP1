@@ -20,49 +20,57 @@ public class DesafiosController {
         int saludjugador1 = jugador1.getSalud();
         int saludjugador2 = jugador2.getSalud();
         int saludEsbirrosAtq= jugador1.saludEsbirros();
-        int saludEsbirrosDes = jugador2.saludEsbirros();
-        saludjugador1+=saludEsbirrosAtq;
-        saludjugador2+=saludEsbirrosDes;
+        int saludEsbirrosDef = jugador2.saludEsbirros();
         int rondas=0;
         Pantalla.imprimir("El combate va a empezar...");
-        while (saludjugador1>0 && saludjugador2>0){
+        while (saludjugador1 > 0 && saludjugador2 > 0){
             Pantalla.imprimir("Turno jugador 1");
-            int ataqueJugador1=jugador1.calcularAtaque();
-            ataqueJugador1=potencialAtaque(ataqueJugador1);
-            int defensaJugador2=jugador2.calcularDefensa();
-            defensaJugador2=potencialDefensa(defensaJugador2);
-            if (ataqueJugador1>=defensaJugador2){
-                saludjugador2--;
+            int ataqueJugador1 = jugador1.calcularAtaque();
+            ataqueJugador1 = potencialAtaque(ataqueJugador1);
+            int defensaJugador2 = jugador2.calcularDefensa();
+            defensaJugador2 = potencialDefensa(defensaJugador2);
+            if (ataqueJugador1 >= defensaJugador2){
+                if (saludEsbirrosDef > 0){
+                    saludEsbirrosDef --;
+                }
+                else {
+                    saludjugador2--;
+                }
             }
             Pantalla.imprimir("Turno jugador 2");
-            int ataqueJugador2=jugador2.calcularAtaque();
-            ataqueJugador2=potencialAtaque(ataqueJugador1);
-            int defensaJugador1=jugador2.calcularDefensa();
-            defensaJugador1=potencialDefensa(defensaJugador1);
-            if (ataqueJugador2>=defensaJugador1){
-                saludjugador1--;
+            int ataqueJugador2 = jugador2.calcularAtaque();
+            ataqueJugador2 = potencialAtaque(ataqueJugador1);
+            int defensaJugador1 = jugador2.calcularDefensa();
+            defensaJugador1 = potencialDefensa(defensaJugador1);
+            if (ataqueJugador2 >= defensaJugador1){
+                if (saludEsbirrosAtq > 0){
+                    saludEsbirrosAtq --;
+                }
+                else {
+                    saludjugador1--;
+                }
             }
             Pantalla.imprimir("Fin ronda "+rondas);
-            rondas++;
+            rondas ++;
         }
         desafio.getUserUno().setPersonaje(jugador1);
         desafio.getUserDos().setPersonaje(jugador2);
-        if(saludjugador1<=0 && saludjugador2<=0){
+        if(saludjugador1 <= 0 && saludjugador2 <= 0){
             desafio.setGanador(0);
             Pantalla.imprimir("Empate");
         }
-        else if (saludjugador1<=0){
+        else if (saludjugador1 <= 0){
             desafio.setGanador(1);
             Pantalla.imprimir("Jugador 2 ganador");
         }
-        else if (saludjugador2<=0){
+        else if (saludjugador2 <= 0){
             desafio.setGanador(2);
             Pantalla.imprimir("Jugador 1 ganador");
-            jugador1.setOro(jugador1.getOro()+desafio.getOroApostado());
-            desafio.getUserUno().setOro(desafio.getUserUno().getOro()+desafio.getOroApostado());
+            jugador1.setOro(jugador1.getOro() + desafio.getOroApostado());
+            desafio.getUserUno().getPersonaje().setOro(desafio.getUserUno().getPersonaje().getOro() + desafio.getOroApostado());
 
-            jugador2.setOro(jugador2.getOro()-desafio.getOroApostado());
-            desafio.getUserDos().setOro(desafio.getUserDos().getOro()-desafio.getOroApostado());
+            jugador2.setOro(jugador2.getOro() - desafio.getOroApostado());
+            desafio.getUserDos().getPersonaje().setOro(desafio.getUserDos().getPersonaje().getOro() - desafio.getOroApostado());
         }
         desafio.getUserDos().setPersonaje(jugador2);
         desafio.getUserUno().setPersonaje(jugador1);
@@ -76,20 +84,20 @@ public class DesafiosController {
     public void mostrarDesafios() throws IOException, ClassNotFoundException {
         cargarDatos();
         List<Desafio> aux = listaDesafio;
-        for (int i = 0; i<aux.size() ;i++) {
+        for (int i = 0; i<aux.size() ; i++) {
             Desafio desafio = listaDesafio.get(i);
             Pantalla.imprimir("Jugador 1: " + desafio.getUserUno().getNickname());
             Pantalla.imprimir("Jugador 2: " + desafio.getUserDos().getNickname());
             Pantalla.imprimir("Rondas empleadas: " + desafio.getRondas());
             Pantalla.imprimir("Fecha: " + desafio.getFecha());
-            if (desafio.getGanador()==0){
+            if (desafio.getGanador() == 0){
                 Pantalla.imprimir("Ganador: Empate");
             }
-            else if (desafio.getGanador()==1){
-                Pantalla.imprimir("Ganador: "+desafio.getUserDos().getNickname());
+            else if (desafio.getGanador() == 1){
+                Pantalla.imprimir("Ganador: " + desafio.getUserDos().getNickname());
             }
             else if (desafio.getGanador()==2) {
-                Pantalla.imprimir("Ganador: "+desafio.getUserUno().getNickname());
+                Pantalla.imprimir("Ganador: " + desafio.getUserUno().getNickname());
             }
             Pantalla.imprimir("Contendientes con esbirros sin derrotar" );
             Pantalla.imprimir("Oro ganado:" + desafio.getOroGanado());
@@ -104,7 +112,7 @@ public class DesafiosController {
         }
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("listaDesafiosCompletados.dat"));
         for (int i = 0; i <lista.size(); i++) {
-            if (lista.get(i)==null)
+            if (lista.get(i) == null)
                 continue;
             Desafio des = lista.get(i);
             oos.writeObject(des);
@@ -198,6 +206,7 @@ public class DesafiosController {
             int index = Pantalla.pedirenteros("Indique el desafio a validar");
             Desafio desafio = lista.get(index);
             lista.remove(index);
+            this.listaDesafio = lista;
             guardarDatos();
             Usuario u2 = desafio.getUserDos();
             UsuarioController ucontroller = new UsuarioController();
@@ -229,8 +238,8 @@ public class DesafiosController {
         UsuarioController ucontroller = new UsuarioController();
         Usuario usu = ucontroller.seleccionarUsuario(listausuarios, usuario);
         Usuario usu2 = ucontroller.seleccionarUsuario(listausuarios, usuario2);
-        usu.setOro(usu.getOro() + d.getOroApostado());
-        usu2.setOro(usu2.getOro() - d.getOroApostado());
+        usu.getPersonaje().setOro(usu.getPersonaje().getOro() + d.getOroApostado());
+        usu2.getPersonaje().setOro(usu2.getPersonaje().getOro() - d.getOroApostado());
     }
     public int potencialAtaque(int ataque) {
         int exito=0;

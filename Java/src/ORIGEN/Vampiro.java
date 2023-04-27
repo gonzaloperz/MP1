@@ -10,7 +10,6 @@ import java.util.List;
 public class Vampiro implements Personaje, Serializable {
     private int puntosSangre;
     private int edad;
-
     private String nombre;
     private ArrayList<Arma> armas;
     private ArrayList<Armadura> armaduras;
@@ -22,10 +21,10 @@ public class Vampiro implements Personaje, Serializable {
     private int poder;
     private ArrayList<Debilidad> debilidades;
     private ArrayList<Fortaleza> fortalezas;
-    private String habilidad;
+    private String disciplina;
     private int atqHab;
     private int defHab;
-    private int costeHabilidad;
+    private int costeDisciplina;
 
     public int getPuntosSange() {
         return puntosSange;
@@ -161,12 +160,10 @@ public class Vampiro implements Personaje, Serializable {
     }
 
     @Override
-    public void setHabilidad(String habilidad) {
-        this.habilidad = habilidad;
+    public void setHabilidad(String Disciplina) {
+        this.disciplina = Disciplina;
     }
-    public String getHabilidad(){
-        return this.habilidad;
-    }
+    public String getHabilidad(){return this.disciplina;}
 
     @Override
     public void setAtqHab(int ataque) {
@@ -186,8 +183,8 @@ public class Vampiro implements Personaje, Serializable {
 
     @Override
     public void usarHabilidad() {
-        System.out.println(" se uso la disciplina: "+  getHabilidad()+ ".");
-        this.puntosSangre -= costeHabilidad;
+        Pantalla.imprimir(" se uso la disciplina: "+  getHabilidad()+ ".");
+        this.puntosSangre -= costeDisciplina;
 
     }
     public int getPuntosSangre() {
@@ -207,11 +204,11 @@ public class Vampiro implements Personaje, Serializable {
     }
 
     public int getCosteHabilidad(){
-        return costeHabilidad;
+        return costeDisciplina;
     }
 
     public void setCosteHabilidad(int coste){
-        this.costeHabilidad = coste;
+        this.costeDisciplina = coste;
     }
 
     @Override
@@ -244,13 +241,13 @@ public class Vampiro implements Personaje, Serializable {
         Pantalla.imprimir("Si no quieres cambiar un valor, escribe el mismo.");
         Pantalla.imprimir("Nombre: "+this.nombre);
         setNombre(Pantalla.pedircadena("Nuevo nombre: "));
-        Pantalla.imprimir("Nombre habilidad: "+this.habilidad);
+        Pantalla.imprimir("Nombre habilidad: "+this.disciplina);
         setHabilidad(Pantalla.pedircadena("Nuevo nomHabilidad: "));
         Pantalla.imprimir("Ataque habilidad: "+Integer.toString(this.atqHab));
         setAtqHab(Pantalla.pedirenteros("Nuevo valor: "));
         Pantalla.imprimir("Defensa habilidad: "+Integer.toString(this.defHab));
         setDefHab(Pantalla.pedirenteros("Nuevo valor: "));
-        Pantalla.imprimir("Coste habilidad: "+this.costeHabilidad);
+        Pantalla.imprimir("Coste habilidad: "+this.costeDisciplina);
         setCosteHabilidad(Pantalla.pedirenteros("Nuevo valor: "));
         Pantalla.imprimir("Poder: "+this.poder);
         setPoder(Pantalla.pedirenteros("Nuevo valor: "));

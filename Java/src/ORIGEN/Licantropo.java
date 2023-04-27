@@ -1,5 +1,7 @@
 package ORIGEN;
 
+import Controladores.Pantalla;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -178,7 +180,7 @@ public class Licantropo implements Personaje, Serializable {
 
     @Override
     public void usarHabilidad() {
-        System.out.println(" se uso el talento: "+  getHabilidad()+ ".");
+        Pantalla.imprimir(" se uso el talento: "+  getHabilidad()+ ".");
     }
 
     public int getCosteHabilidad(){

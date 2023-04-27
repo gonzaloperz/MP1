@@ -48,6 +48,7 @@ public interface Personaje {
 
     public void setHabilidad(String habilidad);
 
+
     public void setAtqHab(int ataque);
 
     public void setDefHab(int defensa);

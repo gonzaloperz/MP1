@@ -51,13 +51,13 @@ public class Modificador implements Serializable {
     }
 
     public Modificador modificar(){
-        System.out.println("Nombre: "+ this.getNombreDeb());
+        Controladores.Pantalla.imprimir("Nombre: "+ this.getNombreDeb());
         this.setNombreDeb(nombreDeb);
-        System.out.println("Nombre: "+ this.getNombreFort());
+        Controladores.Pantalla.imprimir("Nombre: "+ this.getNombreFort());
         this.setNombreFort(nombreFort);
-        System.out.println("Valor: "+ this.getSensibilidadDeb());
+        Controladores.Pantalla.imprimir("Valor: "+ this.getSensibilidadDeb());
         this.setSensibilidadDeb(sensibilidadDeb);
-        System.out.println("Valor: "+ this.getSensibilidadFort());
+        Controladores.Pantalla.imprimir("Valor: "+ this.getSensibilidadFort());
         this.setSensibilidadFort(sensibilidadFort);
         return this;
     }
