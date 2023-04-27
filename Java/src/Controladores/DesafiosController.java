@@ -1,9 +1,6 @@
 package Controladores;
 
-import ORIGEN.Desafio;
-import ORIGEN.Operador;
-import ORIGEN.Personaje;
-import ORIGEN.Usuario;
+import ORIGEN.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ import java.time.LocalDate;
 
 public class DesafiosController {
     private List<Desafio> listaDesafio = new ArrayList<Desafio>();
-    public Desafio iniciarDesafio(Desafio desafio, List<Usuario> listausuarios) throws IOException {
+    public Desafio iniciarDesafio(Desafio desafio) throws IOException {
         Personaje jugador1 = desafio.getUserUno().getPersonaje();
         Personaje jugador2 = desafio.getUserDos().getPersonaje();
         int saludjugador1 = jugador1.getSalud();
@@ -31,6 +28,9 @@ public class DesafiosController {
             defensaJugador2 = potencialDefensa(defensaJugador2);
             if (ataqueJugador1 >= defensaJugador2){
                 if (saludEsbirrosDef > 0){
+                    if (jugador1.getClass() == Vampiro.class){
+                        ((Vampiro) jugador1).setPuntosSangre(((Vampiro) jugador1).getPuntosSangre() + 4);
+                    }
                     saludEsbirrosDef --;
                 }
                 else {
@@ -43,6 +43,9 @@ public class DesafiosController {
             int defensaJugador1 = jugador2.calcularDefensa();
             defensaJugador1 = potencialDefensa(defensaJugador1);
             if (ataqueJugador2 >= defensaJugador1){
+                if (jugador2.getClass() == Vampiro.class){
+                    ((Vampiro) jugador2).setPuntosSangre(((Vampiro) jugador2).getPuntosSangre() + 4);
+                }
                 if (saludEsbirrosAtq > 0){
                     saludEsbirrosAtq --;
                 }
@@ -78,7 +81,6 @@ public class DesafiosController {
         desafio.setRondas(rondas);
         desafio.setOroGanado(desafio.getOroApostado());
         guardardesafiocomp(listaDesafio, desafio);
-        this.pagarGanador(desafio, listausuarios);
         return desafio;
     }
     public void mostrarDesafios() throws IOException, ClassNotFoundException {
@@ -129,7 +131,7 @@ public class DesafiosController {
             Pantalla.imprimir("Hay un nuevo desafio de " + u.getDesafio().getUserUno().getNickname());
             int respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? 0 = No ; 1 = Si");
             if (respuesta == 1) {
-                Desafio d = this.iniciarDesafio(u.getDesafio(), listausuario);
+                Desafio d = this.iniciarDesafio(u.getDesafio());
                 this.pagarGanador(d, listausuario);
             }
             UsuarioController ucontroller = new UsuarioController();

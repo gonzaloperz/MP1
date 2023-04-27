@@ -133,7 +133,9 @@ public class UsuarioController {
             switch (o){
                 case 1:
                     for (Usuario a: listaUsuarios){
-                        Pantalla.imprimir(a.getNombre());
+                        if (a.getNombre().compareTo("OPERADOR") != 0) {
+                            Pantalla.imprimir(a.getNombre());
+                        }
                     }
                     Pantalla.imprimir("Escribe...  cancelar  ... para Salir");
                     String nombre = Pantalla.pedircadena("Usuario a buscar");

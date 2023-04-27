@@ -30,7 +30,7 @@ public class Desafio implements Serializable {
         Boolean aux=true;
         while(aux){
             int oroApostado = (Pantalla.pedirenteros("Cantidad de oro a apostar:"));
-            if (oponente1.getOro()>oroApostado){
+            if (oponente1.getPersonaje().getOro()>oroApostado){
                 this.setOroApostado(oroApostado);
                 aux=false;
             }

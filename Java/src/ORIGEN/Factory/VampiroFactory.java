@@ -26,7 +26,7 @@ public class VampiroFactory extends PersonajeFactory {
         vampiro.setOro(500);
         vampiro.setSalud(5);
         vampiro.setEdad(Pantalla.pedirenteros("Edad vampiro"));
-        vampiro.setPuntosSange(Pantalla.pedirenteros("Puntos de sangre"));
+        vampiro.setPuntosSangre(Pantalla.pedirenteros("Puntos de sangre"));
         Pantalla.imprimir("Personaje creado con éxito.");
         armas.add(armaDefault());//armas
         vampiro.setArmas(armas);

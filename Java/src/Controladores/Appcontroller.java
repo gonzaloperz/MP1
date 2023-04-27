@@ -58,7 +58,6 @@ public class Appcontroller{
         usu.setNombre(Pantalla.pedircadena("Introduce el Nombre"));
         usu.setNickname(Pantalla.pedircadena("Introduce el Nick"));
         usu.setContrasena(Pantalla.pedircadena("Introduce la Contraseña"));
-        usu.setOro(500);
         usu.setBaneado(false);
 
         if (usu.getNickname().equals("") || usu.getContrasena().equals("") || usu.getNombre().equals("")){
@@ -94,7 +93,6 @@ public class Appcontroller{
             operador.setNombre("OPERADOR");
             operador.setContrasena("OPERADOR");
             operador.setBaneado(false);
-            operador.setOro(5000);
             operador.setPersonaje(null);
             usuarios.add(operador);
         }
@@ -186,11 +184,11 @@ public class Appcontroller{
     public void Ranking() throws IOException, ClassNotFoundException {
         cargarDatos();
         List<Usuario> aux = usuarios;
-        aux.sort(Comparator.comparing(Usuario::getOro).reversed());
+        //aux.sort(Comparator.comparing(Usuario::getPersonaje).reversed());
 
         Pantalla.imprimir("RANKING ACTUAL (desde último reinicio): ");
         for (int i = 0; i<aux.size() ;i++)
-            Pantalla.imprimir(Integer.toString(i + 1) +".- "+ aux.get(i).getNickname() +" "+ aux.get(i).getOro());
+            Pantalla.imprimir(Integer.toString(i + 1) +".- "+ aux.get(i).getNickname() +" "+ aux.get(i).getPersonaje().getOro());
     }
 
 }

@@ -26,15 +26,10 @@ public class Vampiro implements Personaje, Serializable {
     private int defHab;
     private int costeDisciplina;
 
-    public int getPuntosSange() {
-        return puntosSange;
+    public int getPuntosSangre() {
+        return puntosSangre;
     }
 
-    public void setPuntosSange(int puntosSange) {
-        this.puntosSange = puntosSange;
-    }
-
-    private int puntosSange;
 
 
     @Override
@@ -187,9 +182,6 @@ public class Vampiro implements Personaje, Serializable {
         this.puntosSangre -= costeDisciplina;
 
     }
-    public int getPuntosSangre() {
-        return puntosSangre;
-    }
 
     public void setPuntosSangre(int puntosSangre) {
         this.puntosSangre = puntosSangre;
@@ -223,12 +215,40 @@ public class Vampiro implements Personaje, Serializable {
 
     @Override
     public int calcularAtaque() {
-        return 0;
+        List<Arma> armas = this.getArmasActivas();
+        List<Armadura> armaduras = (List<Armadura>) this.getArmaduraActiva();
+        int ataquearmas = 0;
+        int ataquesangre = 0;
+        int ataquedisciplina = 0;
+        for (Arma arma : armas){
+            ataquearmas += arma.getModificadorAtc();
+        }
+        if (this.puntosSangre >= 5){
+            ataquesangre = 2;
+        }
+        if (this.costeDisciplina < this.puntosSangre){
+            ataquedisciplina = this.atqHab;
+        }
+        return this.poder + ataquedisciplina + ataquearmas + ataquesangre;
     }
 
     @Override
     public int calcularDefensa() {
-        return 0;
+        List<Arma> armas = this.getArmasActivas();
+        List<Armadura> armaduras = (List<Armadura>) this.getArmaduraActiva();
+        int defensaarmadura = 0;
+        int defensasangre = 0;
+        int ataquedisciplina = 0;
+        for (Armadura armadura : armaduras){
+            defensaarmadura += armadura.getModificadorDef();
+        }
+        if (this.puntosSangre >= 5){
+            defensasangre = 2;
+        }
+        if (this.costeDisciplina < this.puntosSangre){
+            ataquedisciplina = this.atqHab;
+        }
+        return  + ataquedisciplina + defensaarmadura + defensasangre;
     }
 
     @Override

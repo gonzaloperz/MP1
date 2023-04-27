@@ -30,6 +30,7 @@ public class PersonajeController {
             case 1:
                 VampiroFactory vampiro = new VampiroFactory();
                 user.setPersonaje(vampiro.crearPersonaje());
+                user.getPersonaje().setOro(500);
                 break;
             case 2:
                 LicantropoFactory licantropo = new LicantropoFactory();
