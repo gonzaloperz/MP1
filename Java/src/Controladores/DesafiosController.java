@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 public class DesafiosController {
     private List<Desafio> listaDesafio = new ArrayList<Desafio>();
-    public Desafio iniciarDesafio(Desafio desafio) throws IOException {
+    public Desafio iniciarDesafio(Desafio desafio, List<Usuario> listausuarios) throws IOException {
         Personaje jugador1 = desafio.getUserUno().getPersonaje();
         Personaje jugador2 = desafio.getUserDos().getPersonaje();
         int saludjugador1 = jugador1.getSalud();
@@ -70,6 +70,7 @@ public class DesafiosController {
         desafio.setRondas(rondas);
         desafio.setOroGanado(desafio.getOroApostado());
         guardardesafiocomp(listaDesafio, desafio);
+        this.pagarGanador(desafio, listausuarios);
         return desafio;
     }
     public void mostrarDesafios() throws IOException, ClassNotFoundException {
@@ -96,6 +97,7 @@ public class DesafiosController {
     }
     public void guardardesafiocomp(List<Desafio>lista, Desafio desafio) throws IOException {
         File file = new File("listaDesafiosCompletados.dat");
+        lista.add(desafio);
         if (file.exists()){
             file.delete();
             file.createNewFile();
@@ -119,7 +121,8 @@ public class DesafiosController {
             Pantalla.imprimir("Hay un nuevo desafio de " + u.getDesafio().getUserUno().getNickname());
             int respuesta = Pantalla.pedirenteros("¿Desea aceptar el desafio? 0 = No ; 1 = Si");
             if (respuesta == 1) {
-                Desafio d = this.iniciarDesafio(u.getDesafio());
+                Desafio d = this.iniciarDesafio(u.getDesafio(), listausuario);
+                this.pagarGanador(d, listausuario);
             }
             UsuarioController ucontroller = new UsuarioController();
             Usuario usu1 = ucontroller.seleccionarUsuario(listausuario, u1.getNombre());
@@ -186,18 +189,24 @@ public class DesafiosController {
     }
     public void validarDesafio(List<Usuario> listausuario) throws IOException, ClassNotFoundException {
         List<Desafio> lista = cargarDesafios();
-        int i = 0;
-        for (Desafio d : lista){
-            Pantalla.imprimir(i + (". ") + d.getUserUno().getNombre() + (" vs ") + d.getUserDos().getNombre());
-            i += 1;
+        if (lista.size() > 0) {
+            int i = 0;
+            for (Desafio d : lista) {
+                Pantalla.imprimir(i + (". ") + d.getUserUno().getNombre() + (" vs ") + d.getUserDos().getNombre());
+                i += 1;
+            }
+            int index = Pantalla.pedirenteros("Indique el desafio a validar");
+            Desafio desafio = lista.get(index);
+            lista.remove(index);
+            guardarDatos();
+            Usuario u2 = desafio.getUserDos();
+            UsuarioController ucontroller = new UsuarioController();
+            Usuario u = ucontroller.seleccionarUsuario(listausuario, u2.getNombre());
+            u.setDesafio(desafio);
         }
-        int index = Pantalla.pedirenteros("Indique el desafio a validar");
-        Desafio desafio = lista.get(index);
-        lista.remove(index);
-        Usuario u2 = desafio.getUserDos();
-        UsuarioController ucontroller = new UsuarioController();
-        Usuario u = ucontroller.seleccionarUsuario(listausuario, u2.getNombre());
-        u.setDesafio(desafio);
+        else{
+            Pantalla.imprimir("No hay desafíos por validar.");
+        }
     }
     public Desafio rechazarDesafio(Desafio desafio){
 
@@ -206,8 +215,22 @@ public class DesafiosController {
     public void ganador(){
 
     }
-    public void pagarGanador(){
-
+    public void pagarGanador(Desafio d, List<Usuario> listausuarios){
+        String usuario = new String();
+        String usuario2 = new String();
+        if (d.getGanador()==1){
+            usuario = d.getUserUno().getNombre();
+            usuario2 = d.getUserDos().getNombre();
+        }
+        if (d.getGanador()==2) {
+            usuario = d.getUserDos().getNombre();
+            usuario2 = d.getUserUno().getNombre();
+        }
+        UsuarioController ucontroller = new UsuarioController();
+        Usuario usu = ucontroller.seleccionarUsuario(listausuarios, usuario);
+        Usuario usu2 = ucontroller.seleccionarUsuario(listausuarios, usuario2);
+        usu.setOro(usu.getOro() + d.getOroApostado());
+        usu2.setOro(usu2.getOro() - d.getOroApostado());
     }
     public int potencialAtaque(int ataque) {
         int exito=0;

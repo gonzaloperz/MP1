@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.lang.Object;
 
 
 public class UsuarioController {
@@ -223,7 +224,7 @@ public class UsuarioController {
             throw new RuntimeException(e);
         }
         for(Desafio d : lista){
-            if (d.getUserUno().getNombre().equals(user.getNombre()) || d.getUserUno().getNombre().equals(user.getNombre())) {
+            if (d.getUserUno().getNombre().compareTo(user.getNombre()) == 1 || d.getUserDos().getNombre().compareTo(user.getNombre()) == 1) {
                 Pantalla.imprimir(d.getUserUno().getNombre() + " vs " + d.getUserDos().getNombre() + ". Oro ganado: " + d.getOroGanado() + ". Fecha: " + d.getFecha() + " Rondas: " + d.getRondas() + ".");
             }
         }
@@ -244,7 +245,6 @@ public class UsuarioController {
                     } else {
                         DesafiosController desafioController = new DesafiosController();
                         Desafio desafio = new Desafio(user, a);
-
                         desafio.setUserUno(user);
                         desafio.setUserDos(a);
                         desafio.setFecha(LocalDate.now());
@@ -255,7 +255,7 @@ public class UsuarioController {
                     }
                 }
                 else{
-                    Pantalla.imprimir("No se puede desafiar al usuario "+ a.getNickname()+ "porque no tiene personajes");
+                    Pantalla.imprimir("No se puede desafiar al usuario "+ a.getNickname()+ " porque no tiene personajes");
                     encontrado=false;
                 }
             }
