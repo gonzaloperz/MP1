@@ -85,8 +85,10 @@ public class DesafiosController {
             desafio.getUserDos().getPersonaje().setOro(desafio.getUserDos().getPersonaje().getOro() - desafio.getOroApostado());
         }
         UsuarioController usuarioController = new UsuarioController();
-        Usuario usuario1 = usuarioController.seleccionarUsuario(listausuarios, jugador1.getNombre());
-        Usuario usuario2 = usuarioController.seleccionarUsuario(listausuarios, jugador2.getNombre());
+        Usuario usuario1 = usuarioController.seleccionarUsuario(listausuarios, desafio.getUserUno().getNombre());
+        Usuario usuario2 = usuarioController.seleccionarUsuario(listausuarios, desafio.getUserDos().getNombre());
+
+        //esto es para devolver los personajes al estado original?
         if (usuario1.getPersonaje().getClass() == Licantropo.class){
             ((Licantropo)usuario1.getPersonaje()).setRabia(0);
         }
