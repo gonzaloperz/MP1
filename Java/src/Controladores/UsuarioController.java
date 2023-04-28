@@ -77,6 +77,9 @@ public class UsuarioController {
                         }
                     break;
                 case 4://desafia a otro usuario a un combate
+                    for (Usuario a : usuarios){
+                        Pantalla.imprimir("Usuario: "+a.getNombre());
+                    }
                     if (usuario.getPersonaje() != null) {
                         desafiar(usuario, usuarios);
                     } else {

@@ -29,20 +29,13 @@ public class LicantropoFactory extends PersonajeFactory{
         licantropo.setRabia(0);
         Pantalla.imprimir("personaje creado");
 
-
-
         armas.add(armaDefault());//añadimos el arma default a la lista de armas disponible del personaje
         licantropo.setArmas(armas);
-
         armasac.add(armaDefault());//añadimos el arma default a la lista de armas activas que lleva el personaje
         licantropo.setArmasActivas(armasac);
-
-
         armaduras.add(armaduraDefault());
         licantropo.setArmadura(armaduras);//añadimos la armadura default a la lista de armaduras diponibles del personaje
-
         licantropo.setArmaduraActiva(armaduraDefault());//se selecciona la armadura default como la armadura activa del personaje
-
         return licantropo;
     }
 

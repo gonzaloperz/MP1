@@ -28,23 +28,13 @@ public class CazadorFactory extends PersonajeFactory{
         cazador.setSalud(5);
         cazador.setVoluntad(3);
         Pantalla.imprimir("personaje creado");
-
-
         armas.add(armaDefault());//añadimos el arma default a la lista de armas disponible del personaje
         cazador.setArmas(armas);
-
         armasac.add(armaDefault());//añadimos el arma default a la lista de armas activas que lleva el personaje
         cazador.setArmasActivas(armasac);
-
-
         armaduras.add(armaduraDefault());
         cazador.setArmadura(armaduras);//añadimos la armadura default a la lista de armaduras diponibles del personaje
-
         cazador.setArmaduraActiva(armaduraDefault());//se selecciona la armadura default como la armadura activa del personaje
-
-
-
-
         return cazador;
     }
 
