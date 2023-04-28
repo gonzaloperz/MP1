@@ -14,8 +14,8 @@ public class Appcontroller{
         usuarios = new ArrayList<>();
     }
     public void iniciarSesion() throws IOException, ClassNotFoundException {
-        String usuario = new String();
-        String contraseña = new String();
+        String usuario;
+        String contraseña;
         usuario = Pantalla.pedircadena("Usuario");
         contraseña = Pantalla.pedircadena("Contraseña");
         boolean encontrado = false;
@@ -23,7 +23,7 @@ public class Appcontroller{
             if (usu == null){
                 continue;
             }
-            if (usu.getNombre().equals(usuario) && usu.getContrasena().equals(contraseña)){
+            if (usu.getNickname().equals(usuario) && usu.getContrasena().equals(contraseña)){
                 encontrado = true;
                 UsuarioController usuarioController = new UsuarioController();
                 if(usu.isBaneado()){//COmprobar si esta baneado el personaje
@@ -56,7 +56,28 @@ public class Appcontroller{
     public void registrarse() throws IOException {
         Usuario usu = new Usuario();
         usu.setNombre(Pantalla.pedircadena("Introduce el Nombre"));
-        usu.setNickname(Pantalla.pedircadena("Introduce el Nick"));
+        String nick = Pantalla.pedircadena("Introduce el Nickname que también será tu usuario");
+        boolean repetido = false;
+        boolean encontrado;
+        int i;
+        while (!repetido){
+            encontrado = false;
+            i = 0;
+            while(!encontrado && i < this.usuarios.size()){
+                Usuario aux = this.usuarios.get(i);
+                encontrado = aux.getNickname().compareTo(nick) == 0;
+                i++;
+            }
+            repetido = encontrado;
+            if (repetido) {
+                nick = Pantalla.pedircadena("Ese nickname ya está escogido, por favor ingrese uno nuevo...");
+                repetido = false;
+            }
+            else{
+                repetido = true;
+            }
+        }
+        usu.setNickname(nick);
         usu.setContrasena(Pantalla.pedircadena("Introduce la Contraseña"));
         usu.setBaneado(false);
 

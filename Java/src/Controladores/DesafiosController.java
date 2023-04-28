@@ -23,8 +23,10 @@ public class DesafiosController {
         while (saludjugador1 > 0 && saludjugador2 > 0) {
             Pantalla.imprimir("Turno " + jugador1.getNombre());
             int ataqueJugador1 = jugador1.calcularAtaque();
+            ataqueJugador1 += modificadorataque(desafio, jugador1);
             ataqueJugador1 = potencialAtaque(ataqueJugador1);
             int defensaJugador2 = jugador2.calcularDefensa();
+            defensaJugador2 += modificadordefensa(desafio, jugador2);
             defensaJugador2 = potencialDefensa(defensaJugador2);
             if (ataqueJugador1 >= defensaJugador2) {
                 if (jugador1.getClass() == Vampiro.class) {
@@ -44,8 +46,10 @@ public class DesafiosController {
             }
             Pantalla.imprimir("Turno " + jugador2.getNombre());
             int ataqueJugador2 = jugador2.calcularAtaque();
+            ataqueJugador2 += modificadorataque(desafio, jugador2);
             ataqueJugador2 = potencialAtaque(ataqueJugador2);
-            int defensaJugador1 = jugador2.calcularDefensa();
+            int defensaJugador1 = jugador1.calcularDefensa();
+            defensaJugador1 += modificadordefensa(desafio, jugador1);
             defensaJugador1 = potencialDefensa(defensaJugador1);
             if (ataqueJugador2 >= defensaJugador1) {
                 if (jugador2.getClass() == Vampiro.class) {
@@ -108,6 +112,49 @@ public class DesafiosController {
         desafio.setOroGanado(desafio.getOroApostado());
         guardardesafiocomp(listaDesafio, desafio);
         return desafio;
+    }
+
+    public int modificadorataque(Desafio desafio, Personaje jugador){
+        int modififcador = 0;
+        switch (desafio.getModificador()) {
+            case 1:
+                if (jugador.getClass() == Cazador.class) {
+                    modififcador = 1;
+                }
+                break;
+            case 2:
+                if (jugador.getClass() == Licantropo.class) {
+                    modififcador = 1;
+                }
+                break;
+            case 3:
+                if (jugador.getClass() == Vampiro.class) {
+                    modififcador = 1;
+                    break;
+                }
+        }
+        return modififcador;
+    }
+    public int modificadordefensa(Desafio desafio, Personaje jugador){
+        int modififcador = 0;
+        switch (desafio.getModificador()) {
+            case 1:
+                if (jugador.getClass() == Vampiro.class) {
+                    modififcador = 1;
+                }
+                break;
+            case 2:
+                if (jugador.getClass() == Cazador.class) {
+                    modififcador = 1;
+                }
+                break;
+            case 3:
+                if (jugador.getClass() == Licantropo.class) {
+                    modififcador = 1;
+                    break;
+                }
+        }
+        return modififcador;
     }
     public void mostrarDesafios() throws IOException, ClassNotFoundException {
         cargarDatos();
@@ -240,6 +287,17 @@ public class DesafiosController {
             }
             int index = Pantalla.pedirenteros("Indique el desafio a validar");
             Desafio desafio = lista.get(index);
+            Pantalla.imprimir("1. Día Soleaddo.");
+            Pantalla.imprimir("2. Luna llena.");
+            Pantalla.imprimir("3. Eclipse lunar");
+            int opcion = 0;
+            while (opcion != 1 && opcion != 2 && opcion != 3){
+                opcion = Pantalla.pedirenteros("Seleccione modificador");
+                if (opcion != 1 && opcion != 2 && opcion != 3){
+                    Pantalla.imprimir("No es una opción válida");
+                }
+            }
+            desafio.setModificador(opcion);
             lista.remove(index);
             this.listaDesafio = lista;
             guardarDatos();

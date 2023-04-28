@@ -15,7 +15,7 @@ public class Desafio implements Serializable {
     private  Usuario UserDos;
     private int oroApostado;
     private int oroGanado;
-
+    private int modificador;
     private Boolean validado;
     private int ganador;
 
@@ -96,4 +96,11 @@ public class Desafio implements Serializable {
         this.fecha = fecha.toString();
     }
 
+    public int getModificador() {
+        return modificador;
+    }
+
+    public void setModificador(int modificador) {
+        this.modificador = modificador;
+    }
 }
