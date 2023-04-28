@@ -28,17 +28,17 @@ public class VampiroFactory extends PersonajeFactory {
         vampiro.setEdad(Pantalla.pedirenteros("Edad vampiro"));
         vampiro.setPuntosSangre(Pantalla.pedirenteros("Puntos de sangre"));
         Pantalla.imprimir("Personaje creado con éxito.");
-        armas.add(armaDefault());//armas
+        armas.add(armaDefault());//añadimos el arma default a la lista de armas disponible del personaje
         vampiro.setArmas(armas);
-        armasac.add(armaDefault());//arma activa
+        armasac.add(armaDefault());//añadimos el arma default a la lista de armas activas que lleva el personaje
         vampiro.setArmasActivas(armasac);
         armaduras.add(armaduraDefault());
-        vampiro.setArmadura(armaduras);//armadura
-        vampiro.setArmaduraActiva(armaduraDefault());//armadura activa
+        vampiro.setArmadura(armaduras);//añadimos la armadura default a la lista de armaduras diponibles del personaje
+        vampiro.setArmaduraActiva(armaduraDefault());//se selecciona la armadura default como la armadura activa del personaje
         return vampiro;
     }
 
-    public Arma armaDefault(){
+    public Arma armaDefault(){//generamos un arma default para todos los personajes
         Arma arma = new Arma();
         arma.setNombre("Palo");
         arma.setEmpuñadura(1);
@@ -47,7 +47,7 @@ public class VampiroFactory extends PersonajeFactory {
         return arma;
     }
 
-    public Armadura armaduraDefault(){
+    public Armadura armaduraDefault(){//generamos una armadura default para todos los personajes
         Armadura nueva = new Armadura();
         nueva.setNombre("Cota de malla");
         nueva.setModificadorAtc(1);

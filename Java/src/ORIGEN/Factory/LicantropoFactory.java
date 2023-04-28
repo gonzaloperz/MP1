@@ -31,22 +31,22 @@ public class LicantropoFactory extends PersonajeFactory{
 
 
 
-        armas.add(armaDefault());//armas
+        armas.add(armaDefault());//añadimos el arma default a la lista de armas disponible del personaje
         licantropo.setArmas(armas);
 
-        armasac.add(armaDefault());//arma activa
+        armasac.add(armaDefault());//añadimos el arma default a la lista de armas activas que lleva el personaje
         licantropo.setArmasActivas(armasac);
 
 
         armaduras.add(armaduraDefault());
-        licantropo.setArmadura(armaduras);//armadura
+        licantropo.setArmadura(armaduras);//añadimos la armadura default a la lista de armaduras diponibles del personaje
 
-        licantropo.setArmaduraActiva(armaduraDefault());//armadura activa
+        licantropo.setArmaduraActiva(armaduraDefault());//se selecciona la armadura default como la armadura activa del personaje
 
         return licantropo;
     }
 
-    public Arma armaDefault(){
+    public Arma armaDefault(){//generamos un arma default para todos los personajes
         Arma arma = new Arma();
         arma.setNombre("palo");
         arma.setEmpuñadura(1);
@@ -55,7 +55,7 @@ public class LicantropoFactory extends PersonajeFactory{
         return arma;
     }
 
-    public Armadura armaduraDefault(){
+    public Armadura armaduraDefault(){//generamos una armadura default para todos los personajes
         Armadura nueva = new Armadura();
         nueva.setNombre("cota de malla");
         nueva.setModificadorAtc(1);

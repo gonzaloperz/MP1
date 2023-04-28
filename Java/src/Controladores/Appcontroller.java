@@ -1,9 +1,11 @@
 package Controladores;
 
 import ORIGEN.Operador;
+import ORIGEN.Personaje;
 import ORIGEN.Usuario;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,20 +28,18 @@ public class Appcontroller{
             if (usu.getNickname().equals(usuario) && usu.getContrasena().equals(contraseña)){
                 encontrado = true;
                 UsuarioController usuarioController = new UsuarioController();
-                if(usu.isBaneado()){//COmprobar si esta baneado el personaje
+                if(usu.isBaneado()){//Comprobar si esta baneado el personaje
                     Pantalla.imprimir("Jugador baneado");
                     Pantalla.imprimir("No puede iniciar Sesión");
                     Pantalla.imprimir("Contacte Operador");
                     start();
                 }
-                //Comprobar si tiene desafios pendientes
-                // no se hacer el observer habra que ver que se hace
-                if (usu instanceof Operador){
+                if (usu instanceof Operador){// si el usuario es un operador muestra el menu de operador
                     List<Usuario> modificados = usuarioController.menuOperador(usuarios, (Operador) usu);
                     usuarios = modificados;
                     guardarDatos();
                 }
-                else {
+                else {// si usuario es un usuario normal muestrael menu de los usuarios
                     Usuario modificado = usuarioController.menuUsuario(usu, usuarios);
                     usuarios.remove(usu);
                     if (modificado != null)
@@ -81,7 +81,7 @@ public class Appcontroller{
         usu.setContrasena(Pantalla.pedircadena("Introduce la Contraseña"));
         usu.setBaneado(false);
 
-        if (usu.getNickname().equals("") || usu.getContrasena().equals("") || usu.getNombre().equals("")){
+        if (usu.getNickname().equals("") || usu.getContrasena().equals("") || usu.getNombre().equals("")){//obliga al usuario a rellenar todos los campos de registro
             Pantalla.imprimir("Rellena todos los campos");
             return;
         }
@@ -107,8 +107,8 @@ public class Appcontroller{
     }
 
     public void cargarDatos() throws IOException, ClassNotFoundException {
-        this.usuarios = cargarUsuarios();//metemos el operador a pincho
-        if (usuarios.isEmpty()) {
+        this.usuarios = cargarUsuarios();
+        if (usuarios.isEmpty()) {//si la lista de usuarios esta vacia agregamos el usuario operador diractamente desde el método
             Operador operador = new Operador();
             operador.setNickname("OPERADOR");
             operador.setNombre("OPERADOR");
@@ -117,9 +117,6 @@ public class Appcontroller{
             operador.setPersonaje(null);
             usuarios.add(operador);
         }
-
-
-        //this.usuarios.add(operador);// solo usar cuando eliminemos fichero de datos
     }
 
     private List<Usuario>cargarUsuarios() throws IOException,ClassNotFoundException {
@@ -168,6 +165,7 @@ public class Appcontroller{
 
     public void menu(){
         Pantalla.imprimir("**----Bienvenido Dark Chronicles----**");
+        logo();
         Pantalla.imprimir("Seleccione que quiere hacer:");
         Pantalla.imprimir("  1.Iniciar Sesión");
         Pantalla.imprimir("  2.Registrarse");
@@ -204,13 +202,40 @@ public class Appcontroller{
 
     public void Ranking() throws IOException, ClassNotFoundException {
         cargarDatos();
-        List<Usuario> aux = usuarios;
-        //aux.sort(Comparator.comparing(Usuario::getPersonaje).reversed());
-
+        List<Usuario> aux = new ArrayList<>();
         Pantalla.imprimir("RANKING ACTUAL (desde último reinicio): ");
-        for (int i = 0; i<aux.size() ;i++)
-            Pantalla.imprimir(Integer.toString(i + 1) +".- "+ aux.get(i).getNickname() +" "+ aux.get(i).getPersonaje().getOro());
+        int a;
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i).getPersonaje() != null) {
+                aux.add(usuarios.get(i));
+            }
+        }
+        Comparator<Usuario> comparador = new Comparator<Usuario>() {
+            @Override
+            public int compare(Usuario usuario1, Usuario usuario2) {
+                return Integer.compare(usuario1.getPersonaje().getOro(), usuario2.getPersonaje().getOro());
+            }
+        };
+        Collections.sort(aux, comparador);
+        a = aux.size() - 1;
+        for (int i = 0; i < aux.size(); i++){
+            Pantalla.imprimir(Integer.toString(i + 1) + ".- " + aux.get(a).getNickname() + " " + aux.get(a).getPersonaje().getOro());
+            a -= 1;
+        }
     }
 
+    public void logo(){//se podria mejorar el dibujo del logo con cualquier otro dibujo.
+     Pantalla.imprimir("            |`--,___,--'|");
+     Pantalla.imprimir("            |          C|" );
+     Pantalla.imprimir("            |  )     ( R|");
+     Pantalla.imprimir("            |D ((,-,)) O|");
+     Pantalla.imprimir("            |A `|v v|' N|");
+     Pantalla.imprimir("            |R    Y.Y  I|");
+     Pantalla.imprimir("            |K    {.}  C|");
+     Pantalla.imprimir("            |     {.}  L|");
+     Pantalla.imprimir("            |     ~    E/");
+     Pantalla.imprimir("            TTTTTTTTTTTT");
+
+    }
 }
 

@@ -12,16 +12,16 @@ import java.lang.Object;
 
 public class UsuarioController {
 
-    public void verRanking() throws IOException, ClassNotFoundException {
+    public void verRanking() throws IOException, ClassNotFoundException {//permite al usuario acceder al ranking de los jugadores basado en la cantidad de oro total
         Appcontroller aux = new Appcontroller();
         aux.Ranking();
     }
 
-    public Usuario menuUsuario(Usuario usuario, List<Usuario> usuarios) throws IOException, ClassNotFoundException {
+    public Usuario menuUsuario(Usuario usuario, List<Usuario> usuarios) throws IOException, ClassNotFoundException {//muestra el menu de los usuarios
         boolean salir = false;
-        if (usuario.getDesafio() != null){
-            DesafiosController dcontroller = new DesafiosController();
-            dcontroller.cargarDatos();
+        if (usuario.getDesafio() != null){ //el usuario tiene desafios pendientes
+            DesafiosController dcontroller = new DesafiosController(); // crea una instancia de desafios controller para poder utilizar su smétodos
+            dcontroller.cargarDatos();// carga los datos del deafio
             dcontroller.aceptarDesafio(usuarios, usuario);
         }
 
@@ -39,7 +39,7 @@ public class UsuarioController {
             switch (option) {
                 case 1://crear personaje
                     Personaje personaje = usuario.getPersonaje();
-                    if (personaje == null) {
+                    if (personaje == null) { //el usuario no tiene ningun personaje creado
                         PersonajeController controller = new PersonajeController();
                         controller.registrarPersonaje(usuario);
                     } else {
@@ -47,7 +47,7 @@ public class UsuarioController {
                         break;
                     }
                     break;
-                case 2://dar de baja personaje
+                case 2://elimina el personaje del usuario.
                     usuario.setPersonaje(null);
                     Pantalla.imprimir("Personaje eliminado con exito");
                     break;
@@ -62,28 +62,28 @@ public class UsuarioController {
                     Pantalla.imprimir("3.Cancelar");
                     int option1 = Pantalla.pedirenteros("opcion");
                     switch (option1) {
-                        case 1:
+                        case 1://cambia las armas activas por algun arma disponible en su lista de armas
                             PersonajeController contoller = new PersonajeController();
                             personaje = contoller.cambiarArma(personaje);
                             usuario.setPersonaje(personaje);
                             break;
-                        case 2:
+                        case 2://cambia la armadura activa por una de la lista de armaduras
                             PersonajeController controller = new PersonajeController();
                             personaje = controller.cambiarArmadura(personaje);
                             usuario.setPersonaje(personaje);
                             break;
-                        case 3:
+                        case 3://cancelar
                             break;
                         }
                     break;
-                case 4://lanzar desafio
+                case 4://desafia a otro usuario a un combate
                     if (usuario.getPersonaje() != null) {
                         desafiar(usuario, usuarios);
                     } else {
                         Pantalla.imprimir("No puedes desafiar, necesitas un personaje");
                     }
                     break;
-                case 5://ver combates anteriores
+                case 5://muestra un registro con los resultados de los deasfios anteriores.
                     verCombate(usuario);
                     break;
                 case 6://Ver ranking
@@ -105,7 +105,7 @@ public class UsuarioController {
 
 
 
-    public List<Usuario> menuOperador(List<Usuario> listaUsuarios, ORIGEN.Operador usu) throws IOException, ClassNotFoundException {
+    public List<Usuario> menuOperador(List<Usuario> listaUsuarios, ORIGEN.Operador usu) throws IOException, ClassNotFoundException {//muestra el menu para los operadores
         boolean salir = false;
         while (!salir){
             Pantalla.imprimir(" ------MENU OPERADOR------");
@@ -113,14 +113,13 @@ public class UsuarioController {
             Pantalla.imprimir(" 2.Validar desafio");
             Pantalla.imprimir(" 3.Banear Usuario");
             Pantalla.imprimir(" 4.Desbanear Ususario");
-            Pantalla.imprimir(" 5.Resultados combate");
-            Pantalla.imprimir(" 6.Darse de baja");
-            Pantalla.imprimir(" 7.Cerrar sesion");
+            Pantalla.imprimir(" 5.Darse de baja");
+            Pantalla.imprimir(" 6.Cerrar sesion");
 
             int o = Pantalla.pedirenteros("Elegir opcion");
 
             switch (o){
-                case 1:
+                case 1://modifica el personaje de un usuario
                     for (Usuario a: listaUsuarios){
                         if (a.getNombre().compareTo("OPERADOR") != 0) {
                             Pantalla.imprimir(a.getNombre());
@@ -143,32 +142,30 @@ public class UsuarioController {
                     u.setPersonaje(pjController.modificarPersonaje(u.getPersonaje()));
                     listaUsuarios.add(u);
                     break;
-                case 2:
+                case 2://valida desafios pendientes
                     DesafiosController dcontroller = new DesafiosController();
                     dcontroller.validarDesafio(listaUsuarios);
                     break;
-                case 3:
+                case 3://banear usuarios
                     String banear = Pantalla.pedircadena("Nombre del Usuario a banear:");
                     Usuario baneado = seleccionarUsuario(listaUsuarios,banear);
                     if (baneado != null){
                         baneado.setBaneado(true);
                     }
                     break;
-                case 4:
+                case 4://desbanear usuarios
                     banear = Pantalla.pedircadena("Nombre del Usuario a desbanear:");
                     baneado = seleccionarUsuario(listaUsuarios,banear);
                     if (baneado != null){
                         baneado.setBaneado(false);
                     }
                     break;
-                case 5:
-                    break;
-                case 6:
+                case 5: //darse de baja
                     usu = null;
                     Pantalla.imprimir("Se elimino el usuario");
                     salir = true;
                     break;
-                case 7:
+                case 6: //cerrar sesion
                     salir = true;
                     break;
             }
@@ -176,21 +173,21 @@ public class UsuarioController {
         return listaUsuarios;
     }
 
-    public Usuario seleccionarUsuario(List<Usuario> listaUsuarios, String nombre) {
+    public Usuario seleccionarUsuario(List<Usuario> listaUsuarios, String nombre) {//devuelve un usuario de la lista de registrados, buscándolo por nombre
         int size = listaUsuarios.size();
         if (size == 0){
             Pantalla.imprimir("No hay Usuarios registrados");
             return null;
         }
-        for (Usuario u : listaUsuarios){
+        for (Usuario u : listaUsuarios){     // busca el usuario en la lista de usuarios comparando el nombre del usuario
             if (u.getNombre().equals(nombre)){
-                return u;
+                return u;  // si encuentra coincidencia con el nombre devuelve el usuario
             }
         }
         Pantalla.imprimir("No existe tal Usuario");
         return null;
     }
-    public void verCombate(Usuario user){
+    public void verCombate(Usuario user){//permite ver los resultados de los combates anteriores
         List<Desafio> lista = new ArrayList<Desafio>();
         try {
             File file = new File("listaDesafiosCompletados.dat");
@@ -223,15 +220,11 @@ public class UsuarioController {
             Pantalla.imprimir("No hay combates anteriormente realizados");
         }
     }
-    public void desafiar(Usuario user, List<Usuario> listaUsuarios) throws IOException, ClassNotFoundException {
-        if (user.getDesafio() != null) {
-
-        }
+    public void desafiar(Usuario user, List<Usuario> listaUsuarios) throws IOException, ClassNotFoundException {//envia un desafio al operador para confirmar.
         boolean encontrado = false;
         String desafiado = Pantalla.pedircadena("Indica al usuario al que quieres desafiar");
-
         for (Usuario a : listaUsuarios) {
-            if (a.getNombre().equals(desafiado)){
+            if (a.getNickname().equals(desafiado)){
                 encontrado = true;
                 if(a.getPersonaje()!=null){
                     if (a.getDesafio() != null) {

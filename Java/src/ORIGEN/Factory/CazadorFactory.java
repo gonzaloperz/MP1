@@ -30,17 +30,17 @@ public class CazadorFactory extends PersonajeFactory{
         Pantalla.imprimir("personaje creado");
 
 
-        armas.add(armaDefault());//armas
+        armas.add(armaDefault());//añadimos el arma default a la lista de armas disponible del personaje
         cazador.setArmas(armas);
 
-        armasac.add(armaDefault());//arma activa
+        armasac.add(armaDefault());//añadimos el arma default a la lista de armas activas que lleva el personaje
         cazador.setArmasActivas(armasac);
 
 
         armaduras.add(armaduraDefault());
-        cazador.setArmadura(armaduras);//armadura
+        cazador.setArmadura(armaduras);//añadimos la armadura default a la lista de armaduras diponibles del personaje
 
-        cazador.setArmaduraActiva(armaduraDefault());//armadura activa
+        cazador.setArmaduraActiva(armaduraDefault());//se selecciona la armadura default como la armadura activa del personaje
 
 
 
@@ -48,7 +48,7 @@ public class CazadorFactory extends PersonajeFactory{
         return cazador;
     }
 
-    public Arma armaDefault(){
+    public Arma armaDefault(){//generamos un arma default para todos los personajes
         Arma arma = new Arma();
         arma.setNombre("palo");
         arma.setEmpuñadura(1);
@@ -57,7 +57,7 @@ public class CazadorFactory extends PersonajeFactory{
         return arma;
     }
 
-    public Armadura armaduraDefault(){
+    public Armadura armaduraDefault(){//generamos una armadura default para todos los personajes
         Armadura nueva = new Armadura();
         nueva.setNombre("cota de malla");
         nueva.setModificadorAtc(1);
