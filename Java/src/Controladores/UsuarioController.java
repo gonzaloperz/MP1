@@ -2,7 +2,6 @@ package Controladores;
 import ORIGEN.Desafio;
 import ORIGEN.Usuario;
 import  ORIGEN.Personaje;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class UsuarioController {
             dcontroller.cargarDatos();// carga los datos del deafio
             dcontroller.aceptarDesafio(usuarios, usuario);
         }
-
         while (!salir) {
             Pantalla.imprimir(" ------MENU USUARIO------");
             Pantalla.imprimir("  1.Crear personaje");
