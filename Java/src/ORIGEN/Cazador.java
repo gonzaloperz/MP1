@@ -229,7 +229,7 @@ public class Cazador implements Personaje, Serializable {
         for (Arma arma : armas){
             defensaarmas += arma.getModificadorDef();
         }
-        return this.poder + this.atqHab + defensaarmadura + defensaarmas + this.voluntad;
+        return this.poder + this.defHab + defensaarmadura + defensaarmas + this.voluntad;
     }
 
     @Override

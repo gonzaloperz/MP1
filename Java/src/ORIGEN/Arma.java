@@ -21,7 +21,6 @@ public class Arma extends Equipo implements Serializable {
     public Arma modificar(){
         Pantalla.imprimir(("Vas a modificar esta arma" + this.getNombre()));
         this.setNombre(Pantalla.pedircadena("establece Nombre"));
-
         this.setModificadorAtc(Pantalla.pedirenteros("establece ataque"));
         this.setModificadorDef(Pantalla.pedirenteros("establece defensa"));
         this.setEmpuñadura(Pantalla.pedirenteros("establece si es a 1 mano o a 2 manos"));

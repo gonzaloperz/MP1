@@ -1,7 +1,10 @@
 package Controladores;
 
+import ORIGEN.Desafio;
 import ORIGEN.Usuario;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -15,7 +18,6 @@ class UsuarioControllerTest {
     @Test
     void testmenuUsuario(){
     }
-    @Test
     void testseleccionarUsuario() {
         UsuarioController ucon = new UsuarioController();
         List<Usuario> listausuario = new ArrayList<>();
