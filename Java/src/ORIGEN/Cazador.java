@@ -234,17 +234,73 @@ public class Cazador implements Personaje, Serializable {
 
     @Override
     public int saludEsbirros() {
-        return 0;
+        if (this.esbirros != null) {
+            int vidaEsbirros = 0;
+            for (Esbirro esbirro : this.esbirros) {
+                vidaEsbirros += esbirro.getSalud();
+            }
+            return vidaEsbirros;
+        }
+        else {
+            return 0;
+        }
     }
 
     @Override
     public void modificarDatos() {
-
+        Pantalla.imprimir("Si no quieres cambiar un valor, escribe el mismo.");
+        Pantalla.imprimir("Nombre: " + this.nombre);
+        setNombre(Pantalla.pedircadena("Nuevo nombre: "));
+        Pantalla.imprimir("Nombre habilidad: " + this.habilidad);
+        setHabilidad(Pantalla.pedircadena("Nuevo nomHabilidad: "));
+        Pantalla.imprimir("Ataque habilidad: " + Integer.toString(this.atqHab));
+        setAtqHab(Pantalla.pedirenteros("Nuevo valor: "));
+        Pantalla.imprimir("Defensa habilidad: " + Integer.toString(this.defHab));
+        setDefHab(Pantalla.pedirenteros("Nuevo valor: "));
+        Pantalla.imprimir("Coste habilidad: " + this.costeHabilidad);
+        setCosteHabilidad(Pantalla.pedirenteros("Nuevo valor: "));
+        Pantalla.imprimir("Poder: " + this.poder);
+        setPoder(Pantalla.pedirenteros("Nuevo valor: "));
+        Pantalla.imprimir("Oro actual: " + this.oro);
+        setOro(Pantalla.pedirenteros("Nuevo valor: "));
+        Pantalla.imprimir("Salud del personaje: " + this.salud);
+        setSalud(Pantalla.pedirenteros("Nuevo valor: "));
     }
 
     @Override
     public Esbirro crearEsbirros() {
-        return null;
+        Pantalla.imprimir("1. Añadir Ghoul");
+        Pantalla.imprimir("2. Añadir demonio");
+        Pantalla.imprimir("Otro. Cancelar");
+        int o = Pantalla.pedirenteros("Elije una opción:");
+        if (o == 1){
+            String esbirroNombre = Pantalla.pedircadena("Nombre del esbirro: ");
+            int esbirroSalud = Pantalla.pedirenteros("Salud del esbirro: ");
+            String esbirroDependencia = Pantalla.pedircadena("Descripcion de su dependencia: ");
+            int valorDependencia = Pantalla.pedirenteros("Valor de la dependencia: ");
+            Ghoul ghoul = new Ghoul(esbirroNombre,esbirroSalud,valorDependencia,esbirroDependencia);
+            return ghoul;
+        }
+        else if(o == 2){
+            String esbirroNombre = Pantalla.pedircadena("Nombre del esbirro: ");
+            int esbirroSalud = Pantalla.pedirenteros("Salud del esbirro: ");
+            int e = Pantalla.pedirenteros("Si tiene otros esbirros pulse 1. ");
+            Demonio demonio;
+            List<Esbirro> subLista = new ArrayList<Esbirro>();
+            while (e == 1){
+                subLista.add(crearEsbirros());
+                e = Pantalla.pedirenteros("Si tiene otros esbirros este esbirro pulse 1. ");
+            }
+            demonio = new Demonio(esbirroNombre,esbirroSalud,subLista);
+            Pantalla.imprimir("Lista de esbirros añadida.");
+            /*
+            else
+                demonio = new Demonios(esbirroNombre,esbirroSalud,null);
+            */
+            return demonio;
+        }
+        else
+            return null;
     }
 }
 
