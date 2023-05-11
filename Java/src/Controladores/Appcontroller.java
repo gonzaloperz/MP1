@@ -15,6 +15,10 @@ public class Appcontroller{
     public Appcontroller(){
         usuarios = new ArrayList<>();
     }
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
     public void iniciarSesion() throws IOException, ClassNotFoundException {
         String usuario;
         String contraseña;

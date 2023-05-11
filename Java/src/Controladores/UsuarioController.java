@@ -223,6 +223,7 @@ public class UsuarioController {
     }
     public void desafiar(Usuario user, List<Usuario> listaUsuarios) throws IOException, ClassNotFoundException {//envia un desafio al operador para confirmar.
         boolean encontrado = false;
+        boolean aux = true;
         String desafiado = Pantalla.pedircadena("Indica al usuario al que quieres desafiar");
         for (Usuario a : listaUsuarios) {
             if (a.getNickname().equals(desafiado)){
@@ -232,7 +233,17 @@ public class UsuarioController {
                         Pantalla.imprimir("El usuario ya tiene un desafío");
                     } else {
                         DesafiosController desafioController = new DesafiosController();
-                        Desafio desafio = new Desafio(user, a);
+                        int oroApostado = 0;
+                        while (aux) {
+                            oroApostado = (Pantalla.pedirenteros("Cantidad de oro a apostar:"));
+                            if (user.getPersonaje().getOro() > oroApostado) {
+                                aux = false;
+                            }
+                            else{
+                                Pantalla.imprimir("El oro apostado es mayor al oro disponible, ingrese una cantidad menor");
+                            }
+                        }
+                        Desafio desafio = new Desafio(user, a, oroApostado);
                         desafio.setUserUno(user);
                         desafio.setUserDos(a);
                         desafio.setFecha(LocalDate.now());

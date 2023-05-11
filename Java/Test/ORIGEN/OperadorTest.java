@@ -10,7 +10,7 @@ class OperadorTest {
         Operador operador = new Operador();
         Usuario usuario1 = new Usuario();
         Usuario usuario2 = new Usuario();
-        Desafio desafio = new Desafio(usuario1, usuario2);
+        Desafio desafio = new Desafio(usuario1, usuario2, 5);
 
     }
 }

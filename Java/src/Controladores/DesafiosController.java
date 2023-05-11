@@ -301,8 +301,12 @@ public class DesafiosController {
         UsuarioController ucontroller = new UsuarioController();
         Usuario usu = ucontroller.seleccionarUsuario(listausuarios, usuario);
         Usuario usu2 = ucontroller.seleccionarUsuario(listausuarios, usuario2);
-        usu.getPersonaje().setOro(usu.getPersonaje().getOro() + d.getOroApostado());
-        usu2.getPersonaje().setOro(usu2.getPersonaje().getOro() - d.getOroApostado());
+        if (usu != null){
+            usu.getPersonaje().setOro(usu.getPersonaje().getOro() + d.getOroApostado());
+        }
+        if (usu2 != null) {
+            usu2.getPersonaje().setOro(usu2.getPersonaje().getOro() - d.getOroApostado());
+        }
     }
     public int potencialAtaque(int ataque) {//se ingresa el valor de ataque ya calculado
         int exito = 0;
