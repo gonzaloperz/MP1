@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CazadorTest {
 
+
     @Test
     void testcalcularAtaque() {
         List<Arma> listaarmas = new ArrayList<>();
@@ -41,5 +42,15 @@ class CazadorTest {
         cazador.setArmadura((ArrayList<Armadura>) listaarmaduras);
         cazador.setArmaduraActiva(armadura);
         assertEquals(4, cazador.calcularDefensa());
+    }
+
+    @Test
+    void testsaludEsbirros() {
+        Cazador cazador = new Cazador();
+        Ghoul ghoul = new Ghoul("test",1,1,"test");
+        List<Esbirro> listaesbirros = new ArrayList<>();
+        listaesbirros.add(ghoul);
+        cazador.setEsbirros((ArrayList<Esbirro>) listaesbirros);
+        assertEquals(1, cazador.saludEsbirros());
     }
 }

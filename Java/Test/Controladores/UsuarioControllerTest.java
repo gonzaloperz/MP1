@@ -1,18 +1,12 @@
 package Controladores;
 
-import ORIGEN.Desafio;
 import ORIGEN.Usuario;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UsuarioControllerTest {
     @Test

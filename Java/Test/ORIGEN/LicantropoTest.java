@@ -45,4 +45,14 @@ class LicantropoTest {
         licantropo.setArmaduraActiva(armadura);
         assertEquals(3, licantropo.calcularDefensa());
     }
+
+    @Test
+    void testsaludEsbirros() {
+        Licantropo licantropo = new Licantropo();
+        Ghoul ghoul = new Ghoul("test",1,1,"test");
+        List<Esbirro> listaesbirros = new ArrayList<>();
+        listaesbirros.add(ghoul);
+        licantropo.setEsbirros((ArrayList<Esbirro>) listaesbirros);
+        assertEquals(1, licantropo.saludEsbirros());
+    }
 }
