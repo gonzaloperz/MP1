@@ -96,33 +96,29 @@ class DesafiosControllerTest {
         assertEquals(1, desafiosController.modificadordefensa(desafio, vampiro));
     }
 
-
-    @Test
-    void cargarDatos() {
-    }
-
-    @Test
-    void testCargarDatos() {
-    }
-
-    @Test
-    void guardarDatos() {
-    }
-
-    @Test
-    void guardarDesafios() {
-    }
-
-    @Test
-    void agregarDesafio() {
-    }
-
-    @Test
-    void validarDesafio() {
-    }
-
     @Test
     void pagarGanador() {
+        DesafiosController desafiosController = new DesafiosController();
+        Usuario usu1 = new Usuario();
+        Usuario usu2 = new Usuario();
+        usu1.setNombre("test1.0");
+        usu1.setNickname("test1.0");
+        usu2.setNombre("test2.0");
+        usu2.setNickname("test2.0");
+        Vampiro vampiro = new Vampiro();
+        Vampiro vampiro2 = new Vampiro();
+        vampiro.setOro(5);
+        vampiro2.setOro(10);
+        usu1.setPersonaje(vampiro);
+        usu2.setPersonaje(vampiro2);
+        Desafio desafio = new Desafio(usu1, usu2,5);
+        desafio.setOroApostado(5);
+        desafio.setGanador(2);
+        List<Usuario> listausuarios = new ArrayList<>();
+        listausuarios.add(usu1);
+        listausuarios.add(usu2);
+        desafiosController.pagarGanador(desafio, listausuarios);
+        assertEquals(0, usu1.getPersonaje().getOro());
     }
 
     @Test
