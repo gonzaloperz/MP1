@@ -53,7 +53,7 @@ class DesafiosControllerTest {
         usu2.setPersonaje(vampiro2);
         listausuarios.add(usu1);
         listausuarios.add(usu2);
-        Desafio desafio = new Desafio(usu1,usu2,5);
+        Desafio desafio = new Desafio(usu1, usu2, 5);
         desafio.setUserUno(usu1);
         desafio.setUserDos(usu2);
         DesafiosController desafiosController = new DesafiosController();
@@ -61,24 +61,41 @@ class DesafiosControllerTest {
     }
 
     @Test
-    void modificadorataque() {
+    void testmodificadorataque() {
+        DesafiosController desafiosController = new DesafiosController();
+        Usuario usu1 = new Usuario();
+        Usuario usu2 = new Usuario();
+        usu1.setNombre("test1.0");
+        usu1.setNickname("test1.0");
+        usu2.setNombre("test2.0");
+        usu2.setNickname("test2.0");
+        Vampiro vampiro = new Vampiro();
+        Vampiro vampiro2 = new Vampiro();
+        usu1.setPersonaje(vampiro);
+        usu2.setPersonaje(vampiro2);
+        Desafio desafio = new Desafio(usu1, usu2,5);
+        desafio.setModificador(1);
+        assertEquals(0, desafiosController.modificadorataque(desafio, vampiro));
     }
 
     @Test
     void modificadordefensa() {
+        DesafiosController desafiosController = new DesafiosController();
+        Usuario usu1 = new Usuario();
+        Usuario usu2 = new Usuario();
+        usu1.setNombre("test1.0");
+        usu1.setNickname("test1.0");
+        usu2.setNombre("test2.0");
+        usu2.setNickname("test2.0");
+        Vampiro vampiro = new Vampiro();
+        Vampiro vampiro2 = new Vampiro();
+        usu1.setPersonaje(vampiro);
+        usu2.setPersonaje(vampiro2);
+        Desafio desafio = new Desafio(usu1, usu2,5);
+        desafio.setModificador(1);
+        assertEquals(1, desafiosController.modificadordefensa(desafio, vampiro));
     }
 
-    @Test
-    void guardardesafiocomp() {
-    }
-
-    @Test
-    void historial() {
-    }
-
-    @Test
-    void aceptarDesafio() {
-    }
 
     @Test
     void cargarDatos() {
