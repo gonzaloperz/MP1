@@ -79,7 +79,7 @@ class DesafiosControllerTest {
     }
 
     @Test
-    void modificadordefensa() {
+    void testmodificadordefensa() {
         DesafiosController desafiosController = new DesafiosController();
         Usuario usu1 = new Usuario();
         Usuario usu2 = new Usuario();
@@ -97,7 +97,7 @@ class DesafiosControllerTest {
     }
 
     @Test
-    void pagarGanador() {
+    void testpagarGanador() {
         DesafiosController desafiosController = new DesafiosController();
         Usuario usu1 = new Usuario();
         Usuario usu2 = new Usuario();

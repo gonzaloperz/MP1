@@ -4,6 +4,7 @@ package ORIGEN;
 import Controladores.Pantalla;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,9 @@ import java.util.List;
 public class Operador extends Usuario implements Serializable{
     private List<Desafio> listadesafios;
     public void insertardesafio(Desafio desafio){
+        if (this.listadesafios == null){
+            this.listadesafios = new ArrayList<>();
+        }
         this.listadesafios.add(desafio);
     }
     public void mostrardesafios(){

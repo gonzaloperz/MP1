@@ -321,7 +321,7 @@ public class PersonajeController {
     }
 
 
-    private Personaje editarDebilidad(Personaje personaje) { //permite editar cualquier debilidad que tenga el personaje
+    public Personaje editarDebilidad(Personaje personaje) { //permite editar cualquier debilidad que tenga el personaje
         List<Debilidad> lista = personaje.getDebilidades();
         if (lista == null){ //no existe la lista de debilidades
             Pantalla.imprimir("El personaje no tiene debilidades");
@@ -355,7 +355,7 @@ public class PersonajeController {
 
     }
 
-    private Personaje editarFortaleza(Personaje personaje) { //permite editar cualquier fortaleza que tenga el personaje
+    public Personaje editarFortaleza(Personaje personaje) { //permite editar cualquier fortaleza que tenga el personaje
         List<Fortaleza> lista = personaje.getFortalezas();
         if (lista == null){ //no existe la lista de fortalezas
             Pantalla.imprimir("El personaje no tiene fortalezas");

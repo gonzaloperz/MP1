@@ -47,7 +47,7 @@ class CazadorTest {
     @Test
     void testsaludEsbirros() {
         Cazador cazador = new Cazador();
-        Ghoul ghoul = new Ghoul("test",1,1,"test");
+        Ghoul ghoul = new Ghoul("test", 1, 1, "test");
         List<Esbirro> listaesbirros = new ArrayList<>();
         listaesbirros.add(ghoul);
         cazador.setEsbirros((ArrayList<Esbirro>) listaesbirros);
