@@ -122,10 +122,14 @@ class DesafiosControllerTest {
     }
 
     @Test
-    void potencialAtaque() {
+    void testpotencialAtaque() {
+        DesafiosController desafiosController = new DesafiosController();
+        assertTrue(desafiosController.potencialAtaque(5) >= 0);
     }
 
     @Test
-    void potencialDefensa() {
+    void testpotencialDefensa() {
+        DesafiosController desafiosController = new DesafiosController();
+        assertTrue(desafiosController.potencialDefensa(5) >= 0);
     }
 }
